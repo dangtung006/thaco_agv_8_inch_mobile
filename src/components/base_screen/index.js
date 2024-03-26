@@ -2,6 +2,7 @@ import Images from '@src/assets/gen';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BaseText from '../text';
+import { goBack } from '@src/navigation';
 
 export default function BaseScreen(props) {
   const { children } = props;
@@ -19,7 +20,7 @@ const AppBar = (props) => {
     <View className='h-[56px] bg-blue500 px-10 py-3 flex flex-row items-center'>
       <TouchableOpacity
         onPress={() => {
-          !isHome && props.navigation.pop();
+          !isHome && goBack();
         }}
       >
         <Image
