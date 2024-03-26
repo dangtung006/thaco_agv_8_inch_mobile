@@ -6,9 +6,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        blue: '#0866FF',
-        dark: '#141414',
-        purple: '#722ED1'
+        blue: '#377DE5',
+        blue500: '#21AFFF',
+        blue200: '#E8F7FF',
+        red: '#FF462D',
+        greyBg: '#BFBFBF',
+        orange: '#FBC94B',
+        green: '#2EAB47',
+        greyText: '#8D8D8D'
       },
     },
   },

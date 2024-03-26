@@ -1,5 +1,5 @@
 import { classNames } from '@src/utils/common';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
 
