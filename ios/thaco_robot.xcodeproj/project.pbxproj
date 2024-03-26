@@ -8,21 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* thaco_robotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* thaco_robotTests.m */; };
+		01BC649E29DF41A0A707AA2D /* Inter-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63F2CCFCF3BE43BBB8F0BBB2 /* Inter-ExtraLight.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-thaco_robot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-thaco_robot.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-thaco_robot-thaco_robotTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-thaco_robot-thaco_robotTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		19941DCA04BD4D3AA93534FB /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C922703179E34059BE02637A /* Inter-Black.ttf */; };
-		B1BD21419CA041F9AD379404 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F0EAD06BEEE4228BFE87FD2 /* Inter-Bold.ttf */; };
-		EE9F73B1E6BC4637BAF750C2 /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1859FC2B52F54782B359E95E /* Inter-ExtraBold.ttf */; };
-		01BC649E29DF41A0A707AA2D /* Inter-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63F2CCFCF3BE43BBB8F0BBB2 /* Inter-ExtraLight.ttf */; };
+		26D4D83C944544CDB2638BA0 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE4A35514F34F038985A80F /* Inter-Regular.ttf */; };
 		37C893FAC7874C4996BE702B /* Inter-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26DEA64BCD4E437686946BD2 /* Inter-Light.ttf */; };
 		4A4130A9892C4C9481FE38FC /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00D247CF99E741C38EBAFC39 /* Inter-Medium.ttf */; };
-		26D4D83C944544CDB2638BA0 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE4A35514F34F038985A80F /* Inter-Regular.ttf */; };
+		7699B88040F8A987B510C191 /* libPods-thaco_robot-thaco_robotTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-thaco_robot-thaco_robotTests.a */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B1BD21419CA041F9AD379404 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F0EAD06BEEE4228BFE87FD2 /* Inter-Bold.ttf */; };
 		C707491BBCFF41358F9D4924 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 761AC03BC1024CC2B329DBC4 /* Inter-SemiBold.ttf */; };
 		CCC11D6A70274A47BD7BAFE2 /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D784B5CAB1543109EB350E3 /* Inter-Thin.ttf */; };
+		EE9F73B1E6BC4637BAF750C2 /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1859FC2B52F54782B359E95E /* Inter-ExtraBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00D247CF99E741C38EBAFC39 /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../src/assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* thaco_robotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = thaco_robotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* thaco_robotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = thaco_robotTests.m; sourceTree = "<group>"; };
@@ -45,23 +46,22 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = thaco_robot/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = thaco_robot/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = thaco_robot/main.m; sourceTree = "<group>"; };
+		1859FC2B52F54782B359E95E /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraBold.ttf"; path = "../src/assets/fonts/Inter-ExtraBold.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-thaco_robot-thaco_robotTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-thaco_robot-thaco_robotTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CE4A35514F34F038985A80F /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
+		26DEA64BCD4E437686946BD2 /* Inter-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Light.ttf"; path = "../src/assets/fonts/Inter-Light.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-thaco_robot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thaco_robot.debug.xcconfig"; path = "Target Support Files/Pods-thaco_robot/Pods-thaco_robot.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-thaco_robot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thaco_robot.release.xcconfig"; path = "Target Support Files/Pods-thaco_robot/Pods-thaco_robot.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-thaco_robot-thaco_robotTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thaco_robot-thaco_robotTests.debug.xcconfig"; path = "Target Support Files/Pods-thaco_robot-thaco_robotTests/Pods-thaco_robot-thaco_robotTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5D784B5CAB1543109EB350E3 /* Inter-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Thin.ttf"; path = "../src/assets/fonts/Inter-Thin.ttf"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-thaco_robot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-thaco_robot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63F2CCFCF3BE43BBB8F0BBB2 /* Inter-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraLight.ttf"; path = "../src/assets/fonts/Inter-ExtraLight.ttf"; sourceTree = "<group>"; };
+		6F0EAD06BEEE4228BFE87FD2 /* Inter-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.ttf"; path = "../src/assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; };
+		761AC03BC1024CC2B329DBC4 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../src/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = thaco_robot/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-thaco_robot-thaco_robotTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-thaco_robot-thaco_robotTests.release.xcconfig"; path = "Target Support Files/Pods-thaco_robot-thaco_robotTests/Pods-thaco_robot-thaco_robotTests.release.xcconfig"; sourceTree = "<group>"; };
+		C922703179E34059BE02637A /* Inter-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Black.ttf"; path = "../src/assets/fonts/Inter-Black.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		C922703179E34059BE02637A /* Inter-Black.ttf */ = {isa = PBXFileReference; name = "Inter-Black.ttf"; path = "../src/assets/fonts/Inter-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6F0EAD06BEEE4228BFE87FD2 /* Inter-Bold.ttf */ = {isa = PBXFileReference; name = "Inter-Bold.ttf"; path = "../src/assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1859FC2B52F54782B359E95E /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Inter-ExtraBold.ttf"; path = "../src/assets/fonts/Inter-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		63F2CCFCF3BE43BBB8F0BBB2 /* Inter-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Inter-ExtraLight.ttf"; path = "../src/assets/fonts/Inter-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		26DEA64BCD4E437686946BD2 /* Inter-Light.ttf */ = {isa = PBXFileReference; name = "Inter-Light.ttf"; path = "../src/assets/fonts/Inter-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		00D247CF99E741C38EBAFC39 /* Inter-Medium.ttf */ = {isa = PBXFileReference; name = "Inter-Medium.ttf"; path = "../src/assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1CE4A35514F34F038985A80F /* Inter-Regular.ttf */ = {isa = PBXFileReference; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		761AC03BC1024CC2B329DBC4 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; name = "Inter-SemiBold.ttf"; path = "../src/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5D784B5CAB1543109EB350E3 /* Inter-Thin.ttf */ = {isa = PBXFileReference; name = "Inter-Thin.ttf"; path = "../src/assets/fonts/Inter-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,19 +156,8 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3B4392A12AC88292D35C810B /* Pods-thaco_robot.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-thaco_robot.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-thaco_robot-thaco_robotTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-thaco_robot-thaco_robotTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		86CBE73E78494DE79EA3A579 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				C922703179E34059BE02637A /* Inter-Black.ttf */,
 				6F0EAD06BEEE4228BFE87FD2 /* Inter-Bold.ttf */,
@@ -182,7 +171,17 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
-			path = "";
+		};
+		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B4392A12AC88292D35C810B /* Pods-thaco_robot.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-thaco_robot.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-thaco_robot-thaco_robotTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-thaco_robot-thaco_robotTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -511,6 +510,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SFN3247LD7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = thaco_robot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -538,6 +538,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SFN3247LD7;
 				INFOPLIST_FILE = thaco_robot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -625,10 +626,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -696,10 +694,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

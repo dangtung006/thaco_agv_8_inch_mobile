@@ -5,7 +5,7 @@ pod-install-update:
 	cd ios && rm -rf Pods && rm -rf build && rm -rf Podfile.lock && pod install --repo-update && cd ..
 
 run-ios:
-	npx react-native run-ios
+	npx react-native run-ios --simulator="iPhone 15 Pro"
 	
 run-android:
 	npx react-native run-android
