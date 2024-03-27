@@ -1,6 +1,7 @@
 import { Button, Image, TouchableOpacity, View } from 'react-native';
 import BaseText from '../text';
 import { classNames } from '@src/utils/common';
+import tw from '@src/utils/tailwindLoader';
 
 export default BaseButton = ({
   locale,
@@ -10,7 +11,7 @@ export default BaseButton = ({
   icon,
   iconColor,
   width,
-  background = '#21AFFF',
+  background = 'blue500',
   borderColor,
   onPress,
   rightWidget,
@@ -33,18 +34,18 @@ export default BaseButton = ({
             shadowRadius: 6.27,
             elevation: 10,
           },
-          background && { backgroundColor: background },
-          borderColor && { borderColor, borderWidth: 1 },
+          tw`${classNames(
+            'rounded-lg px-5 py-4 shadow flex flex-row ',
+            rightWidget
+              ? 'justify-between'
+              : icon
+              ? 'justify-start'
+              : 'justify-center',
+            typeof width === 'number' ? `w-[${width}px]` : width,
+            background ? `bg-${background}` : '',
+            borderColor ? `border border-${borderColor}` : ''
+          )}`,
         ]}
-        className={classNames(
-          'rounded-lg px-5 py-4 shadow flex flex-row ',
-          rightWidget
-            ? 'justify-between'
-            : icon
-            ? 'justify-start'
-            : 'justify-center',
-          typeof width === 'number' ? `w-[${width}px]` : width
-        )}
       >
         <View className='flex flex-row items-center'>
           {icon && (

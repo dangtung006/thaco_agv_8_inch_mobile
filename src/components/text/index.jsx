@@ -1,4 +1,5 @@
 import { classNames } from '@src/utils/common';
+import tw from '@src/utils/tailwindLoader';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
@@ -31,7 +32,6 @@ export default function BaseText({
   return (
     <Text
       allowFontScaling={false}
-      className={classNames('text-black', classname || '')}
       style={[
         font,
         {
@@ -39,6 +39,7 @@ export default function BaseText({
           includeFontPadding: false,
           letterSpacing: 0,
         },
+        tw`${classNames('text-black', classname || '')}`,
       ]}
     >
       {locale ? t(children) : children}

@@ -1,5 +1,6 @@
 import Images from '@src/assets/gen';
 import { BaseButton, BaseScreen, BaseText } from '@src/components';
+import { ROUTES, navigate } from '@src/navigation';
 import { Image, View } from 'react-native';
 export default function HomeScreen(props) {
   const viewLeft = () => {
@@ -41,6 +42,7 @@ export default function HomeScreen(props) {
         />
         <View className='h-[calc(100vh*0.163)]'></View>
         <BaseButton
+          onPress={() => navigate(ROUTES.SETTING)}
           title='Cài đặt'
           background='white'
           borderColor='black'
@@ -79,11 +81,9 @@ export default function HomeScreen(props) {
   };
 
   return (
-    <BaseScreen {...props} isHome title='Điều khiển di chuyển'>
-      <View className='flex flex-row h-full'>
-        {viewLeft()}
-        {viewRight()}
-      </View>
+    <BaseScreen>
+      {viewLeft()}
+      {viewRight()}
     </BaseScreen>
   );
 }
