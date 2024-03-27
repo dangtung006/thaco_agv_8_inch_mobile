@@ -4,6 +4,7 @@
 export default class Images {
     static readonly control = require("@src/assets/images/Control.png");
     static readonly layer2 = require("@src/assets/images/Layer 2.png");
+    static readonly arrow = require("@src/assets/images/arrow.png");
     static readonly back = require("@src/assets/images/back.png");
     static readonly batteryBg = require("@src/assets/images/battery-bg.png");
     static readonly battery = require("@src/assets/images/battery.png");
@@ -20,17 +21,17 @@ export default class Images {
     static readonly locationBg = require("@src/assets/images/location-bg.png");
     static readonly loop = require("@src/assets/images/loop.png");
     static readonly pause = require("@src/assets/images/pause.png");
+    static readonly phone = require("@src/assets/images/phone.png");
     static readonly play = require("@src/assets/images/play.png");
     static readonly remove = require("@src/assets/images/remove.png");
-    static readonly robotSetting = require("@src/assets/images/robot setting.png");
     static readonly robot = require("@src/assets/images/robot.png");
     static readonly robot2 = require("@src/assets/images/robot2.png");
     static readonly robot3 = require("@src/assets/images/robot3.png");
     static readonly robot4 = require("@src/assets/images/robot4.png");
     static readonly robot5 = require("@src/assets/images/robot5.png");
+    static readonly robotSetting = require("@src/assets/images/robot_setting.png");
     static readonly setting = require("@src/assets/images/setting.png");
     static readonly sleep = require("@src/assets/images/sleep.png");
-    static readonly sosPhone = require("@src/assets/images/sos phone.png");
     static readonly speedBg = require("@src/assets/images/speed-bg.png");
     static readonly statusBg = require("@src/assets/images/status-bg.png");
     static readonly status = require("@src/assets/images/status.png");

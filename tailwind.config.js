@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      shadow: {
+        'chat-msg': '0px 1px 5px rgba(1, 1, 1, 0.1)',
+      },
       colors: {
         blue: '#377DE5',
         blue500: '#21AFFF',
