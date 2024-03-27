@@ -1,4 +1,3 @@
-import AppStackNavigator from './AppStackNavigator';
-import ROUTES from './Routes';
+import { ROUTES, APP_STACK } from './Routes';
 import { navigate, goBack } from './RootNavigation';
-export { AppStackNavigator, ROUTES, navigate, goBack };
+export { ROUTES, navigate, goBack, APP_STACK };

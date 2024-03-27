@@ -1,5 +1,5 @@
 import { BaseScreen, BaseText } from '@src/components';
-import { navigate } from '@src/navigation';
+import { ROUTES, navigate } from '@src/navigation';
 import { TouchableOpacity } from 'react-native';
 export default function HomeScreen(props) {
   return (
