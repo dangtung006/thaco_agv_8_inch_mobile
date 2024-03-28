@@ -23,6 +23,7 @@ export default function SettingScreen(props) {
           titleSize={20}
           width={'w-full'}
           icon={Images.clock}
+          shadow={false}
         />
         <View className='h-6'></View>
         <BaseButton
@@ -34,6 +35,7 @@ export default function SettingScreen(props) {
           titleSize={20}
           width={'w-full'}
           icon={Images.languague}
+          shadow={false}
         />
       </View>
     );

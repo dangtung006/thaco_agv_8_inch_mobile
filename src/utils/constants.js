@@ -1,2 +1,5 @@
-export const Constants = {
-};
+export const MISSION_STATUS = {
+    PENDING : 'PENDING',
+    PROCESSING : 'PROCESSING',
+    COMPLETED : 'COMPLETED',
+}

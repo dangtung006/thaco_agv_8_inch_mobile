@@ -6,6 +6,8 @@ import tw from '@src/utils/tailwindLoader';
 export default BaseButton = ({
   classname,
   locale = true,
+  large = true,
+  small,
   title = '',
   titleColor = 'white',
   titleSize = 16,
@@ -18,20 +20,21 @@ export default BaseButton = ({
   onPress,
   rightWidget,
   disabled,
-  shadow,
+  shadow = true,
 }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
       style={tw`${classNames(
-        'rounded-lg px-5 py-4  flex flex-row ',
+        'rounded-lg flex flex-row items-center',
         rightWidget
           ? 'justify-between'
           : icon
           ? 'justify-start'
           : 'justify-center',
         classname,
+        large && !small ? 'px-5 h-[60px]' : 'px-4 h-[46px]',
         shadow ? 'shadow-lg' : '',
         typeof width === 'number' ? `w-[${width}px]` : width,
         background ? `bg-${background}` : '',

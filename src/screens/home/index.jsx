@@ -63,6 +63,7 @@ export default function HomeScreen(props) {
         />
         <View className='h-6'></View>
         <BaseButton
+          onPress={() => navigate(ROUTES.MOVEMENT_CONTROL)}
           title='Điều khiển di chuyển'
           titleSize={20}
           width={'w-full'}
@@ -71,6 +72,7 @@ export default function HomeScreen(props) {
         />
         <View className='h-6'></View>
         <BaseButton
+          onPress={() => navigate(ROUTES.TASK_MANAGER)}
           title='Quản lý nhiệm vụ'
           titleSize={20}
           width={'w-full'}
