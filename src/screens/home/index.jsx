@@ -54,6 +54,7 @@ export default function HomeScreen(props) {
         />
         <View className='h-6'></View>
         <BaseButton
+          onPress={() => navigate(ROUTES.ROBOT_INFO)}
           title='Quản lý thông tin Robot'
           titleSize={20}
           width={'w-full'}

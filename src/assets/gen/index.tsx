@@ -28,6 +28,7 @@ export default class Images {
     static readonly radioInactive = require("@src/assets/images/radio-inactive.png");
     static readonly remove = require("@src/assets/images/remove.png");
     static readonly robot = require("@src/assets/images/robot.png");
+    static readonly robot1 = require("@src/assets/images/robot1.png");
     static readonly robot2 = require("@src/assets/images/robot2.png");
     static readonly robot3 = require("@src/assets/images/robot3.png");
     static readonly robot4 = require("@src/assets/images/robot4.png");
