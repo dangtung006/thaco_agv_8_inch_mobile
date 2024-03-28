@@ -24,30 +24,19 @@ export default BaseButton = ({
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
-      style={[
-        shadow && {
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 5,
-          },
-          shadowOpacity: 0.34,
-          shadowRadius: 6.27,
-          elevation: 10,
-        },
-        tw`${classNames(
-          'rounded-lg px-5 py-4 shadow flex flex-row ',
-          rightWidget
-            ? 'justify-between'
-            : icon
-            ? 'justify-start'
-            : 'justify-center',
-          classname,
-          typeof width === 'number' ? `w-[${width}px]` : width,
-          background ? `bg-${background}` : '',
-          borderColor ? `border border-${borderColor}` : ''
-        )}`,
-      ]}
+      style={tw`${classNames(
+        'rounded-lg px-5 py-4  flex flex-row ',
+        rightWidget
+          ? 'justify-between'
+          : icon
+          ? 'justify-start'
+          : 'justify-center',
+        classname,
+        shadow ? 'shadow-lg' : '',
+        typeof width === 'number' ? `w-[${width}px]` : width,
+        background ? `bg-${background}` : '',
+        borderColor ? `border border-${borderColor}` : ''
+      )}`}
     >
       <View className='flex flex-row items-center'>
         {icon && (
