@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const useLocalStorage = create()(
   persist(
     (set) => ({
-      locale: 'en',
+      locale: 'vi',
       setLocale: (locale) => set({ locale }),
     }),
     {

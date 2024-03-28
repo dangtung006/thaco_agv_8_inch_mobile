@@ -5,8 +5,10 @@ import {
   BaseText,
   BaseTextInput,
 } from '@src/components';
-import { useState } from 'react';
-import { Switch, Text, TextInput, View } from 'react-native';
+import { useLocalStorage } from '@src/store/localStorage';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Image, Switch, Text, TextInput, View } from 'react-native';
 export default function SettingScreen(props) {
   const [isSettingLocale, setSettingLocale] = useState(false);
   const viewLeft = () => {
@@ -54,6 +56,8 @@ export default function SettingScreen(props) {
 }
 
 const SettingDistribution = () => {
+  const [isEnabled, setIsEnabled] = useState(false);
+
   return (
     <View className=' flex-row flex border-b-2 border-greyBt pb-5 justify-between'>
       <View className='flex flex-row'>
@@ -68,11 +72,56 @@ const SettingDistribution = () => {
         </View>
         <BaseTextInput defaultValue='5' classname='ml-10' />
       </View>
-      <Switch/>
+      <Switch
+        onValueChange={() => setIsEnabled((previousState) => !previousState)}
+        thumbColor={isEnabled ? '#377DE5' : '#f4f3f4'}
+        value={isEnabled}
+        style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+      />
     </View>
   );
 };
 
 const SettingLocale = () => {
-  return <></>;
+  const { locale, setLocale } = useLocalStorage((state) => state);
+
+  return (
+    <View className=' flex-row flex justify-between'>
+      <BaseButton
+        onPress={() => setLocale('en')}
+        classname='flex-1'
+        title='English'
+        background='greyBg'
+        titleColor='black'
+        borderColor={locale === 'en' ? 'blue500' : 'greyText'}
+        iconStyle='w-12 h-10'
+        titleSize={16}
+        icon={Images.en}
+        rightWidget={
+          <Image
+            source={locale === 'en' ? Images.radioActive : Images.radioInactive}
+            className='w-8 h-8'
+          />
+        }
+      />
+      <View className='w-4'></View>
+      <BaseButton
+        onPress={() => setLocale('vi')}
+        classname='flex-1'
+        title='Tiếng Việt'
+        background='greyBg'
+        titleColor='black'
+        borderColor={locale === 'vi' ? 'blue500' : 'greyText'}
+        iconStyle='w-12 h-10'
+        titleSize={16}
+        icon={Images.vi}
+        rightWidget={
+          <Image
+            source={locale === 'vi' ? Images.radioActive : Images.radioInactive}
+            className='w-8 h-8'
+          />
+        }
+      />
+    </View>
+  );
 };

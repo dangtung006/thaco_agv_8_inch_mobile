@@ -15,6 +15,7 @@ export default class Images {
     static readonly delete = require("@src/assets/images/delete.png");
     static readonly edit = require("@src/assets/images/edit.png");
     static readonly edit2 = require("@src/assets/images/edit2.png");
+    static readonly en = require("@src/assets/images/en.png");
     static readonly home = require("@src/assets/images/home.png");
     static readonly image4 = require("@src/assets/images/image 4.png");
     static readonly languague = require("@src/assets/images/languague.png");
@@ -23,6 +24,8 @@ export default class Images {
     static readonly pause = require("@src/assets/images/pause.png");
     static readonly phone = require("@src/assets/images/phone.png");
     static readonly play = require("@src/assets/images/play.png");
+    static readonly radioActive = require("@src/assets/images/radio-active.png");
+    static readonly radioInactive = require("@src/assets/images/radio-inactive.png");
     static readonly remove = require("@src/assets/images/remove.png");
     static readonly robot = require("@src/assets/images/robot.png");
     static readonly robot2 = require("@src/assets/images/robot2.png");
@@ -36,4 +39,5 @@ export default class Images {
     static readonly statusBg = require("@src/assets/images/status-bg.png");
     static readonly status = require("@src/assets/images/status.png");
     static readonly task = require("@src/assets/images/task.png");
+    static readonly vi = require("@src/assets/images/vi.png");
 }
