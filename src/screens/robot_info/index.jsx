@@ -42,9 +42,17 @@ export default function RoboInfoScreen(props) {
     return (
       <View className='w-6/12  h-full flex justify-center items-start'>
         {infoItem('Pin', Images.batteryBg, '100%')}
-        {infoItem('Pin', Images.speedBg, '5 Km/h')}
-        {infoItem('Pin', Images.statusBg, 'Đang giao đồ ăn')}
-        {infoItem('Pin', Images.locationBg, '100%')}
+        {infoItem('Tốc độ', Images.speedBg, '5 Km/h')}
+        {infoItem('Trạng thái', Images.statusBg, 'Đang giao đồ ăn')}
+        {infoItem(
+          'Vị trí hiện tại',
+          Images.locationBg,
+          <View className='w-10 h-10 bg-blue rounded-lg flex items-center justify-center'>
+            <BaseText bold classname='text-white' size={24}>
+              6
+            </BaseText>
+          </View>
+        )}
       </View>
     );
   };
