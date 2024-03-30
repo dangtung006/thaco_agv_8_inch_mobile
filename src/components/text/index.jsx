@@ -1,4 +1,4 @@
-import { classNames } from '@src/utils/common';
+import { classnames } from '@src/utils/common';
 import tw from '@src/utils/tailwindLoader';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -39,7 +39,7 @@ export default function BaseText({
           includeFontPadding: false,
           letterSpacing: 0,
         },
-        tw`${classNames('text-black', classname || '')}`,
+        tw`${classnames('text-black', classname || '')}`,
       ]}
     >
       {locale ? t(children) : children}

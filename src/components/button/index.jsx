@@ -1,7 +1,9 @@
-import { Button, Image, TouchableOpacity, View } from 'react-native';
+import { Button, Image, TouchableOpacity } from 'react-native';
 import BaseText from '../text';
-import { classNames } from '@src/utils/common';
+import { classnames } from '@src/utils/common';
 import tw from '@src/utils/tailwindLoader';
+import BaseView from '../view';
+import BaseImage from '../image';
 
 export default BaseButton = ({
   classname,
@@ -26,7 +28,7 @@ export default BaseButton = ({
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
-      style={tw`${classNames(
+      style={tw`${classnames(
         'rounded-lg flex flex-row items-center',
         rightWidget
           ? 'justify-between'
@@ -41,12 +43,12 @@ export default BaseButton = ({
         borderColor ? `border border-${borderColor}` : ''
       )}`}
     >
-      <View className='flex flex-row items-center'>
+      <BaseView classname='flex flex-row items-center'>
         {icon && (
-          <Image
+          <BaseImage
             source={icon}
             tintColor={iconColor}
-            style={tw`${classNames('w-6 h-6 mr-2', iconStyle)}`}
+            classname={classnames('w-6 h-6 mr-2', iconStyle)}
           />
         )}
         <BaseText
@@ -57,7 +59,7 @@ export default BaseButton = ({
         >
           {title}
         </BaseText>
-      </View>
+      </BaseView>
       {rightWidget}
     </TouchableOpacity>
   );

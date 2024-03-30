@@ -1,23 +1,23 @@
-import { BaseButton, BaseCard, TaskItem } from '@src/components';
-import { FlatList, View } from 'react-native';
+import { BaseButton, BaseCard, BaseView, TaskItem } from '@src/components';
+import { FlatList } from 'react-native';
 
 export const TaskHistory = () => {
   const _listTask = () => {
     return (
-      <View>
+      <BaseView>
         <FlatList
-          className='p-4'
+          style={{paddingVertical: 16}}
           data={[1, 2]}
           renderItem={({ item, index }) => <TaskItem key={index} />}
           keyExtractor={(item, index) => index.toString()}
         />
-      </View>
+      </BaseView>
     );
   };
   return (
-    <View className='w-5/12  h-full flex justify-center items-center'>
+    <BaseView classname='w-5/12  h-full flex justify-center items-center'>
       <BaseCard title='Lịch sử Task' children={_listTask()} />
       <BaseButton classname='mt-4 px-10' small title='Tạo nhiệm vụ' />
-    </View>
+    </BaseView>
   );
 };

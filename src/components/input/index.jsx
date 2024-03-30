@@ -1,6 +1,6 @@
-import { classNames } from '@src/utils/common';
+import { classnames } from '@src/utils/common';
 import tw from '@src/utils/tailwindLoader';
-import { TextInput, View } from 'react-native';
+import { TextInput } from 'react-native';
 
 export default BaseTextInput = ({
   defaultValue,
@@ -9,14 +9,12 @@ export default BaseTextInput = ({
   classname,
 }) => {
   return (
-    <View>
-      <TextInput
-        defaultValue={defaultValue}
-        value={value}
-        placeholder={placeholder}
-        className='border min-w-[200px] rounded-lg px-5 h-10 border-greyText bg-greyBg' 
-        style={tw`${classNames(classname)}`}
-      />
-    </View>
+    <TextInput
+      defaultValue={defaultValue}
+      value={value}
+      placeholder={placeholder}
+      classname='border min-w-[200px] rounded-lg px-5 h-10 border-greyText bg-greyBg'
+      style={tw`${classname}`}
+    />
   );
 };

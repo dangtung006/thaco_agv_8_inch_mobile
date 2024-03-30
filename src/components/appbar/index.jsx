@@ -1,16 +1,17 @@
 import Images from '@src/assets/gen';
 import {
-  Image,
-  TouchableOpacity,
-  View,
   NativeModules,
   NativeEventEmitter,
+  Text,
 } from 'react-native';
 import BaseText from '../text';
 import { APP_STACK, ROUTES, goBack } from '@src/navigation';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useMemo, useState } from 'react';
 import { navigationRef } from '@src/navigation/RootNavigation';
+import BaseView from '../view';
+import BaseTouchable from '../touchable';
+import BaseImage from '../image';
 
 export default AppBar = () => {
   const navigation = useNavigation();
@@ -53,60 +54,61 @@ export default AppBar = () => {
 
   const viewLeft = useMemo(() => {
     return (
-      <View className='flex flex-row items-center h-full'>
-        <TouchableOpacity
+      <BaseView classname='flex flex-row items-center h-full'>
+        <BaseTouchable
           onPress={() => {
+            console.log('back');
             !isHome && goBack();
           }}
         >
-          <Image
+          <BaseImage
             source={isHome ? Images.home : Images.back}
-            className='w-8 h-8 mr-[18px]'
+            classname='w-8 h-8 mr-[18px]'
           />
-        </TouchableOpacity>
+        </BaseTouchable>
 
         <BaseText locale bold classname='text-white' size={24}>
           {title}
         </BaseText>
-      </View>
+      </BaseView>
     );
   }, [isHome, title]);
 
   const viewRight = useMemo(
     () => (
-      <View className='pb-[2px] h-full flex flex-row'>
-        <View className='px-10 bg-white h-full flex flex-row items-center '>
-          <Image source={Images.battery} className='w-8 h-8 mr-2' />
-          <View className='flex flex-col'>
+      <BaseView classname='pb-[2px] h-full flex flex-row'>
+        <BaseView classname='px-10 bg-white h-full flex flex-row items-center '>
+          <BaseImage source={Images.battery} classname='w-8 h-8 mr-2' />
+          <BaseView classname='flex flex-col'>
             <BaseText size={12} classname='text-greyText mb-1'>
               Pin:
             </BaseText>
             <BaseText medium size={12}>
               {batteryLevel && `${batteryLevel}%`}
             </BaseText>
-          </View>
-        </View>
-        <View className='w-[2px]'></View>
-        <View className='px-10 bg-white h-full flex flex-row items-center'>
-          <Image source={Images.status} className='w-8 h-8 mr-2' />
-          <View className='flex flex-col'>
+          </BaseView>
+        </BaseView>
+        <BaseView classname='w-[2px]'></BaseView>
+        <BaseView classname='px-10 bg-white h-full flex flex-row items-center'>
+          <BaseImage source={Images.status} classname='w-8 h-8 mr-2' />
+          <BaseView classname='flex flex-col'>
             <BaseText locale size={12} classname='text-greyText mb-1'>
               Trạng thái:
             </BaseText>
             <BaseText locale medium size={12}>
               Đang giao đồ ăn
             </BaseText>
-          </View>
-        </View>
-      </View>
+          </BaseView>
+        </BaseView>
+      </BaseView>
     ),
     [batteryLevel]
   );
 
   return (
-    <View className='h-[56px] bg-blue500 pl-10 flex flex-row items-start justify-between'>
+    <BaseView classname='h-[56px] bg-blue500 pl-10 flex flex-row items-start justify-between'>
       {viewLeft}
       {viewRight}
-    </View>
+    </BaseView>
   );
 };

@@ -1,8 +1,8 @@
 import Images from '@src/assets/gen';
-import { BaseButton, BaseCard, BaseText } from '@src/components';
+import { BaseButton, BaseCard, BaseText, BaseView } from '@src/components';
 import { MISSION_STATUS } from '@src/utils/constants';
 import { useEffect, useState } from 'react';
-import { FlatList, Switch, TouchableOpacity, View } from 'react-native';
+import { FlatList, Switch } from 'react-native';
 import MissionProcessing from './mission/MissionProcessing';
 import MissionCompleted from './mission/MissionCompleted';
 import MissionPending from './mission/MissionPending';
@@ -20,7 +20,7 @@ export const TaskManagement = () => {
 
   const _buildAction = () => {
     return (
-      <View className='mt-4 w-full flex flex-row justify-center'>
+      <BaseView classname='mt-4 w-full flex flex-row justify-center'>
         <BaseButton
           small
           classname='mr-4 flex-1'
@@ -66,26 +66,26 @@ export const TaskManagement = () => {
             />
           }
         />
-      </View>
+      </BaseView>
     );
   };
   const _buildListMission = () => {
     return (
-      <View>
+      <BaseView>
         <FlatList
           numColumns={2}
           data={[1, 2, 3]}
           renderItem={({ item, index }) => <MissionComponent key={index} />}
           keyExtractor={(item, index) => index.toString()}
         />
-      </View>
+      </BaseView>
     );
   };
 
   return (
-    <View className='w-7/12 ml-4 h-full flex justify-center items-start'>
+    <BaseView classname='w-7/12 ml-4 h-full flex justify-center items-start'>
       <BaseCard title='Nhiệm vụ' children={_buildListMission()} />
       {_buildAction()}
-    </View>
+    </BaseView>
   );
 };

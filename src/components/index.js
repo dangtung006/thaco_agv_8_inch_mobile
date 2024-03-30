@@ -5,6 +5,9 @@ import BaseButton from '@src/components/button';
 import BaseTextInput from '@src/components/input';
 import BaseCard from '@src/components/card';
 import TaskItem from '@src/components/task/TaskItem';
+import BaseView from '@src/components/view';
+import BaseTouchable from '@src/components/touchable';
+import BaseImage from '@src/components/image';
 export {
   BaseScreen,
   BaseText,
@@ -12,5 +15,8 @@ export {
   BaseButton,
   BaseTextInput,
   BaseCard,
-  TaskItem
+  TaskItem,
+  BaseView,
+  BaseTouchable,
+  BaseImage,
 };

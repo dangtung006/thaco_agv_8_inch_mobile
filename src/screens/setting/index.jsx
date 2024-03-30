@@ -1,19 +1,21 @@
 import Images from '@src/assets/gen';
 import {
   BaseButton,
+  BaseImage,
   BaseScreen,
   BaseText,
   BaseTextInput,
+  BaseView,
 } from '@src/components';
 import { useLocalStorage } from '@src/store/localStorage';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, Switch, Text, TextInput, View } from 'react-native';
+import { Switch, Text, TextInput } from 'react-native';
 export default function SettingScreen(props) {
   const [isSettingLocale, setSettingLocale] = useState(false);
   const viewLeft = () => {
     return (
-      <View className='w-4/12 pl-10 pt-6 bg-greyBg h-full flex justify-start'>
+      <BaseView classname='w-4/12 pl-10 pt-6 bg-greyBg h-full flex justify-start'>
         <BaseButton
           onPress={() => setSettingLocale(false)}
           title='Thiết lập phân phối'
@@ -25,7 +27,7 @@ export default function SettingScreen(props) {
           icon={Images.clock}
           shadow={false}
         />
-        <View className='h-6'></View>
+        <BaseView classname='h-6'></BaseView>
         <BaseButton
           onPress={() => setSettingLocale(true)}
           title='Ngôn ngữ'
@@ -37,15 +39,15 @@ export default function SettingScreen(props) {
           icon={Images.languague}
           shadow={false}
         />
-      </View>
+      </BaseView>
     );
   };
 
   const viewRight = () => {
     return (
-      <View className='w-8/12 p-10 h-full flex flex-col'>
+      <BaseView classname='w-8/12 p-10 h-full flex flex-col'>
         {isSettingLocale ? <SettingLocale /> : <SettingDistribution />}
-      </View>
+      </BaseView>
     );
   };
 
@@ -61,9 +63,9 @@ const SettingDistribution = () => {
   const [isEnabled, setIsEnabled] = useState(false);
 
   return (
-    <View className=' flex-row flex border-b-2 border-greyBt pb-5 justify-between'>
-      <View className='flex flex-row'>
-        <View>
+    <BaseView classname=' flex-row flex border-b-2 border-greyBt pb-5 justify-between'>
+      <BaseView classname='flex flex-row'>
+        <BaseView>
           <BaseText locale size={16}>
             Thời gian nhận hàng tự động
           </BaseText>
@@ -71,16 +73,16 @@ const SettingDistribution = () => {
             (1 - 600
             <BaseText locale>giây</BaseText>)
           </BaseText>
-        </View>
+        </BaseView>
         <BaseTextInput defaultValue='5' classname='ml-10' />
-      </View>
+      </BaseView>
       <Switch
         onValueChange={() => setIsEnabled((previousState) => !previousState)}
         thumbColor={isEnabled ? '#377DE5' : '#f4f3f4'}
         value={isEnabled}
         style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
       />
-    </View>
+    </BaseView>
   );
 };
 
@@ -88,7 +90,7 @@ const SettingLocale = () => {
   const { locale, setLocale } = useLocalStorage((state) => state);
 
   return (
-    <View className=' flex-row flex justify-between'>
+    <BaseView classname=' flex-row flex justify-between'>
       <BaseButton
         onPress={() => setLocale('en')}
         classname='flex-1'
@@ -100,13 +102,13 @@ const SettingLocale = () => {
         titleSize={16}
         icon={Images.en}
         rightWidget={
-          <Image
+          <BaseImage
             source={locale === 'en' ? Images.radioActive : Images.radioInactive}
-            className='w-8 h-8'
+            classname='w-8 h-8'
           />
         }
       />
-      <View className='w-4'></View>
+      <BaseView classname='w-4'></BaseView>
       <BaseButton
         onPress={() => setLocale('vi')}
         classname='flex-1'
@@ -118,12 +120,12 @@ const SettingLocale = () => {
         titleSize={16}
         icon={Images.vi}
         rightWidget={
-          <Image
+          <BaseImage
             source={locale === 'vi' ? Images.radioActive : Images.radioInactive}
-            className='w-8 h-8'
+            classname='w-8 h-8'
           />
         }
       />
-    </View>
+    </BaseView>
   );
 };

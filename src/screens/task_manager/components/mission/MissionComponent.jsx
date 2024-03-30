@@ -1,9 +1,9 @@
 import { MISSION_STATUS } from '@src/utils/constants';
 import { useState } from 'react';
-import { View } from 'react-native';
 import MissionPending from './MissionPending';
 import MissionProcessing from './MissionProcessing';
 import MissionCompleted from './MissionCompleted';
+import { BaseView } from '@src/components';
 
 export default MissionComponent = () => {
   const [taskStatus, setTaskStatus] = useState(MISSION_STATUS.PENDING);
@@ -30,10 +30,10 @@ export default MissionComponent = () => {
         task = <MissionCompleted />;
         break;
       default:
-        task = <View></View>;
+        task = <BaseView></BaseView>;
         break;
     }
     return task;
   };
-  return <View className='w-1/2'>{_buildMission()}</View>;
+  return <BaseView classname='w-1/2'>{_buildMission()}</BaseView>;
 };

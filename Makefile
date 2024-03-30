@@ -7,8 +7,11 @@ pod-install-update:
 run-ios:
 	npx react-native run-ios --simulator="iPhone 15 Pro"
 	
-run-android:
-	npx react-native run-android
+lis-emulator:
+	~/Library/Android/sdk/tools/emulator -list-avds
+
+emulator:
+	~/Library/Android/sdk/tools/emulator -avd tablet_16_9_API_34
 
 clean-android:
 	cd android &&./gradlew clean && cd ../
