@@ -1,5 +1,11 @@
 import Images from '@src/assets/gen';
-import { BaseButton, BaseCard, BaseText, BaseView } from '@src/components';
+import {
+  BaseButton,
+  BaseCard,
+  BaseModal,
+  BaseText,
+  BaseView,
+} from '@src/components';
 import { MISSION_STATUS } from '@src/utils/constants';
 import { useEffect, useState } from 'react';
 import { FlatList, Switch } from 'react-native';
@@ -13,6 +19,7 @@ export const TaskManagement = () => {
   const [isEnabledLoop, setIsEnabledLoop] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [missions, setMissions] = useState([]);
+  const [modalDeleteTaskVisible, setModalDeleteVisible] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -20,6 +27,22 @@ export const TaskManagement = () => {
       setMissions([1, 2, 3]);
     }, 2000);
   }, []);
+
+  const viewModalDeleteTask = () => {
+    return (
+      <BaseModal
+        visible={modalDeleteTaskVisible}
+        onBackdropPress={() => {
+          setModalDeleteVisible(!modalDeleteTaskVisible);
+        }}
+        onRequestClose={() => {
+          setModalDeleteVisible(!modalDeleteTaskVisible);
+        }}
+      >
+        <DeleteTask />
+      </BaseModal>
+    );
+  };
 
   const _buildAction = () => {
     return (
@@ -41,6 +64,7 @@ export const TaskManagement = () => {
           title='Hủy'
         />
         <BaseButton
+          onPress={() => setModalDeleteVisible(true)}
           classname='mr-4 flex-1'
           small
           background={tasks[0] ? 'red' : 'greyBt'}
@@ -95,6 +119,7 @@ export const TaskManagement = () => {
     <BaseView classname='w-7/12 ml-4 h-full flex justify-center items-start'>
       <BaseCard title='Nhiệm vụ' children={_buildListMission()} />
       {_buildAction()}
+      {viewModalDeleteTask()}
     </BaseView>
   );
 };

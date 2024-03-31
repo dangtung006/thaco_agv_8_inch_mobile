@@ -14,13 +14,11 @@ export default function NoMissons() {
           source={Images.arrow}
           classname='ml-10 w-8 h-8'
           tintColor='white'
-          style={{ objectFit: 'contain' }}
         />
       </BaseView>
       <BaseImage
         source={Images.robot2}
         classname='flex-1 mb-10'
-        style={{ objectFit: 'contain' }}
       />
     </BaseView>
   );

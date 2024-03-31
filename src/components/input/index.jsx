@@ -6,15 +6,17 @@ export default BaseTextInput = ({
   defaultValue,
   value,
   placeholder,
-  classname='',
+  classname = '',
 }) => {
   return (
     <TextInput
       defaultValue={defaultValue}
       value={value}
       placeholder={placeholder}
-      classname='border min-w-[200px] rounded-lg px-5 h-10 border-greyText bg-greyBg'
-      style={tw`${classname}`}
+      style={tw`${classnames(
+        'border min-w-[200px] rounded-lg px-5 h-10 border-greyText bg-greyBg',
+        classname
+      )}`}
     />
   );
 };

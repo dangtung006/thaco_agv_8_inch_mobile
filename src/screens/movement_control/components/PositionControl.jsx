@@ -26,7 +26,7 @@ export default function PositionControl() {
       <BaseView classname='w-85/100'>
         <BaseView classname='aspect-100/12'></BaseView>
         <BaseScrollView classname='pr-9'>
-          <BaseView classname='flex flex-wrap flex-row  gap-x-10 gap-y-5 justify-between'>
+          <BaseView classname='flex flex-wrap flex-row  gap-x-10 gap-y-5'>
             {positions.map((item, index) => {
               return (
                 <BaseView

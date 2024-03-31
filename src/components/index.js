@@ -11,6 +11,9 @@ import BaseImage from '@src/components/image';
 import BaseImageBackground from '@src/components/image_background';
 import BaseScrollView from '@src/components/scrollview';
 import BaseModal from '@src/components/modal';
+import CreateTask from '@src/components/task/CreateTask';
+import UpdateTask from '@src/components/task/UpdateTask';
+import DeleteTask from '@src/components/task/DeleteTask';
 export {
   BaseScreen,
   BaseText,
@@ -24,5 +27,8 @@ export {
   BaseImage,
   BaseScrollView,
   BaseModal,
-  BaseImageBackground
+  BaseImageBackground,
+  CreateTask,
+  UpdateTask,
+  DeleteTask,
 };

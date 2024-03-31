@@ -1,11 +1,50 @@
-import { FlatList, Image } from 'react-native';
-import BaseText from '../text';
 import Images from '@src/assets/gen';
-import BaseView from '../view';
-import BaseTouchable from '../touchable';
-import BaseImage from '../image';
+import {
+  BaseView,
+  BaseTouchable,
+  BaseText,
+  BaseImage,
+  BaseModal,
+  UpdateTask,
+  DeleteTask,
+} from '@src/components';
+import { useState } from 'react';
 
 export default TaskItem = ({ isShowIndex = true }) => {
+  const [modalUpdateTaskVisible, setModalUpdateVisible] = useState(false);
+  const [modalDeleteTaskVisible, setModalDeleteVisible] = useState(false);
+
+  const viewModalUpdateTask = () => {
+    return (
+      <BaseModal
+        visible={modalUpdateTaskVisible}
+        onBackdropPress={() => {
+          setModalUpdateVisible(!modalUpdateTaskVisible);
+        }}
+        onRequestClose={() => {
+          setModalUpdateVisible(!modalUpdateTaskVisible);
+        }}
+      >
+        <UpdateTask />
+      </BaseModal>
+    );
+  };
+  const viewModalDeleteTask = () => {
+    return (
+      <BaseModal
+        visible={modalDeleteTaskVisible}
+        onBackdropPress={() => {
+          setModalDeleteVisible(!modalDeleteTaskVisible);
+        }}
+        onRequestClose={() => {
+          setModalDeleteVisible(!modalDeleteTaskVisible);
+        }}
+      >
+        <DeleteTask />
+      </BaseModal>
+    );
+  };
+
   return (
     <BaseView classname='flex flex-row w-full mb-4 py-2 px-3 items-center'>
       {isShowIndex && (
@@ -40,14 +79,17 @@ export default TaskItem = ({ isShowIndex = true }) => {
       </BaseView>
       {/* //////////////////////////////// */}
       {/* //////////////////////////////// */}
-      <BaseTouchable>
+      <BaseTouchable onPress={() => setModalUpdateVisible(true)}>
         <BaseImage source={Images.edit} classname='w-12 h-12 mr-2' />
       </BaseTouchable>
       {/* //////////////////////////////// */}
       {/* //////////////////////////////// */}
-      <BaseTouchable>
+      <BaseTouchable onPress={() => setModalDeleteVisible(true)}>
         <BaseImage source={Images.delete} classname='w-12 h-12' />
       </BaseTouchable>
+
+      {viewModalUpdateTask()}
+      {viewModalDeleteTask()}
     </BaseView>
   );
 };

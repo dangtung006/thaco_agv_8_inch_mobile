@@ -18,12 +18,10 @@ export default function HomeScreen(props) {
         </BaseView>
         <BaseView classname='w-7/10 flex-1 flex'>
           <BaseImage
-            style={{ objectFit: 'contain' }}
             source={Images.arrow}
             classname='w-[56px] h-[75px]'
           />
           <BaseImage
-            style={{ objectFit: 'contain' }}
             source={Images.robot}
             classname='w-full flex-1'
           />

@@ -1,20 +1,24 @@
-import { BaseButton, BaseModal, BaseScreen, BaseView } from '@src/components';
+import {
+  BaseButton,
+  BaseModal,
+  BaseScreen,
+  BaseView,
+  CreateTask,
+} from '@src/components';
 import { useState } from 'react';
 import PositionControl from './components/PositionControl';
 import ListTasks from './components/ListTasks';
-import Modal, { ReactNativeModal } from 'react-native-modal';
-import ModalContentCreateTask from './components/ModalContentCreateTask';
 
 export default function MovementControlScreen(props) {
-  const [modalVisible, setModalVisible] = useState(false);
-
+  const [modalCreateTaskVisible, setModalCreateVisible] = useState(false);
+  
   const viewLeft = () => {
     return (
-      <BaseView classname='w-6/10 px-9 py-6 h-full flex justify-end items-center '>
+      <BaseView classname='w-6/10 px-9 py-6 pt-12 h-full flex justify-end items-center'>
         <PositionControl />
-        <BaseView classname='w-full h-100px flex items-end justify-center flex-row '>
+        <BaseView classname='w-full flex-1 flex items-end justify-center flex-row '>
           <BaseButton
-            onPress={() => setModalVisible(true)}
+            onPress={() => setModalCreateVisible(true)}
             title='Tạo Task'
             width={300}
             background='orange'
@@ -39,18 +43,19 @@ export default function MovementControlScreen(props) {
   const viewModalCreateTask = () => {
     return (
       <BaseModal
-        visible={modalVisible}
+        visible={modalCreateTaskVisible}
         onBackdropPress={() => {
-          setModalVisible(!modalVisible);
+          setModalCreateVisible(!modalCreateTaskVisible);
         }}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalCreateVisible(!modalCreateTaskVisible);
         }}
       >
-        <ModalContentCreateTask />
+        <CreateTask />
       </BaseModal>
     );
   };
+  
 
   return (
     <BaseScreen classname='pb-4'>

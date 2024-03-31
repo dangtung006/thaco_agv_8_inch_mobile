@@ -12,7 +12,6 @@ export default function RoboInfoScreen(props) {
       <BaseView classname='w-6/12 h-full flex justify-center items-center'>
           <BaseImage
             source={Images.robot1}
-            style={{ objectFit: 'contain' }}
             classname='w-8/10'
           />
       </BaseView>
