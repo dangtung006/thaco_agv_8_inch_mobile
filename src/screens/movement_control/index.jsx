@@ -1,64 +1,62 @@
-import Images from '@src/assets/gen';
-import { BaseButton, BaseImage, BaseScreen, BaseText, BaseView } from '@src/components';
+import { BaseButton, BaseModal, BaseScreen, BaseView } from '@src/components';
+import { useState } from 'react';
+import PositionControl from './components/PositionControl';
+import ListTasks from './components/ListTasks';
+import Modal, { ReactNativeModal } from 'react-native-modal';
+import ModalContentCreateTask from './components/ModalContentCreateTask';
+
 export default function MovementControlScreen(props) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const viewLeft = () => {
     return (
-      <BaseView classname='w-6/12 h-full flex justify-center items-center'>
-        <BaseImage
-          source={Images.robot1}
-          style={{ objectFit: 'contain' }}
-          classname='w-8/10'
+      <BaseView classname='w-6/10 px-9 py-6 h-full flex justify-end items-center '>
+        <PositionControl />
+        <BaseView classname='w-full h-100px flex items-end justify-center flex-row '>
+          <BaseButton
+            onPress={() => setModalVisible(true)}
+            title='Tạo Task'
+            width={300}
+            background='orange'
+            titleColor='black'
           />
-      </BaseView>
-    );
-  };
-
-  const infoItem = (title, icon, rightWidget) => {
-    return (
-      <BaseView classname='flex flex-row mb-11'>
-        <BaseImage source={icon} classname='h-[60px] w-[60px] mr-4' />
-        <BaseButton
-          classname='w-9/12'
-          title={title}
-          background='blue200'
-          borderColor='blue'
-          titleColor='black'
-          rightWidget={
-            typeof rightWidget === 'string' ? (
-              <BaseText locale bold size={20} classname='text-blue500'>
-                {rightWidget}
-              </BaseText>
-            ) : (
-              rightWidget
-            )
-          }
-        />
+        </BaseView>
       </BaseView>
     );
   };
 
   const viewRight = () => {
     return (
-      <BaseView classname='w-6/12  h-full flex justify-center items-start'>
-        {infoItem('Pin', Images.batteryBg, '100%')}
-        {infoItem('Tốc độ', Images.speedBg, '5 Km/h')}
-        {infoItem('Trạng thái', Images.statusBg, 'Đang giao đồ ăn')}
-        {infoItem(
-          'Vị trí hiện tại',
-          Images.locationBg,
-          <BaseView classname='w-10 h-10 bg-blue rounded-lg flex items-center justify-center'>
-            <BaseText bold classname='text-white' size={24}>
-              6
-            </BaseText>
-          </BaseView>
-        )}
+      <BaseView classname='w-4/10 py-6 pl-4 pr-10 h-full flex justify-end items-end'>
+        <ListTasks />
+        <BaseView classname='w-full h-80px flex items-end justify-center flex-row'>
+          <BaseButton title='Tạo nhiệm vụ' />
+        </BaseView>
       </BaseView>
     );
   };
+
+  const viewModalCreateTask = () => {
+    return (
+      <BaseModal
+        visible={modalVisible}
+        onBackdropPress={() => {
+          setModalVisible(!modalVisible);
+        }}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <ModalContentCreateTask />
+      </BaseModal>
+    );
+  };
+
   return (
-    <BaseScreen>
+    <BaseScreen classname='pb-4'>
       {viewLeft()}
       {viewRight()}
+      {viewModalCreateTask()}
     </BaseScreen>
   );
 }

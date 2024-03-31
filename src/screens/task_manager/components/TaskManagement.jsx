@@ -7,14 +7,17 @@ import MissionProcessing from './mission/MissionProcessing';
 import MissionCompleted from './mission/MissionCompleted';
 import MissionPending from './mission/MissionPending';
 import MissionComponent from './mission/MissionComponent';
+import NoMissons from './NoMisson';
 
 export const TaskManagement = () => {
   const [isEnabledLoop, setIsEnabledLoop] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [missions, setMissions] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
       setTasks([1]);
+      setMissions([1, 2, 3]);
     }, 2000);
   }, []);
 
@@ -71,13 +74,19 @@ export const TaskManagement = () => {
   };
   const _buildListMission = () => {
     return (
-      <BaseView>
-        <FlatList
-          numColumns={2}
-          data={[1, 2, 3]}
-          renderItem={({ item, index }) => <MissionComponent key={index} />}
-          keyExtractor={(item, index) => index.toString()}
-        />
+      <BaseView classname='flex-1'>
+        {missions[0] ? (
+          <BaseView>
+            <FlatList
+              numColumns={2}
+              data={missions}
+              renderItem={({ item, index }) => <MissionComponent key={index} />}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </BaseView>
+        ) : (
+          <NoMissons />
+        )}
       </BaseView>
     );
   };

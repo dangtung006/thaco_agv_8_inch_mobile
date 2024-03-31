@@ -6,7 +6,7 @@ export default BaseTextInput = ({
   defaultValue,
   value,
   placeholder,
-  classname,
+  classname='',
 }) => {
   return (
     <TextInput

@@ -1,7 +1,7 @@
 import tw from '@src/utils/tailwindLoader';
 import { Image } from 'react-native';
 
-export default function BaseImage({ source, classname, style, tintColor }) {
+export default function BaseImage({ source, classname='', style, tintColor }) {
   return (
     <Image
       source={source}

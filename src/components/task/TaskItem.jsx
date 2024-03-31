@@ -1,18 +1,20 @@
-import { FlatList, Image, } from 'react-native';
+import { FlatList, Image } from 'react-native';
 import BaseText from '../text';
 import Images from '@src/assets/gen';
 import BaseView from '../view';
 import BaseTouchable from '../touchable';
 import BaseImage from '../image';
 
-export default TaskItem = () => {
+export default TaskItem = ({ isShowIndex = true }) => {
   return (
     <BaseView classname='flex flex-row w-full mb-4 py-2 px-3 items-center'>
-      <BaseView classname='bg-white border border-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
-        <BaseText size={16} bold>
-          1
-        </BaseText>
-      </BaseView>
+      {isShowIndex && (
+        <BaseView classname='bg-white border border-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
+          <BaseText size={16} bold>
+            1
+          </BaseText>
+        </BaseView>
+      )}
       {/* //////////////////////////////// */}
       {/* //////////////////////////////// */}
       <BaseView classname='flex flex-col flex-1 mx-2 '>

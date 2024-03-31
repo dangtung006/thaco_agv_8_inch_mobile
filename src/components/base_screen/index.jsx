@@ -2,8 +2,7 @@ import { classnames } from '@src/utils/common';
 import tw from '@src/utils/tailwindLoader';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function BaseScreen(props) {
-  const { children, classname } = props;
+export default function BaseScreen( { children, classname ='' }) {
   return (
     <SafeAreaView
       style={tw`${classnames(

@@ -6,7 +6,7 @@ import BaseView from '../view';
 import BaseImage from '../image';
 
 export default BaseButton = ({
-  classname,
+  classname='',
   locale = true,
   large = true,
   small,

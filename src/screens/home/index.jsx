@@ -11,7 +11,7 @@ export default function HomeScreen(props) {
   const viewLeft = () => {
     return (
       <BaseView classname='w-7/12 p-10 h-full flex justify-center items-center'>
-        <BaseView classname='bg-blue200 px-8 py-[50px] rounded-lg'>
+        <BaseView classname='bg-blue200 w-full px-8 py-[50px] rounded-lg'>
           <BaseText locale size={30} semiBold>
             Xin chào! Tôi có thể giúp gì cho bạn?
           </BaseText>
@@ -49,7 +49,7 @@ export default function HomeScreen(props) {
             </BaseText>
           }
         />
-        <BaseView classname='h-163/1000vh'></BaseView>
+        <BaseView classname='h-[100px]'></BaseView>
         <BaseButton
           onPress={() => navigate(ROUTES.SETTING)}
           title='Cài đặt'
