@@ -1,12 +1,12 @@
-import { Button, Image, TouchableOpacity } from 'react-native';
 import BaseText from '../text';
 import { classnames } from '@src/utils/common';
 import tw from '@src/utils/tailwindLoader';
 import BaseView from '../view';
 import BaseImage from '../image';
+import BaseTouchable from '../touchable';
 
 export default BaseButton = ({
-  classname='',
+  classname = '',
   locale = true,
   large = true,
   small,
@@ -25,10 +25,9 @@ export default BaseButton = ({
   shadow = true,
 }) => {
   return (
-    <TouchableOpacity
+    <BaseTouchable
       onPress={onPress}
-      disabled={disabled}
-      style={tw`${classnames(
+      classname={classnames(
         'rounded-lg flex flex-row items-center',
         rightWidget
           ? 'justify-between'
@@ -41,26 +40,28 @@ export default BaseButton = ({
         typeof width === 'number' ? `w-[${width}px]` : width,
         background ? `bg-${background}` : '',
         borderColor ? `border border-${borderColor}` : ''
-      )}`}
+      )}
     >
-      <BaseView classname='flex flex-row items-center'>
-        {icon && (
-          <BaseImage
-            source={icon}
-            tintColor={iconColor}
-            classname={classnames('w-6 h-6 mr-2', iconStyle)}
-          />
-        )}
-        <BaseText
-          locale={locale}
-          semiBold
-          size={titleSize}
-          classname={`text-${titleColor}`}
-        >
-          {title}
-        </BaseText>
-      </BaseView>
-      {rightWidget}
-    </TouchableOpacity>
+      <>
+        <BaseView classname='flex flex-row items-center'>
+          {icon && (
+            <BaseImage
+              source={icon}
+              tintColor={iconColor}
+              classname={classnames('w-6 h-6 mr-2', iconStyle)}
+            />
+          )}
+          <BaseText
+            locale={locale}
+            semiBold
+            size={titleSize}
+            classname={`text-${titleColor}`}
+          >
+            {title}
+          </BaseText>
+        </BaseView>
+        {rightWidget}
+      </>
+    </BaseTouchable>
   );
 };

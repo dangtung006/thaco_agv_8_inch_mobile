@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 
-export const useCommonState = create()(
-  (set) => ({
-    status: false,
-    setStatus: (status) => set({ status }),
-  })
-);
+export const useCommonState = create()((set) => ({
+  sleep: false,
+  setSleep: (sleep) => set({ sleep }),
+}));

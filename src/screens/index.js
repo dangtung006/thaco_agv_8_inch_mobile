@@ -4,6 +4,7 @@ import RoboInfoScreen from '@src/screens/robot_info';
 import RootNavigator from '@src/screens/RootNavigator';
 import TaskManagerScreen from '@src/screens/task_manager';
 import MovementControlScreen from '@src/screens/movement_control';
+import SleepScreen from '@src/screens/sleep';
 
 export {
   HomeScreen,
@@ -12,4 +13,5 @@ export {
   RootNavigator,
   MovementControlScreen,
   TaskManagerScreen,
+  SleepScreen,
 };

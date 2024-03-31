@@ -6,12 +6,17 @@ export default function BaseModal({
   onBackdropPress,
   onRequestClose,
   children,
+  backdropColor,
+  backdropOpacity,
+  transparent = true,
 }) {
   return (
     <ReactNativeModal
-      transparent={true}
+      transparent={transparent}
       animationType='slide'
       isVisible={visible}
+      backdropOpacity={backdropOpacity}
+      backdropColor={backdropColor}
       onBackdropPress={onBackdropPress}
       onRequestClose={onRequestClose}
     >

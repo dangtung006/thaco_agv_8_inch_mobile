@@ -3,7 +3,6 @@
  */
 export default class Images {
     static readonly control = require("@src/assets/images/Control.png");
-    static readonly layer2 = require("@src/assets/images/Layer 2.png");
     static readonly arrow = require("@src/assets/images/arrow.png");
     static readonly back = require("@src/assets/images/back.png");
     static readonly batteryBg = require("@src/assets/images/battery-bg.png");
@@ -17,7 +16,6 @@ export default class Images {
     static readonly edit2 = require("@src/assets/images/edit2.png");
     static readonly en = require("@src/assets/images/en.png");
     static readonly home = require("@src/assets/images/home.png");
-    static readonly image4 = require("@src/assets/images/image 4.png");
     static readonly languague = require("@src/assets/images/languague.png");
     static readonly locationBg = require("@src/assets/images/location-bg.png");
     static readonly loop = require("@src/assets/images/loop.png");

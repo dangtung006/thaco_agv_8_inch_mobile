@@ -1,9 +1,5 @@
 import Images from '@src/assets/gen';
-import {
-  NativeModules,
-  NativeEventEmitter,
-  Text,
-} from 'react-native';
+import { NativeModules, NativeEventEmitter, Text } from 'react-native';
 import BaseText from '../text';
 import { APP_STACK, ROUTES, goBack } from '@src/navigation';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +8,7 @@ import { navigationRef } from '@src/navigation/RootNavigation';
 import BaseView from '../view';
 import BaseTouchable from '../touchable';
 import BaseImage from '../image';
+import { BaseButton } from '..';
 
 export default AppBar = () => {
   const navigation = useNavigation();
@@ -19,6 +16,7 @@ export default AppBar = () => {
   const [isHome, setHome] = useState(true);
   const [title, setTitle] = useState('');
   const [batteryLevel, setBatteryLevel] = useState(null);
+  const [showBatteryWarning, setShowBatteryWarning] = useState(true);
 
   useEffect(() => {
     if (currentRouter === ROUTES.HOME) {
@@ -106,9 +104,24 @@ export default AppBar = () => {
   );
 
   return (
-    <BaseView classname='h-[56px] bg-blue500 pl-10 flex flex-row items-start justify-between'>
-      {viewLeft}
-      {viewRight}
+    <BaseView>
+      <BaseView classname='h-[56px] bg-blue500 pl-10 flex flex-row items-start justify-between'>
+        {viewLeft}
+        {viewRight}
+      </BaseView>
+      {showBatteryWarning && (
+        <BaseView classname='h-[56px] bg-red pl-10 flex flex-row items-center justify-center gap-4'>
+          <BaseText locale size={16} bold classname='text-white'>
+            Cảnh báo: Robot đang yếu pin
+          </BaseText>
+          <BaseButton
+            onPress={() => setShowBatteryWarning(false)}
+            title='Đóng'
+            background='black'
+            small
+          />
+        </BaseView>
+      )}
     </BaseView>
   );
 };
