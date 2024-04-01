@@ -1,11 +1,7 @@
 import { useCommonState } from '@src/store/commonStorage';
 import tw from '@src/utils/tailwindLoader';
-import {
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import BaseView from '../view';
+import { TouchableOpacity } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default function BaseTouchable({
   classname = '',
@@ -19,13 +15,14 @@ export default function BaseTouchable({
     <>
       {withoutFeedback ? (
         <TouchableWithoutFeedback
-          onPress={() => {
-            onPress && onPress();
+          onPressIn={() => {
+            console.log('onPressIn');
             setSleep(undefined);
             setTimeout(() => {
               setSleep(false);
             }, 50);
           }}
+          onPress={onPress}
           style={tw`${classname}`}
         >
           {children}
@@ -33,13 +30,7 @@ export default function BaseTouchable({
       ) : (
         <TouchableOpacity
           activeOpacity={activeOpacity}
-          onPress={() => {
-            onPress && onPress();
-            setSleep(undefined);
-            setTimeout(() => {
-              setSleep(false);
-            }, 50);
-          }}
+          onPress={onPress}
           style={tw`${classname}`}
         >
           {children}

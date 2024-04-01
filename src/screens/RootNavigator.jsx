@@ -11,6 +11,7 @@ import { useLocalStorage } from '@src/store/localStorage';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCommonState } from '@src/store/commonStorage';
+import { TIME_TO_SLEEP } from '@src/utils/constants';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +31,7 @@ export default RootNavigator = () => {
       timer = setTimeout(() => {
         setSleep(true);
         console.log('sleep');
-      }, 3000);
+      }, TIME_TO_SLEEP);
       return () => clearTimeout(timer);
     }
   }, [sleep]);
@@ -64,7 +65,7 @@ export default RootNavigator = () => {
         >
           <Stack.Screen name='APP_STACK' component={AppStack} />
         </Stack.Navigator>
-        {/* {viewSleep()} */}
+        {viewSleep()}
       </>
     </BaseTouchable>
   );
