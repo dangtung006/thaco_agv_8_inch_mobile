@@ -8,6 +8,7 @@ import TaskItem from '@src/components/task/TaskItem';
 import BaseView from '@src/components/view';
 import BaseTouchable from '@src/components/touchable';
 import BaseImage from '@src/components/image';
+import BaseVideo from '@src/components/video';
 import BaseImageBackground from '@src/components/image_background';
 import BaseScrollView from '@src/components/scrollview';
 import BaseModal from '@src/components/modal';
@@ -25,6 +26,7 @@ export {
   BaseView,
   BaseTouchable,
   BaseImage,
+  BaseVideo,
   BaseScrollView,
   BaseModal,
   BaseImageBackground,

@@ -3,20 +3,22 @@ import tw from '@src/utils/tailwindLoader';
 import { TextInput } from 'react-native';
 
 export default BaseTextInput = ({
-  defaultValue,
-  value,
-  placeholder,
-  classname = '',
+    defaultValue,
+    value,
+    placeholder,
+    classname = '',
+    changeInput=()=>{}
 }) => {
-  return (
-    <TextInput
-      defaultValue={defaultValue}
-      value={value}
-      placeholder={placeholder}
-      style={tw`${classnames(
-        'border min-w-[200px] rounded-lg px-5 h-10 border-greyText bg-greyBg',
-        classname
-      )}`}
-    />
-  );
+    return (
+        <TextInput
+            onChangeText={changeInput}
+            defaultValue={defaultValue}
+            value={value}
+            placeholder={placeholder}
+            style={tw`${classnames(
+                'border min-w-[200px] rounded-lg px-5 h-10 border-greyText bg-greyBg',
+                classname
+            )}`}
+        />
+    );
 };

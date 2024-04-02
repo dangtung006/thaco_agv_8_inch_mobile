@@ -33,7 +33,7 @@ export default class Images {
     static readonly robot5 = require("@src/assets/images/robot5.png");
     static readonly robotSetting = require("@src/assets/images/robot_setting.png");
     static readonly setting = require("@src/assets/images/setting.png");
-    static readonly sleep = require("@src/assets/images/sleep.png");
+    static readonly sleep = require("@src/assets/images/happy.mp4");
     static readonly speedBg = require("@src/assets/images/speed-bg.png");
     static readonly statusBg = require("@src/assets/images/status-bg.png");
     static readonly status = require("@src/assets/images/status.png");
