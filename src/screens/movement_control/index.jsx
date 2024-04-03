@@ -9,40 +9,21 @@ import { useEffect, useState } from 'react';
 import PositionControl from './components/PositionControl';
 import ListTasks from './components/ListTasks';
 import MyRequest from '@src/utils/request';
+import { usePositionState } from '@src/store/module/positionStorage';
+import { useTaskState } from '@src/store/module/taskStorage';
 
 export default function MovementControlScreen(props) {
-    const request = new MyRequest({
-        baseUrl: 'http://192.168.68.103:5000'
-    });
+   
+    const { initData } = usePositionState()
+    const { initTasks } = useTaskState();
 
-    const [positions, setPositions] = useState([]);
     const [selectedPos, setSelectedPos] = useState([]);
-    const [taskName, setTaskName] = useState('');
-    const [taskList, setTaskList] = useState([]);
-
-    const [loading, setLoading] = useState(false);
     const [modalCreateTaskVisible, setModalCreateVisible] = useState(false);
 
     useEffect(() => {
-        initData()
+        initData();
+        initTasks();
     }, []);
-
-    async function initData() {
-        setLoading(true)
-        try {
-            const positionConf = await request.getRequest('/locals');
-            const scripts = await request.getRequest('/scripts');
-            const { data: positions } = positionConf;
-            const { data : taskList } = scripts;
-
-            positions && setPositions(positions);
-            taskList && setTaskList(taskList);
-            setLoading(false);
-        }catch(e) {
-            console.log(e);
-            setLoading(false)
-        }
-    }
 
     function handleSelectPosition(position) {
         let pos = [...selectedPos];
@@ -54,90 +35,13 @@ export default function MovementControlScreen(props) {
         setSelectedPos([...pos])
     }
 
-
-    async function handleCreateTask(){
-        setLoading(true)
-        const task = {
-            type : 'insert',
-            data : {
-                "name": taskName,
-                "tasks": selectedPos
-            }
-        }
-        console.log("task : " , task);
-        try{
-            const _r = await request.postRequest('/scripts', task);
-            const {
-                result,
-                data
-            } = _r;
-
-            if(result) {
-                setTaskList(data);
-                setModalCreateVisible(false);
-                setSelectedPos([]);
-                setLoading(false)
-            }
-
-        }catch(err){
-            setLoading(false)
-            console.log("err::" , err);
-        }
-        
-    }
-
-    async function updateTask(task){
-        // setLoading(true)
-        try{
-            const _r = await request.postRequest('/scripts', task);
-            const {
-                result,
-                data
-            } = _r;
-            console.log("_r ::  ," , _r);
-            // let newTasks = [...taskList];
-            // newTasks = newTasks.filter(item => item.id != task.id);
-            if(result) {
-                // setTaskList(data)
-                // setLoading(false)
-            } 
-        }catch(err){
-            setLoading(false);
-            console.log("err::" , err);
-        }
-    }
-
-    async function removeTask(task){
-        setLoading(true)
-        try{
-            const _r = await request.postRequest('/scripts', task);
-            const {
-                result,
-                data
-            } = _r;
-            console.log("_r ::  ," , _r);
-            // let newTasks = [...taskList];
-            // newTasks = newTasks.filter(item => item.id != task.id);
-            if(result) {
-                setTaskList(data)
-                setLoading(false)
-            } 
-        }catch(err){
-            setLoading(false);
-            console.log("err::" , err);
-        }
-       
-    }
-
     const viewLeft = () => {
         return (
             <BaseView classname='w-6/10 px-9 py-6 pt-12 h-full flex justify-end items-center'>
-
-                {loading ? (null) : (<PositionControl
-                    positions={positions}
+                <PositionControl
                     selectedPos={selectedPos}
                     handleSelectPosition={handleSelectPosition}
-                />)}
+                />
 
                 <BaseView classname='w-full flex-1 flex items-end justify-center flex-row '>
                     <BaseButton
@@ -155,12 +59,7 @@ export default function MovementControlScreen(props) {
     const viewRight = () => {
         return (
             <BaseView classname='w-4/10 py-6 pl-4 pr-10 h-full flex justify-end items-end'>
-                {
-                    loading ? null :
-                    (
-                        <ListTasks taskList={taskList} handleUpdateTask={updateTask} handleRemoveTask={removeTask} />
-                    )
-                }
+                <ListTasks />
                 <BaseView classname='w-full h-80px flex items-end justify-center flex-row'>
                     <BaseButton title='Tạo nhiệm vụ' />
                 </BaseView>
@@ -179,10 +78,11 @@ export default function MovementControlScreen(props) {
                     setModalCreateVisible(!modalCreateTaskVisible);
                 }}
             >
-                <CreateTask  
-                    taskName={taskName} 
-                    handleTaskChange={setTaskName}
-                    handleCreateTask={handleCreateTask}
+                <CreateTask 
+                    selectedPos={selectedPos} 
+                    handleSelectedPos={setSelectedPos}
+                    modalStatus={modalCreateTaskVisible}
+                    handleModal={setModalCreateVisible}
                 />
             </BaseModal>
         );

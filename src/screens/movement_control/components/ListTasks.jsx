@@ -1,28 +1,29 @@
 import { BaseCard, BaseView, TaskItem } from '@src/components';
-import { FlatList } from 'react-native';
-
+import { FlatList, Text, ActivityIndicator } from 'react-native';
+import { useTaskState } from '@src/store/module/taskStorage';
 export default function ListTasks({
-    taskList,
-    handleRemoveTask,
-    handleUpdateTask
 }) {
+    const { loading, tasks } = useTaskState();
+
     return (
         <BaseView classname='flex-1  w-full'>
             <BaseCard title='Danh sách Task'>
                 <BaseView classname='p-4'>
                     {
-                        !taskList ? null : (
+                        loading ? <ActivityIndicator size="large" color="#0000ff" /> : (
+                            
                             <FlatList
-                                data={taskList}
+                                data={tasks}
                                 renderItem={({ item, index }) => <TaskItem
                                     isShowIndex={false}
                                     key={item.id}
                                     task={item}
-                                    handleUpdateTask={handleUpdateTask}
-                                    handleRemoveTask={handleRemoveTask} />}
+                                />
+                                }
                                 keyExtractor={(item, index) => index.toString()}
                             />
-                        ) 
+                        )
+
                     }
                 </BaseView>
             </BaseCard>

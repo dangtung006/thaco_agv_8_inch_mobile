@@ -12,24 +12,11 @@ import { useState } from 'react';
 
 export default TaskItem = ({ 
     isShowIndex = true, 
-    task,
-    handleUpdateTask = async ()=>{},
-    handleRemoveTask = async ()=>{}
+    task
 }) => {
     const [modalUpdateTaskVisible, setModalUpdateVisible] = useState(false);
     const [modalDeleteTaskVisible, setModalDeleteVisible] = useState(false);
 
-    const removeTask = async()=>{
-        await handleRemoveTask({
-            "type": "delete",
-            "data": {
-                "id": task.id
-            }
-        });
-        setModalDeleteVisible(!modalDeleteTaskVisible);
-    }
-
-    
 
     const viewModalUpdateTask = () => {
         return (
@@ -46,11 +33,11 @@ export default TaskItem = ({
                     id={task.id}
                     name={task.name}
                     positions={task.tasks}
-                    handleUpdateTask={handleUpdateTask}
                 />
             </BaseModal>
         );
     };
+
     const viewModalDeleteTask = () => {
         return (
             <BaseModal
@@ -58,11 +45,15 @@ export default TaskItem = ({
                 onBackdropPress={() => {
                     setModalDeleteVisible(!modalDeleteTaskVisible);
                 }}
-                onRequestClose={() => {
-                    setModalDeleteVisible(!modalDeleteTaskVisible);
-                }}
+                // onRequestClose={() => {
+                //     setModalDeleteVisible(!modalDeleteTaskVisible);
+                // }}
             >
-                <DeleteTask  removeTask={removeTask}/>
+                <DeleteTask 
+                    modalStatus={modalDeleteTaskVisible} 
+                    handleModal={setModalDeleteVisible} 
+                    task={task}
+                />
             </BaseModal>
         );
     };
@@ -86,8 +77,8 @@ export default TaskItem = ({
                 </BaseView>
                 <BaseView classname='bg-white px-4 py-2 flex flex-wrap flex-row rounded-b-lg'>
                     {
-                        task && task.tasks ? (<>
-                            {task.tasks.map((item, index) => {
+                        task && task.list_station ? (<>
+                            {task.list_station.map((item, index) => {
                                 return (
                                     <BaseView
                                         key={index}

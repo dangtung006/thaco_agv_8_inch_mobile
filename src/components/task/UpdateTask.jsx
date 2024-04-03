@@ -14,8 +14,7 @@ const deviceWidth = Dimensions.get('window').width;
 export default UpdateTask = ({
     id,
     name,
-    positions,
-    handleUpdateTask
+    positions
 }) => {
     const [updatePos, setUpdatePos] = useState(positions);
 

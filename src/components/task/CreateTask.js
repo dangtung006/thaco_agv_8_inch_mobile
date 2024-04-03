@@ -6,22 +6,42 @@ import {
     BaseTextInput,
     BaseView,
 } from '@src/components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useTaskState } from '@src/store/module/taskStorage';
 
-const CREATE_TASK_STATUS = {
-    INIT: 'INIT',
-    PENDING: 'PENDING',
-    COMPLETED: 'COMPLETED',
-    ERROR: 'ERROR',
-};
+import SuccessModal from '../modal/success';
+import PendingModal from '../modal/pending';
+import ErrorModal from '../modal/error';
+import { TASK_PROGRESS_STATUS } from '@src/store/module/taskStorage';
+
 export default function CreateTask({
-    taskName,
-    handleTaskChange,
-    handleCreateTask = ()=>{}
+    selectedPos,
+    modalStatus,
+    handleModal,
+    handleSelectedPos
 }) {
-    // taskName={taskName} handleTaskChange={setTaskName}
-    const [status, setStatus] = useState(CREATE_TASK_STATUS.INIT);
-    // const [taskName, setTaskName] = useState("")
+
+    const [taskName, setTaskName] = useState("");
+    const { handleTask, taskProgress, setTaskProgress } = useTaskState();
+
+    useEffect(()=>{
+        if(!taskProgress != TASK_PROGRESS_STATUS.INIT){
+            setTaskProgress(TASK_PROGRESS_STATUS.INIT)
+        }
+    }, [])
+
+    const onCreateTask = async () => {
+        setTaskName("");
+        handleSelectedPos([]);
+        await handleTask({
+            type: 'insert',
+            data: {
+                name: taskName,
+                tasks: selectedPos
+            }
+        });
+    }
+
     const initTask = () => {
         return (
             <BaseView classname='flex justify-center items-center'>
@@ -30,21 +50,10 @@ export default function CreateTask({
                         placeholder='Điền tên task...'
                         classname='flex-1 h-46px'
                         value={taskName}
-                        changeInput={handleTaskChange}
+                        changeInput={setTaskName}
                     />
                     <BaseButton
-                        onPress={()=>{
-                            return handleCreateTask();
-                        } 
-                            // {
-
-                            // console.log("taskName ::: " , taskName);
-                            // // setStatus(CREATE_TASK_STATUS.PENDING);
-                            // // setTimeout(() => {
-                            // //     setStatus(CREATE_TASK_STATUS.COMPLETED);
-                            // // }, 500);
-                            // }
-                        }
+                        onPress={onCreateTask}
                         small
                         title='Xác nhận'
                     />
@@ -53,95 +62,18 @@ export default function CreateTask({
         );
     };
 
-    const createTaskPending = () => {
-        return (
-            <BaseView classname='flex justify-center items-center'>
-                <BaseView classname='py-30px rounded-2xl bg-white w-7/10 flex flex-col items-center gap-x-4'>
-                    <BaseView classname='w-6/10'>
-                        <BaseView classname='bg-blue500 py-30px rounded-lg flex justify-between items-center'>
-                            <BaseText locale size={16} semiBold>
-                                Đang tạo task, xin vui lòng đợi một chút !
-                            </BaseText>
-                        </BaseView>
-                        <BaseImage
-                            source={Images.arrow}
-                            classname='ml-15 w-8 h-8'
-                            tintColor='#21AFFF'
-                        />
-                    </BaseView>
-                    <BaseImage source={Images.robot3} classname='w-200px h-200px' />
-                </BaseView>
-            </BaseView>
-        );
-    };
-
-    const createTaskCompleted = () => {
-        return (
-            <BaseView classname='flex justify-center items-center'>
-                <BaseView classname='py-30px rounded-2xl bg-white w-7/10 flex flex-col items-center gap-x-4'>
-                    <BaseView classname='w-6/10'>
-                        <BaseView classname='bg-green py-30px rounded-lg flex justify-between items-center'>
-                            <BaseText locale size={16} semiBold classname='text-white'>
-                                Task tạo thành công !!
-                            </BaseText>
-                        </BaseView>
-                        <BaseImage
-                            source={Images.arrow}
-                            classname='ml-15 w-8 h-8'
-                            tintColor='#2EAB47'
-                        />
-                    </BaseView>
-                    <BaseImage source={Images.robot4} classname='w-200px h-200px' />
-                </BaseView>
-                <BaseButton
-                    onPress={() => {
-                        setStatus(CREATE_TASK_STATUS.ERROR);
-                    }}
-                    title='Xác nhận'
-                    classname='mt-6 w-7/10'
-                />
-            </BaseView>
-        );
-    };
-
-    const createTaskError = () => {
-        return (
-            <BaseView classname='flex justify-center items-center'>
-                <BaseView classname='py-30px rounded-2xl bg-white w-7/10 flex flex-col items-center gap-x-4'>
-                    <BaseView classname='w-6/10'>
-                        <BaseView classname='bg-red py-30px rounded-lg flex justify-between items-center'>
-                            <BaseText locale size={16} semiBold classname='text-white'>
-                                Task tạo thất bại, xin vui lòng thử lại
-                            </BaseText>
-                        </BaseView>
-                        <BaseImage
-                            source={Images.arrow}
-                            classname='ml-15 w-8 h-8'
-                            tintColor='#FF462D'
-                        />
-                    </BaseView>
-                    <BaseImage source={Images.robot5} classname='w-200px h-200px' />
-                </BaseView>
-                <BaseButton
-                    onPress={() => {
-                        setStatus(CREATE_TASK_STATUS.INIT);
-                    }}
-                    title='Xác nhận'
-                    classname='mt-6 w-7/10'
-                />
-            </BaseView>
-        );
-    };
-
     return (
         <BaseView>
-            {status === CREATE_TASK_STATUS.INIT
+            { taskProgress === TASK_PROGRESS_STATUS.INIT
                 ? initTask()
-                : status === CREATE_TASK_STATUS.PENDING
-                    ? createTaskPending()
-                    : status === CREATE_TASK_STATUS.COMPLETED
-                        ? createTaskCompleted()
-                        : createTaskError()}
+                : taskProgress === TASK_PROGRESS_STATUS.PENDING
+                    ? <PendingModal />
+                    : taskProgress === TASK_PROGRESS_STATUS.COMPLETED
+                        ? <SuccessModal   modalStatus={modalStatus} handleModal={handleModal} />
+                            :taskProgress === TASK_PROGRESS_STATUS.ERROR 
+                            ? <ErrorModal   modalStatus={modalStatus} handleModal={handleModal} />
+                            :<></>
+            }
         </BaseView>
     );
 }
