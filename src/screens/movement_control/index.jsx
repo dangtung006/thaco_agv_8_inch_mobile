@@ -11,6 +11,8 @@ import ListTasks from './components/ListTasks';
 import MyRequest from '@src/utils/request';
 import { usePositionState } from '@src/store/module/positionStorage';
 import { useTaskState } from '@src/store/module/taskStorage';
+import { ROUTES, navigate } from '@src/navigation';
+
 
 export default function MovementControlScreen(props) {
    
@@ -61,7 +63,7 @@ export default function MovementControlScreen(props) {
             <BaseView classname='w-4/10 py-6 pl-4 pr-10 h-full flex justify-end items-end'>
                 <ListTasks />
                 <BaseView classname='w-full h-80px flex items-end justify-center flex-row'>
-                    <BaseButton title='Tạo nhiệm vụ' />
+                    <BaseButton title='Tạo nhiệm vụ' onPress={()=>navigate(ROUTES.TASK_MANAGER)}/>
                 </BaseView>
             </BaseView>
         );

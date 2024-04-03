@@ -58,7 +58,7 @@ export default UpdateTask = ({
                     )}
                 >
                     <BaseView classname='h-8 bg-blue flex flex-row rounded-t-2xl justify-between items-center px-4'>
-                        <BaseText classname='text-white'>{task.name}</BaseText>
+                        <BaseText classname='text-white'>{task ? task.name : ''}</BaseText>
                         <BaseTouchable classname='w-6 h-6 flex justify-center items-center '>
                             <BaseImage source={Images.edit2} classname='w-18px h-18px' />
                         </BaseTouchable>
