@@ -18,7 +18,7 @@ export default function ListTasks({
                                     isShowIndex={false}
                                     key={item.id}
                                     task={item}
-                                />
+                                    />
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />

@@ -30,9 +30,9 @@ export default TaskItem = ({
                 }}
             >
                 <UpdateTask 
-                    id={task.id}
-                    name={task.name}
-                    positions={task.tasks}
+                    modalStatus={modalUpdateTaskVisible} 
+                    handleModal={setModalUpdateVisible} 
+                    task={task}
                 />
             </BaseModal>
         );
