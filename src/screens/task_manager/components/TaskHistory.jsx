@@ -3,6 +3,7 @@ import { FlatList, ActivityIndicator } from 'react-native';
 import { useTaskState } from '@src/store/module/taskStorage';
 import { TouchableHighlight, View } from 'react-native';
 import { createRef, useEffect, useState } from 'react';
+import { useMissionState } from '@src/store/module/missionStorage';
 
 const TouchableItem = ({ item, handleSelectTask, selectedTasks }) => {
     const [backgroundColor, setBackgroundColor] = useState('#E8F7FF');
@@ -37,6 +38,8 @@ export const TaskHistory = ({ handleTask }) => {
     const { loading, tasks } = useTaskState();
     const [selectedTasks, setSelectedTask] = useState([]);
 
+    const { setSelectedTask : InitpendingTask } = useMissionState()
+   
     const handleSelectTask = (task) => {
 
         const { id } = task;
@@ -56,9 +59,8 @@ export const TaskHistory = ({ handleTask }) => {
     }
 
     const createMission = ()=>{
-        return handleTask({
-            "type":"run","list":selectedTasks
-        })
+        let select = tasks.filter(task => selectedTasks.includes(task.id))
+        InitpendingTask(select)
     }
 
     const _listTask = () => {

@@ -14,13 +14,37 @@ import MissionCompleted from './mission/MissionCompleted';
 import MissionPending from './mission/MissionPending';
 import MissionComponent from './mission/MissionComponent';
 import NoMissons from './NoMisson';
+import { useMissionState } from '@src/store/module/missionStorage';
 
-export const TaskManagement = ({ mission }) => {
-    console.log("misssion:::", mission);
+export const TaskManagement = ({ mission, handleTask }) => {
+    console.log(JSON.parse(mission));
+
     const [isEnabledLoop, setIsEnabledLoop] = useState(false);
-    const [tasks, setTasks] = useState([]);
-    const [missions, setMissions] = useState([]);
+    // const [tasks, setTasks] = useState([]);
+    // const [missions, setMissions] = useState([]);
     const [modalDeleteTaskVisible, setModalDeleteVisible] = useState(false);
+
+    const { selectedTask, clearTask } = useMissionState();
+
+    const initMission = () => {
+        return handleTask({
+            "type": "run", "list": selectedTask.map(task => task.id)
+        });
+
+        // resp : : {"data": "{'type': 'info', 'task': 'START', 'message': ('1b6cfd92-5be5-45a5-9f9a-34b846028ff6', 'all_task', \"['57faa0bd-9046-4edd-828b-b1b06e54286c', '192ae2d0-1163-4aa1-8231-e14cf0927e47']\", '2024-04-03 15:31:42')}", "isTrusted": false}
+
+        // {"data": "{'type': 'info', 'task': 'RUN', 'message': [{'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}, {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}]}", "isTrusted": false}
+        
+        // {"data": "{'type': 'info', 'task': 'MOVE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}}", "isTrusted": false}
+        
+        // {"data": "{'type': 'info', 'task': 'DONE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}}", "isTrusted": false}
+        
+        //  {"data": "{'type': 'info', 'task': 'MOVE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}}", "isTrusted": false}
+        
+        //  {"data": "{'type': 'info', 'task': 'DONE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}}", "isTrusted": false}
+        
+        //  {"data": "{'type': 'info', 'task': 'END', 'message': [{'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}, {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}]}", "isTrusted": false}
+    }
 
     useEffect(() => {
         // setTimeout(() => {
@@ -51,26 +75,28 @@ export const TaskManagement = ({ mission }) => {
                 <BaseButton
                     small
                     classname='mr-4 flex-1'
-                    background={tasks[0] ? 'blue500' : 'greyBt'}
+                    background={selectedTask[0] ? 'blue500' : 'greyBt'}
                     icon={Images.play}
                     title='Chạy'
+                    onPress={initMission}
                 />
                 <BaseButton
                     classname='mr-4 flex-1'
                     small
-                    background={tasks[0] ? 'white' : 'greyBt'}
-                    iconColor={tasks[0] ? 'red' : 'white'}
-                    titleColor={tasks[0] ? 'red' : 'white'}
+                    background={selectedTask[0] ? 'white' : 'greyBt'}
+                    iconColor={selectedTask[0] ? 'red' : 'white'}
+                    titleColor={selectedTask[0] ? 'red' : 'white'}
                     icon={Images.cancel}
                     title='Hủy'
+                    onPress={clearTask}
                 />
                 <BaseButton
                     onPress={() => setModalDeleteVisible(true)}
                     classname='mr-4 flex-1'
                     small
-                    background={tasks[0] ? 'red' : 'greyBt'}
-                    iconColor={tasks[0] ? 'white' : 'white'}
-                    titleColor={tasks[0] ? 'white' : 'white'}
+                    background={selectedTask[0] ? 'red' : 'greyBt'}
+                    iconColor={selectedTask[0] ? 'white' : 'white'}
+                    titleColor={selectedTask[0] ? 'white' : 'white'}
                     icon={Images.remove}
                     title='Xóa'
                 />
@@ -78,9 +104,9 @@ export const TaskManagement = ({ mission }) => {
                     small
                     onPress={() => setIsEnabledLoop((previousState) => !previousState)}
                     classname='pr-2 w-[210px]'
-                    background={tasks[0] ? 'white' : 'greyBt'}
-                    iconColor={tasks[0] ? 'black' : 'white'}
-                    titleColor={tasks[0] ? 'black' : 'white'}
+                    background={selectedTask[0] ? 'white' : 'greyBt'}
+                    iconColor={selectedTask[0] ? 'black' : 'white'}
+                    titleColor={selectedTask[0] ? 'black' : 'white'}
                     icon={Images.loop}
                     title='Lặp lại'
                     rightWidget={
@@ -100,12 +126,12 @@ export const TaskManagement = ({ mission }) => {
     const _buildListMission = () => {
         return (
             <BaseView classname='flex-1'>
-                {missions[0] ? (
+                {selectedTask[0] ? (
                     <BaseView>
                         <FlatList
                             numColumns={2}
-                            data={missions}
-                            renderItem={({ item, index }) => <MissionComponent key={index} />}
+                            data={selectedTask}
+                            renderItem={({ item, index }) => <MissionComponent key={index} task={item} />}
                             keyExtractor={(item, index) => index.toString()}
                         />
                     </BaseView>

@@ -30,7 +30,7 @@ export default function TaskManagerScreen(props) {
     return (
         <BaseScreen classname='p-10 pb-[62px]'>
             <TaskHistory handleTask={sendJsonMessage}/>
-            <TaskManagement mission={mission}/>
+            <TaskManagement mission={mission} handleTask={sendJsonMessage}/>
         </BaseScreen>
     );
 }
