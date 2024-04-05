@@ -22,6 +22,7 @@ export const useTaskState = create((set)=>({
                 result,
                 data
             } = await request.getRequest("/scripts");
+            console.log("data" , data);
             result && set({ tasks : data})
         }catch(e){
             console.log(e);

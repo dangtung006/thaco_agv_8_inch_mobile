@@ -9,7 +9,39 @@ import BaseView from '../view';
 import BaseTouchable from '../touchable';
 import BaseImage from '../image';
 import { BaseButton } from '..';
+import { useAgvState } from '@src/store/module/agvStorage';
 
+const viewRight = () => {
+    const { agv } = useAgvState()
+    return (
+        <BaseView classname='pb-[2px] h-full flex flex-row'>
+            <BaseView classname='px-10 bg-white h-full flex flex-row items-center '>
+                <BaseImage source={Images.battery} classname='w-8 h-8 mr-2' />
+                <BaseView classname='flex flex-col'>
+                    <BaseText size={12} classname='text-greyText mb-1'>
+                        Pin:
+                    </BaseText>
+                    <BaseText medium size={12}>
+                        {agv.battery && `${agv.battery * 100 }%`}
+                    </BaseText>
+                </BaseView>
+            </BaseView>
+            <BaseView classname='w-[2px]'></BaseView>
+            <BaseView classname='px-10 bg-white h-full flex flex-row items-center'>
+                <BaseImage source={Images.status} classname='w-8 h-8 mr-2' />
+                <BaseView classname='flex flex-col'>
+                    <BaseText locale size={12} classname='text-greyText mb-1'>
+                        Trạng thái:
+                    </BaseText>
+                    <BaseText locale medium size={12}>
+                        Đang giao đồ ăn
+                    </BaseText>
+                </BaseView>
+            </BaseView>
+        </BaseView>
+
+    )
+}
 export default AppBar = () => {
     const navigation = useNavigation();
     const [currentRouter, setCurrentRouter] = useState(ROUTES.HOME);
@@ -17,6 +49,9 @@ export default AppBar = () => {
     const [title, setTitle] = useState('');
     const [batteryLevel, setBatteryLevel] = useState(null);
     const [showBatteryWarning, setShowBatteryWarning] = useState(false);
+    const { initAgv } = useAgvState()
+
+
 
     useEffect(() => {
         if (currentRouter === ROUTES.HOME) {
@@ -37,18 +72,27 @@ export default AppBar = () => {
     }, [navigation]);
 
     useEffect(() => {
-        const deviceInfoEmitter = new NativeEventEmitter(
-            NativeModules.RNDeviceInfo
-        );
-        const subscription = deviceInfoEmitter.addListener(
-            'RNDeviceInfo_batteryLevelDidChange',
-            (level) => {
-                console.log('batteryLevel change', level);
-                setBatteryLevel(Math.round(level * 100));
-            }
-        );
-        return () => subscription.remove();
-    }, []);
+        // let timer = setInterval(async () => {
+        //     await initAgv()
+        // }, 5000);
+        // return () => {
+        //     clearInterval(timer);
+        // };
+    }, [])
+
+    // useEffect(() => {
+    //     const deviceInfoEmitter = new NativeEventEmitter(
+    //         NativeModules.RNDeviceInfo
+    //     );
+    //     const subscription = deviceInfoEmitter.addListener(
+    //         'RNDeviceInfo_batteryLevelDidChange',
+    //         (level) => {
+    //             console.log('batteryLevel change', level);
+    //             setBatteryLevel(Math.round(level * 100));
+    //         }
+    //     );
+    //     return () => subscription.remove();
+    // }, []);
 
     const viewLeft = useMemo(() => {
         return (
@@ -72,42 +116,42 @@ export default AppBar = () => {
         );
     }, [isHome, title]);
 
-    const viewRight = useMemo(
-        () => (
-            <BaseView classname='pb-[2px] h-full flex flex-row'>
-                <BaseView classname='px-10 bg-white h-full flex flex-row items-center '>
-                    <BaseImage source={Images.battery} classname='w-8 h-8 mr-2' />
-                    <BaseView classname='flex flex-col'>
-                        <BaseText size={12} classname='text-greyText mb-1'>
-                            Pin:
-                        </BaseText>
-                        <BaseText medium size={12}>
-                            {batteryLevel && `${batteryLevel}%`}
-                        </BaseText>
-                    </BaseView>
-                </BaseView>
-                <BaseView classname='w-[2px]'></BaseView>
-                <BaseView classname='px-10 bg-white h-full flex flex-row items-center'>
-                    <BaseImage source={Images.status} classname='w-8 h-8 mr-2' />
-                    <BaseView classname='flex flex-col'>
-                        <BaseText locale size={12} classname='text-greyText mb-1'>
-                            Trạng thái:
-                        </BaseText>
-                        <BaseText locale medium size={12}>
-                            Đang giao đồ ăn
-                        </BaseText>
-                    </BaseView>
-                </BaseView>
-            </BaseView>
-        ),
-        [batteryLevel]
-    );
+    // const viewRight = useMemo(
+    //     () => (
+    //         <BaseView classname='pb-[2px] h-full flex flex-row'>
+    //             <BaseView classname='px-10 bg-white h-full flex flex-row items-center '>
+    //                 <BaseImage source={Images.battery} classname='w-8 h-8 mr-2' />
+    //                 <BaseView classname='flex flex-col'>
+    //                     <BaseText size={12} classname='text-greyText mb-1'>
+    //                         Pin: 0
+    //                     </BaseText>
+    //                     <BaseText medium size={12}>
+    //                         {batteryLevel && `${batteryLevel}%`}
+    //                     </BaseText>
+    //                 </BaseView>
+    //             </BaseView>
+    //             <BaseView classname='w-[2px]'></BaseView>
+    //             <BaseView classname='px-10 bg-white h-full flex flex-row items-center'>
+    //                 <BaseImage source={Images.status} classname='w-8 h-8 mr-2' />
+    //                 <BaseView classname='flex flex-col'>
+    //                     <BaseText locale size={12} classname='text-greyText mb-1'>
+    //                         Trạng thái:
+    //                     </BaseText>
+    //                     <BaseText locale medium size={12}>
+    //                         Đang giao đồ ăn
+    //                     </BaseText>
+    //                 </BaseView>
+    //             </BaseView>
+    //         </BaseView>
+    //     ),
+    //     []
+    // );
 
     return (
         <BaseView>
             <BaseView classname='h-[56px] bg-blue500 pl-10 flex flex-row items-start justify-between'>
                 {viewLeft}
-                {viewRight}
+                {viewRight()}
             </BaseView>
             {showBatteryWarning && (
                 <BaseView classname='h-[56px] bg-red pl-10 flex flex-row items-center justify-center gap-4'>
