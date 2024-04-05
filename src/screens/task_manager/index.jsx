@@ -1,7 +1,7 @@
 import { BaseScreen } from '@src/components';
 import { TaskHistory } from './components/TaskHistory';
 import { TaskManagement } from './components/TaskManagement';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
 export default function TaskManagerScreen(props) {
@@ -15,9 +15,11 @@ export default function TaskManagerScreen(props) {
         retryOnError: true,
         shouldReconnect: () => true,
         onMessage : (message)=>{
-            console.log("aaaa" , message);
+            setMissions(message)
         }
     });
+
+    const [mission, setMissions] = useState({})
 
     // useEffect(() => {
     //     // if (readyState === ReadyState.OPEN) {
@@ -28,7 +30,7 @@ export default function TaskManagerScreen(props) {
     return (
         <BaseScreen classname='p-10 pb-[62px]'>
             <TaskHistory handleTask={sendJsonMessage}/>
-            <TaskManagement />
+            <TaskManagement mission={mission}/>
         </BaseScreen>
     );
 }

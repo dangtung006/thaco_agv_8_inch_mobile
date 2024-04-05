@@ -15,18 +15,18 @@ import MissionPending from './mission/MissionPending';
 import MissionComponent from './mission/MissionComponent';
 import NoMissons from './NoMisson';
 
-export const TaskManagement = ({ mission }) => {
-    console.log("misssion:::", mission);
+export const TaskManagement = ({ mission  }) => {
+    console.log("misssion:::" , mission);
     const [isEnabledLoop, setIsEnabledLoop] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [missions, setMissions] = useState([]);
     const [modalDeleteTaskVisible, setModalDeleteVisible] = useState(false);
 
     useEffect(() => {
-        // setTimeout(() => {
-        //     setTasks([1]);
-        //     setMissions([1, 2, 3]);
-        // }, 2000);
+        setTimeout(() => {
+            setTasks([1]);
+            setMissions([1, 2, 3]);
+        }, 2000);
     }, []);
 
     const viewModalDeleteTask = () => {

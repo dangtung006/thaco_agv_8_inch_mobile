@@ -2,7 +2,7 @@ import { BaseButton, BaseCard, BaseView, TaskItem } from '@src/components';
 import { FlatList, ActivityIndicator } from 'react-native';
 import { useTaskState } from '@src/store/module/taskStorage';
 import { TouchableHighlight, View } from 'react-native';
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 
 const TouchableItem = ({ item, handleSelectTask, selectedTasks }) => {
     const [backgroundColor, setBackgroundColor] = useState('#E8F7FF');
@@ -49,7 +49,7 @@ export const TaskHistory = ({ handleTask }) => {
         } else {
             selectedTask = selectedTask.filter(item => item != id)
         }
-        
+
         setSelectedTask([
             ...selectedTask
         ]);
