@@ -8,21 +8,27 @@ import {
 } from '@src/components';
 import { MISSION_STATUS } from '@src/utils/constants';
 import { useEffect, useState } from 'react';
-import { FlatList, Switch } from 'react-native';
+import { FlatList, Switch, Text } from 'react-native';
 import MissionProcessing from './mission/MissionProcessing';
 import MissionCompleted from './mission/MissionCompleted';
 import MissionPending from './mission/MissionPending';
 import MissionComponent from './mission/MissionComponent';
 import NoMissons from './NoMisson';
 import { useMissionState } from '@src/store/module/missionStorage';
-
+import BaseOverlay from '@src/components/overlay';
+const MissionProgress = ({ onPress})=>{
+    return(
+        <Text onPress={onPress}>bsfkanfkanvknfknakfnakfnkanvknanfknaakgnaknvkngkangknakvnghaknvka</Text>
+    )
+}
 export const TaskManagement = ({ mission, handleTask }) => {
-    console.log(JSON.parse(mission));
+    // console.log(JSON.parse(mission));
 
     const [isEnabledLoop, setIsEnabledLoop] = useState(false);
     // const [tasks, setTasks] = useState([]);
     // const [missions, setMissions] = useState([]);
     const [modalDeleteTaskVisible, setModalDeleteVisible] = useState(false);
+    const [overlayVisible, setOverlayVisible] = useState(true);
 
     const { selectedTask, clearTask } = useMissionState();
 
@@ -34,15 +40,15 @@ export const TaskManagement = ({ mission, handleTask }) => {
         // resp : : {"data": "{'type': 'info', 'task': 'START', 'message': ('1b6cfd92-5be5-45a5-9f9a-34b846028ff6', 'all_task', \"['57faa0bd-9046-4edd-828b-b1b06e54286c', '192ae2d0-1163-4aa1-8231-e14cf0927e47']\", '2024-04-03 15:31:42')}", "isTrusted": false}
 
         // {"data": "{'type': 'info', 'task': 'RUN', 'message': [{'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}, {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}]}", "isTrusted": false}
-        
+
         // {"data": "{'type': 'info', 'task': 'MOVE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}}", "isTrusted": false}
-        
+
         // {"data": "{'type': 'info', 'task': 'DONE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}}", "isTrusted": false}
-        
+
         //  {"data": "{'type': 'info', 'task': 'MOVE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}}", "isTrusted": false}
-        
+
         //  {"data": "{'type': 'info', 'task': 'DONE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}}", "isTrusted": false}
-        
+
         //  {"data": "{'type': 'info', 'task': 'END', 'message': [{'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}, {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}]}", "isTrusted": false}
     }
 
@@ -126,18 +132,23 @@ export const TaskManagement = ({ mission, handleTask }) => {
     const _buildListMission = () => {
         return (
             <BaseView classname='flex-1'>
-                {selectedTask[0] ? (
-                    <BaseView>
-                        <FlatList
-                            numColumns={2}
-                            data={selectedTask}
-                            renderItem={({ item, index }) => <MissionComponent key={index} task={item} />}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </BaseView>
-                ) : (
-                    <NoMissons />
-                )}
+                <BaseOverlay 
+                    content={<MissionProgress onPress={()=>setOverlayVisible(false)}/>}
+                    overlayVisible={overlayVisible}
+                >
+                    {selectedTask[0] ? (
+                        <BaseView>
+                            <FlatList
+                                numColumns={2}
+                                data={selectedTask}
+                                renderItem={({ item, index }) => <MissionComponent key={index} task={item} />}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        </BaseView>
+                    ) : (
+                        <NoMissons />
+                    )}
+                </BaseOverlay>
             </BaseView>
         );
     };
