@@ -16,23 +16,31 @@ import MissionComponent from './mission/MissionComponent';
 import NoMissons from './NoMisson';
 import { useMissionState } from '@src/store/module/missionStorage';
 import BaseOverlay from '@src/components/overlay';
-const MissionProgress = ({ onPress})=>{
-    return(
-        <Text onPress={onPress}>bsfkanfkanvknfknakfnakfnkanvknanfknaakgnaknvkngkangknakvnghaknvka</Text>
+const MissionProgress = ({ onPress }) => {
+    return (
+        <BaseView classname='w-5/12  h-full flex justify-center items-center'>
+            <BaseView classname='w-12/12 bg-white h-24 p-4 rounded-lg flex justify-center items-center'>
+                <BaseText locale size={16} semiBold>
+                    Vi tri hien tai : 1
+                </BaseText>
+            </BaseView>
+            <BaseButton classname='mt-4 px-10' small title='Xac nhan' onPress={onPress} />
+        </BaseView>
+
     )
 }
 export const TaskManagement = ({ mission, handleTask }) => {
-    // console.log(JSON.parse(mission));
 
     const [isEnabledLoop, setIsEnabledLoop] = useState(false);
     // const [tasks, setTasks] = useState([]);
     // const [missions, setMissions] = useState([]);
     const [modalDeleteTaskVisible, setModalDeleteVisible] = useState(false);
-    const [overlayVisible, setOverlayVisible] = useState(true);
+    const [overlayVisible, setOverlayVisible] = useState(false);
 
     const { selectedTask, clearTask } = useMissionState();
 
     const initMission = () => {
+        setOverlayVisible(true);
         return handleTask({
             "type": "run", "list": selectedTask.map(task => task.id)
         });
@@ -70,7 +78,7 @@ export const TaskManagement = ({ mission, handleTask }) => {
                     setModalDeleteVisible(!modalDeleteTaskVisible);
                 }}
             >
-                <DeleteTask on />
+                <DeleteTask />
             </BaseModal>
         );
     };
@@ -132,8 +140,8 @@ export const TaskManagement = ({ mission, handleTask }) => {
     const _buildListMission = () => {
         return (
             <BaseView classname='flex-1'>
-                <BaseOverlay 
-                    content={<MissionProgress onPress={()=>setOverlayVisible(false)}/>}
+                <BaseOverlay
+                    content={<MissionProgress onPress={() => {}} />}
                     overlayVisible={overlayVisible}
                 >
                     {selectedTask[0] ? (
