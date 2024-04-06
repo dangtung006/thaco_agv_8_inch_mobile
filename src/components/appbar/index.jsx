@@ -112,7 +112,6 @@ export default AppBar = () => {
             <BaseView classname='flex flex-row items-center h-full'>
                 <BaseTouchable
                     onPress={() => {
-                        console.log('back');
                         !isHome && goBack();
                     }}
                 >
@@ -173,10 +172,7 @@ export default AppBar = () => {
                         Cảnh báo: {agv && agv.errors ? agv.errors[0].desc : 'co lo xay ra'}
                     </BaseText>
                     <BaseButton
-                        onPress={() => {
-                            console.log("click");
-                            setShowWarning(false)
-                        }}
+                        onPress={() => setShowWarning(false)}
                         title='Đóng'
                         background='black'
                         small
