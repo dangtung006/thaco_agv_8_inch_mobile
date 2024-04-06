@@ -8,7 +8,7 @@ class MyRequest {
     }
 
     initRequestApi(){
-        return axios.create({ baseURL: this.baseUrl });
+        return axios.create({ baseURL: this.baseUrl , timeout : 1000 *  5});
     }
 
     async getRequest(url, query = {}){

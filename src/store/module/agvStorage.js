@@ -39,26 +39,41 @@ export const useAgvState = create((set) => ({
                 } = data;
 
                 set((state) => {
-                    console.log("state", state);
                     return {
                         agv: {
                             ...state.agv,
                             battery: battery,
-                            isCharging : charging,
+                            isCharging: charging,
                             connected,
-                            ip : current_ip,
-                            errors : errors,
-                            warnings : warnings,
-                            station : station,
-                            battery : battery,
-                            v : Math.sqrt(vx * vx + vy * vy)
+                            ip: current_ip,
+                            errors: errors,
+                            warnings: warnings,
+                            station: station,
+                            battery: battery,
+                            v: Math.sqrt(vx * vx + vy * vy)
                         }
                     }
                 });
+                return true
             }
 
         } catch (e) {
-            console.log(e);
+            const networkErr = {
+                type: 'Netword',
+                message: e.message,
+                desc: "kết nối tới máy chủ bị lỗi"
+            }
+
+            set((state) => {
+                return {
+                    agv: {
+                        ...state.agv,
+                        battery: 70,
+                        errors : [...state.agv.errors, networkErr]
+                    }
+                }
+            });
+            return false;
         }
         finally {
             set({ loading: false })

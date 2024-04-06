@@ -22,7 +22,7 @@ const viewRight = () => {
                         Pin:
                     </BaseText>
                     <BaseText medium size={12}>
-                        {agv.battery && `${agv.battery * 100 }%`}
+                        {agv.battery && `${agv.battery * 100}%`}
                     </BaseText>
                 </BaseView>
             </BaseView>
@@ -48,10 +48,10 @@ export default AppBar = () => {
     const [isHome, setHome] = useState(true);
     const [title, setTitle] = useState('');
     const [batteryLevel, setBatteryLevel] = useState(null);
-    const [showBatteryWarning, setShowBatteryWarning] = useState(false);
-    const { initAgv } = useAgvState()
-
-
+    // const [showBatteryWarning, setShowBatteryWarning] = useState(true);
+    const { initAgv, agv } = useAgvState()
+    const [showWarning, setShowWarning] = useState(false);
+    const [countWarning, setCountWarning] = useState(0);
 
     useEffect(() => {
         if (currentRouter === ROUTES.HOME) {
@@ -72,13 +72,26 @@ export default AppBar = () => {
     }, [navigation]);
 
     useEffect(() => {
-        // let timer = setInterval(async () => {
-        //     await initAgv()
-        // }, 5000);
-        // return () => {
-        //     clearInterval(timer);
-        // };
-    }, [])
+        let Interval = setInterval(async () => {
+            await initAgv();
+        }, 5000);
+
+        return () => {
+            clearInterval(Interval)
+        };
+    }, []);
+
+    useEffect(() => {
+        const {
+            errors
+        } = agv;
+        if(errors && errors.length > 0){
+            if(countWarning == 0) {
+                setShowWarning(true);
+            }
+            countWarning == 0 && setCountWarning(1);
+        }
+    }, [agv])
 
     // useEffect(() => {
     //     const deviceInfoEmitter = new NativeEventEmitter(
@@ -153,13 +166,17 @@ export default AppBar = () => {
                 {viewLeft}
                 {viewRight()}
             </BaseView>
-            {showBatteryWarning && (
+
+            {showWarning && (
                 <BaseView classname='h-[56px] bg-red pl-10 flex flex-row items-center justify-center gap-4'>
                     <BaseText locale size={16} bold classname='text-white'>
-                        Cảnh báo: Robot đang yếu pin
+                        Cảnh báo: {agv && agv.errors ? agv.errors[0].desc : 'co lo xay ra'}
                     </BaseText>
                     <BaseButton
-                        onPress={() => setShowBatteryWarning(false)}
+                        onPress={() => {
+                            console.log("click");
+                            setShowWarning(false)
+                        }}
                         title='Đóng'
                         background='black'
                         small
