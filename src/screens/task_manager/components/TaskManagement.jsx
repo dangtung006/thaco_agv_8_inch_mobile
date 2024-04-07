@@ -41,9 +41,9 @@ export const TaskManagement = ({ mission, handleTask }) => {
 
     const initMission = () => {
         setOverlayVisible(true);
-        return handleTask({
-            "type": "run", "list": selectedTask.map(task => task.id)
-        });
+        // return handleTask({
+        //     "type": "run", "list": selectedTask.map(task => task.id)
+        // });
 
         // resp : : {"data": "{'type': 'info', 'task': 'START', 'message': ('1b6cfd92-5be5-45a5-9f9a-34b846028ff6', 'all_task', \"['57faa0bd-9046-4edd-828b-b1b06e54286c', '192ae2d0-1163-4aa1-8231-e14cf0927e47']\", '2024-04-03 15:31:42')}", "isTrusted": false}
 
@@ -58,6 +58,11 @@ export const TaskManagement = ({ mission, handleTask }) => {
         //  {"data": "{'type': 'info', 'task': 'DONE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}}", "isTrusted": false}
 
         //  {"data": "{'type': 'info', 'task': 'END', 'message': [{'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}, {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}]}", "isTrusted": false}
+    }
+
+    const cancleMission = ()=>{
+        setOverlayVisible(false);
+        return clearTask();
     }
 
     useEffect(() => {
@@ -102,7 +107,7 @@ export const TaskManagement = ({ mission, handleTask }) => {
                     titleColor={selectedTask[0] ? 'red' : 'white'}
                     icon={Images.cancel}
                     title='Hủy'
-                    onPress={clearTask}
+                    onPress={cancleMission}
                 />
                 <BaseButton
                     onPress={() => setModalDeleteVisible(true)}

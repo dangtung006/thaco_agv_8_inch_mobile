@@ -45,7 +45,7 @@ export default function PositionControl({
                                         <BaseView
                                             key={item.id}
                                             classname={classnames(
-                                                'w-56px h-56px rounded-lg flex justify-center items-center',
+                                                'w-64px h-64px rounded-lg flex justify-center items-center',
                                                 `${selectedPos.includes(item.id) ? 'bg-blue' : 'bg-greyBt'}`
                                             )}
                                         >

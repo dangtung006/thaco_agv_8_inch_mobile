@@ -21,7 +21,7 @@ export default TaskPending = ({ onPress, task }) => {
                                     return (
                                         <BaseView
                                             key={index}
-                                            classname='w-8 h-8 mb-2 mr-2 rounded-lg bg-blue flex justify-center items-center'
+                                            classname='w-12 h-12 mb-2 mr-2 rounded-lg bg-blue flex justify-center items-center'
                                         >
                                             <BaseText classname='text-white' bold size={16}>
                                                 {item.name}

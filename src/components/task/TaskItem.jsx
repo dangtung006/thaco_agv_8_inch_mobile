@@ -71,7 +71,7 @@ export default TaskItem = ({
             {/* //////////////////////////////// */}
             <BaseView classname='flex flex-col flex-1 mx-2 '>
                 <BaseView classname='bg-blue rounded-t-lg py-1 px-2'>
-                    <BaseText classname='text-white' size={12}>
+                    <BaseText classname='text-white' size={14}>
                         {task.name}
                     </BaseText>
                 </BaseView>
@@ -82,7 +82,7 @@ export default TaskItem = ({
                                 return (
                                     <BaseView
                                         key={index}
-                                        classname='w-8 h-8 mb-2 mr-2 rounded-lg bg-blue flex justify-center items-center'
+                                        classname='w-14 h-14 mb-2 mr-2 rounded-lg bg-blue flex justify-center items-center'
                                     >
                                         <BaseText classname='text-white' bold size={16}>
                                             {item.name}
