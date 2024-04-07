@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import MyRequest from '@src/utils/request';
+import { BASE_URL, STATIONS } from '@src/utils/constants';
 
 const request = new MyRequest({
-    baseUrl: 'http://192.168.68.111:5000'
+    baseUrl: BASE_URL
 });
 
 export const usePositionState = create((set)=>({
@@ -14,7 +15,7 @@ export const usePositionState = create((set)=>({
             const {
                 result,
                 data
-            } = await request.getRequest("/locals");
+            } = await request.getRequest(STATIONS);
             result && set({ positions : data})
         }catch(e){
             console.log(e);

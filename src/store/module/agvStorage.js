@@ -2,7 +2,8 @@ import { create } from 'zustand';
 import MyRequest from '@src/utils/request';
 
 import { delay } from '@src/utils/time';
-const request = new MyRequest({ baseUrl: 'http://192.168.68.111:5000' });
+import { BASE_URL, AGV_INFO } from '@src/utils/constants';
+const request = new MyRequest({ baseUrl: BASE_URL});
 
 export const useAgvState = create((set) => ({
     agv: {
@@ -23,7 +24,7 @@ export const useAgvState = create((set) => ({
             const {
                 result,
                 data
-            } = await request.getRequest("/status");
+            } = await request.getRequest(AGV_INFO);
 
             if (result) {
                 const {

@@ -3,9 +3,11 @@ import { TaskHistory } from './components/TaskHistory';
 import { TaskManagement } from './components/TaskManagement';
 import { useEffect, useRef, useState } from 'react';
 import useWebSocket, { ReadyState } from "react-use-websocket";
-
+import { BASE_WEBSOCKET_URL, MISSION_PROGRESS } from '@src/utils/constants';
 export default function TaskManagerScreen(props) {
-    const WS_URL = 'ws://192.168.68.111:8765/esatech/run';
+
+    const WS_URL = `${BASE_WEBSOCKET_URL}/${MISSION_PROGRESS}`;
+    
     const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
         onOpen: () => {
             console.log("WebSocket connection established.");

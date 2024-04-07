@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import MyRequest from '@src/utils/request';
+import { BASE_URL, TASKS } from '@src/utils/constants';
 
 export const TASK_PROGRESS_STATUS = {
     INIT: 'INIT',
@@ -8,7 +9,8 @@ export const TASK_PROGRESS_STATUS = {
     ERROR: 'ERROR',
 };
 import { delay } from '@src/utils/time';
-const request = new MyRequest({baseUrl: 'http://192.168.68.111:5000' });
+
+const request = new MyRequest({ baseUrl: BASE_URL });
 
 export const useTaskState = create((set)=>({
     tasks : [],
@@ -21,7 +23,7 @@ export const useTaskState = create((set)=>({
             const {
                 result,
                 data
-            } = await request.getRequest("/scripts");
+            } = await request.getRequest(TASKS);
             console.log("data" , data);
             result && set({ tasks : data})
         }catch(e){
