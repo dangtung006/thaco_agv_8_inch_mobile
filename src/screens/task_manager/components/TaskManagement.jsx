@@ -5,10 +5,12 @@ import {
     BaseModal,
     BaseText,
     BaseView,
+    BaseTouchable,
+    BaseImage
 } from '@src/components';
 import { MISSION_STATUS } from '@src/utils/constants';
 import { useEffect, useState } from 'react';
-import { FlatList, Switch, Text } from 'react-native';
+import { FlatList, Switch, Text, ActivityIndicator } from 'react-native';
 import MissionProcessing from './mission/MissionProcessing';
 import MissionCompleted from './mission/MissionCompleted';
 import MissionPending from './mission/MissionPending';
@@ -16,21 +18,78 @@ import MissionComponent from './mission/MissionComponent';
 import NoMissons from './NoMisson';
 import { useMissionState } from '@src/store/module/missionStorage';
 import BaseOverlay from '@src/components/overlay';
-const MissionProgress = ({ onPress }) => {
+
+const MissionProgress = ({ onPress, missionStatus, onEndTask }) => {
+    const {
+        task,
+        nextTask,
+        status,
+        result
+    } = missionStatus;
+
+    const confirmTask = () => {
+        if (nextTask) {
+            console.log(nextTask);
+        }
+        if (status == 'DONE') {
+            return onEndTask(false);
+        }
+    }
+    const PendingBtn = () => {
+        return (
+            <BaseTouchable
+                classname=' bg-blue mt-4 py-4 px-4 rounded-lg'
+                onPress={() => { }}
+                disabled={true}
+            >
+                <BaseText locale classname='text-white' semiBold size={16}>
+                    {task && task.name ? `Đang đi đến ${task.name}` : 'Đang chờ xử lý'}
+                </BaseText>
+            </BaseTouchable>
+        )
+    }
+
+
+    const CompletedBtn = () => {
+        return (
+            <BaseTouchable
+                classname=' bg-green mt-4 py-4 px-4 rounded-lg'
+                onPress={confirmTask}
+                disabled={false}
+            >
+                <BaseText locale classname='text-white' semiBold size={16}>
+                    Xác nhận
+                </BaseText>
+            </BaseTouchable>
+        )
+    }
     return (
         <BaseView classname='w-5/12  h-full flex justify-center items-center'>
             <BaseView classname='w-12/12 bg-white h-24 p-4 rounded-lg flex justify-center items-center'>
-                <BaseText locale size={16} semiBold>
-                    Vi tri hien tai : 1
-                </BaseText>
+                {
+                    task && task.navigation ? (
+                        <BaseView>
+                            <BaseText locale size={16} semiBold>
+                                Vi tri : {task.name}
+                            </BaseText>
+                            {/* <BaseText>
+                                Trang Thai : {task.navigation}
+                            </BaseText> */}
+                        </BaseView>
+                    ) : <ActivityIndicator size="large" color="#0000ff" />
+                }
             </BaseView>
-            <BaseButton classname='mt-4 px-10' small title='Xac nhan' onPress={onPress} />
+
+            {
+                (task && task.navigation !== 'END') || (!task) ?
+                    PendingBtn() : CompletedBtn()
+            }
+
         </BaseView>
 
     )
 }
-export const TaskManagement = ({ mission, handleTask }) => {
-
+export const TaskManagement = ({ mission, handleTask, resetMission }) => {
     const [isEnabledLoop, setIsEnabledLoop] = useState(false);
     // const [tasks, setTasks] = useState([]);
     // const [missions, setMissions] = useState([]);
@@ -40,29 +99,30 @@ export const TaskManagement = ({ mission, handleTask }) => {
     const { selectedTask, clearTask } = useMissionState();
 
     const initMission = () => {
+        if(!selectedTask[0]) {
+            return false
+        }
+        resetMission();
         setOverlayVisible(true);
-        // return handleTask({
-        //     "type": "run", "list": selectedTask.map(task => task.id)
-        // });
-
-        // resp : : {"data": "{'type': 'info', 'task': 'START', 'message': ('1b6cfd92-5be5-45a5-9f9a-34b846028ff6', 'all_task', \"['57faa0bd-9046-4edd-828b-b1b06e54286c', '192ae2d0-1163-4aa1-8231-e14cf0927e47']\", '2024-04-03 15:31:42')}", "isTrusted": false}
-
-        // {"data": "{'type': 'info', 'task': 'RUN', 'message': [{'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}, {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}]}", "isTrusted": false}
-
-        // {"data": "{'type': 'info', 'task': 'MOVE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}}", "isTrusted": false}
-
-        // {"data": "{'type': 'info', 'task': 'DONE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}}", "isTrusted": false}
-
-        //  {"data": "{'type': 'info', 'task': 'MOVE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}}", "isTrusted": false}
-
-        //  {"data": "{'type': 'info', 'task': 'DONE', 'message': {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}}", "isTrusted": false}
-
-        //  {"data": "{'type': 'info', 'task': 'END', 'message': [{'type': 'navigation', 'operation': '', 'id': 'LM55', 'name': 'Bàn 3'}, {'type': 'navigation', 'operation': '', 'id': 'LM58', 'name': 'Bàn 4'}]}", "isTrusted": false}
+        return handleTask({
+            "type": "run", "list": selectedTask.map(task => task)
+        });
     }
 
-    const cancleMission = ()=>{
-        setOverlayVisible(false);
-        return clearTask();
+    const cancleMission = () => {
+        setModalDeleteVisible(false);
+        clearTask();
+        return handleTask({
+            type : "cancle",
+            mission : mission
+        });
+    }
+
+    const pauseMission = ()=>{
+        return handleTask({
+            type : "pause",
+            mission : mission
+        });
     }
 
     useEffect(() => {
@@ -83,7 +143,27 @@ export const TaskManagement = ({ mission, handleTask }) => {
                     setModalDeleteVisible(!modalDeleteTaskVisible);
                 }}
             >
-                <DeleteTask />
+                <BaseView classname='flex justify-center items-center'>
+                    <BaseView classname='py-30px rounded-2xl bg-white w-7/10 flex flex-col items-center gap-x-4'>
+                        <BaseView classname='w-6/10'>
+                            <BaseView classname='bg-blue200 py-30px rounded-lg flex justify-between items-center'>
+                                <BaseText locale size={16} semiBold>
+                                    Bạn có chắc chắn là muốn xóa không 344444?
+                                </BaseText>
+                            </BaseView>
+                            <BaseImage
+                                source={Images.arrow}
+                                classname='ml-15 w-8 h-8'
+                                tintColor='#E8F7FF'
+                            />
+                        </BaseView>
+                        <BaseImage source={Images.robot5} classname='w-200px h-200px' />
+                    </BaseView>
+                    <BaseView classname='mt-6 flex flex-row w-7/10 gap-x-10'>
+                        <BaseButton title='Có' classname='flex-1' onPress={cancleMission} />
+                        <BaseButton background='red' title='Không' classname='flex-1' onPress={() => setModalDeleteVisible(false)} />
+                    </BaseView>
+                </BaseView>
             </BaseModal>
         );
     };
@@ -107,9 +187,14 @@ export const TaskManagement = ({ mission, handleTask }) => {
                     titleColor={selectedTask[0] ? 'red' : 'white'}
                     icon={Images.cancel}
                     title='Hủy'
-                    onPress={cancleMission}
+                    onPress={()=>{
+                        if(!selectedTask[0]) {
+                            return false
+                        }
+                        return setModalDeleteVisible(true)
+                    }}
                 />
-                <BaseButton
+                {/* <BaseButton
                     onPress={() => setModalDeleteVisible(true)}
                     classname='mr-4 flex-1'
                     small
@@ -138,7 +223,7 @@ export const TaskManagement = ({ mission, handleTask }) => {
                             style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
                         />
                     }
-                />
+                /> */}
             </BaseView>
         );
     };
@@ -146,7 +231,10 @@ export const TaskManagement = ({ mission, handleTask }) => {
         return (
             <BaseView classname='flex-1'>
                 <BaseOverlay
-                    content={<MissionProgress onPress={() => {}} />}
+                    content={<MissionProgress
+                        missionStatus={mission}
+                        onEndTask={setOverlayVisible}
+                    />}
                     overlayVisible={overlayVisible}
                 >
                     {selectedTask[0] ? (

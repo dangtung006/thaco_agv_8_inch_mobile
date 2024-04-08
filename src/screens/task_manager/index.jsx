@@ -6,8 +6,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BASE_WEBSOCKET_URL, MISSION_PROGRESS } from '@src/utils/constants';
 export default function TaskManagerScreen(props) {
 
-    const WS_URL = `${BASE_WEBSOCKET_URL}/${MISSION_PROGRESS}`;
-    
+    const WS_URL = `${BASE_WEBSOCKET_URL}${MISSION_PROGRESS}`;
     const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
         onOpen: () => {
             console.log("WebSocket connection established.");
@@ -17,7 +16,11 @@ export default function TaskManagerScreen(props) {
         retryOnError: true,
         shouldReconnect: () => true,
         onMessage : (message)=>{
-            setMissions(message)
+            const {
+                data
+            } = message
+            const mission = JSON.parse(data);
+            setMissions(mission)
         }
     });
 
@@ -31,8 +34,17 @@ export default function TaskManagerScreen(props) {
 
     return (
         <BaseScreen classname='p-10 pb-[62px]'>
-            <TaskHistory handleTask={sendJsonMessage}/>
-            <TaskManagement mission={mission} handleTask={sendJsonMessage}/>
+
+            <TaskHistory 
+                handleTask={sendJsonMessage}
+            />
+
+            <TaskManagement 
+                mission={mission}
+                resetMission = {()=> setMissions({})}
+                handleTask={sendJsonMessage}
+            />
+
         </BaseScreen>
     );
 }

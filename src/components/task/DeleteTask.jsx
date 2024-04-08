@@ -17,7 +17,7 @@ export default DeleteTask = ({
     const { handleTask, taskProgress, setTaskProgress } = useTaskState();
 
     useEffect(()=>{
-        !taskProgress != TASK_PROGRESS_STATUS.INIT && setTaskProgress(TASK_PROGRESS_STATUS.INIT)
+        taskProgress != TASK_PROGRESS_STATUS.INIT && setTaskProgress(TASK_PROGRESS_STATUS.INIT)
     }, [])
     const onDeleteTask = () => {
         return handleTask({

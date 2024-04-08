@@ -10,9 +10,14 @@ const TouchableItem = ({ item, handleSelectTask, selectedTasks }) => {
     const [isTogle, setIsTogle] = useState(false);
 
     useEffect(() => {
-        let selectGg = selectedTasks.includes(item.id) ? "#83D2FF" : ' #E8F7FF';
+        let selectGg = selectedTasks.includes(item.id) ? "#83D2FF" : "#E8F7FF";
         setBackgroundColor(selectGg)
     }, [isTogle]);
+
+    useEffect(()=>{
+        if(selectedTasks && selectedTasks.length == 0)
+        setBackgroundColor("#E8F7FF")
+    }, [selectedTasks])
 
     return (
         <View key={item.id}>
@@ -59,8 +64,10 @@ export const TaskHistory = ({ handleTask }) => {
     }
 
     const createMission = ()=>{
+        if(!tasks && tasks.length < 0) return;
         let select = tasks.filter(task => selectedTasks.includes(task.id))
         InitpendingTask(select)
+        setSelectedTask([]);
     }
 
     const _listTask = () => {
@@ -89,7 +96,28 @@ export const TaskHistory = ({ handleTask }) => {
     return (
         <BaseView classname='w-5/12  h-full flex justify-center items-center'>
             <BaseCard title='Lịch sử Task' children={_listTask()} />
-            <BaseButton classname='mt-4 px-10' small title='Tạo nhiệm vụ' onPress={createMission}/>
+            <BaseButton 
+                classname='mt-4 px-10' 
+                small 
+                title='Tạo nhiệm vụ' 
+                onPress={createMission}
+                background={ tasks && tasks.length > 0 ? 'blue500' : 'greyBt'}
+            />
+            {/* <BaseButton
+                    classname='mr-4 flex-1'
+                    small
+                    background={selectedTask[0] ? 'white' : 'greyBt'}
+                    iconColor={selectedTask[0] ? 'red' : 'white'}
+                    titleColor={selectedTask[0] ? 'red' : 'white'}
+                    icon={Images.cancel}
+                    title='Hủy'
+                    onPress={()=>{
+                        if(!selectedTask[0]) {
+                            return false
+                        }
+                        return setModalDeleteVisible(true)
+                    }}
+                /> */}
         </BaseView>
     );
 };

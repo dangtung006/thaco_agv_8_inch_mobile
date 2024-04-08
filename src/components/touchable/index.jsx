@@ -9,6 +9,7 @@ export default function BaseTouchable({
     onPress,
     activeOpacity,
     withoutFeedback,
+    disabled
 }) {
     const { setSleep } = useCommonState((state) => state);
     return (
@@ -24,6 +25,7 @@ export default function BaseTouchable({
                     }}
                     onPress={onPress}
                     style={tw`${classname}`}
+                    disabled={disabled}
                 >
                     {children}
                 </TouchableWithoutFeedback>
@@ -32,6 +34,7 @@ export default function BaseTouchable({
                     activeOpacity={activeOpacity}
                     onPress={onPress}
                     style={tw`${classname}`}
+                    disabled={disabled}
                 >
                     {children}
                 </TouchableOpacity>

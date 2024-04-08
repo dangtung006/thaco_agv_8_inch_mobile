@@ -24,7 +24,7 @@ export const useTaskState = create((set)=>({
                 result,
                 data
             } = await request.getRequest(TASKS);
-            console.log("data" , data);
+            
             result && set({ tasks : data})
         }catch(e){
             console.log(e);
@@ -40,7 +40,7 @@ export const useTaskState = create((set)=>({
             const {
                 result,
                 data
-            } = await request.postRequest("/scripts", { 'type' : type , 'data' : task });
+            } = await request.postRequest(TASKS, { 'type' : type , 'data' : task });
             if(result) {
                 set({ taskProgress : TASK_PROGRESS_STATUS.COMPLETED });
                 await delay(3);
