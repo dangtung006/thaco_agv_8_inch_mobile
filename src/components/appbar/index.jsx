@@ -21,7 +21,7 @@ const viewRight = () => {
                     <BaseText size={12} classname='text-greyText mb-1'>
                         Pin:
                     </BaseText>
-                    <BaseText medium size={12}>
+                    <BaseText medium size={18}>
                         {agv.battery && `${agv.battery * 100}%`}
                     </BaseText>
                 </BaseView>
@@ -33,7 +33,7 @@ const viewRight = () => {
                     <BaseText locale size={12} classname='text-greyText mb-1'>
                         Trạng thái:
                     </BaseText>
-                    <BaseText locale medium size={12}>
+                    <BaseText locale medium size={18}>
                         Đang giao đồ ăn
                     </BaseText>
                 </BaseView>

@@ -54,5 +54,8 @@ export const useTaskState = create((set)=>({
 
     setTaskProgress : (process)=>{
         set({ taskProgress : process })
+    },
+    resetTask : async()=>{
+        set({ tasks : [] })
     }
 }))

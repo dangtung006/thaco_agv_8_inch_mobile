@@ -56,13 +56,13 @@ export default function RoboInfoScreen(props) {
         return (
             <BaseView classname='w-6/12  h-full flex justify-center items-start'>
                 {infoItem('Pin', Images.batteryBg, `${(agv.battery * 100)} %`)}
-                {infoItem('Tốc độ', Images.speedBg, `${agv.v} Km/h`)}
+                {infoItem('Tốc độ', Images.speedBg, `${agv.v} m/phút`)}
                 {infoItem('Trạng thái', Images.statusBg, 'Đang giao đồ ăn')}
                 {infoItem('IP', Images.statusBg, agv.ip)}
                 {infoItem(
                     'Vị trí hiện tại',
                     Images.locationBg,
-                    <BaseView classname='w-10 h-10 bg-blue rounded-lg flex items-center justify-center'>
+                    <BaseView classname='w-18 h-10 bg-blue rounded-lg flex items-center justify-center'>
                         <BaseText bold classname='text-white' size={24}>
                             {agv.station}
                         </BaseText>

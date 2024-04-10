@@ -69,8 +69,11 @@ const MissionProgress = ({ onPress, missionStatus, onEndTask }) => {
                 {
                     task && task.navigation ? (
                         <BaseView>
-                            <BaseText locale size={16} semiBold>
-                                Vi tri : {task.name}
+                            <BaseText 
+                                locale size={24} 
+                                semiBold 
+                                color="#ccc">
+                                Vị Trí : {task.name}
                             </BaseText>
                             {/* <BaseText>
                                 Trang Thai : {task.navigation}
@@ -148,7 +151,7 @@ export const TaskManagement = ({ mission, handleTask, resetMission }) => {
                         <BaseView classname='w-6/10'>
                             <BaseView classname='bg-blue200 py-30px rounded-lg flex justify-between items-center'>
                                 <BaseText locale size={16} semiBold>
-                                    Bạn có chắc chắn là muốn xóa không 344444?
+                                    Bạn có chắc chắn là muốn xóa không ?
                                 </BaseText>
                             </BaseView>
                             <BaseImage

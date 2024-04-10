@@ -69,7 +69,10 @@ export const useAgvState = create((set) => ({
                 return {
                     agv: {
                         ...state.agv,
-                        battery: 70,
+                        battery: 0.7,
+                        v : 5,
+                        station : "Sạc",
+                        ip : '192.168.68.106',
                         errors : [...state.agv.errors, networkErr]
                     }
                 }
