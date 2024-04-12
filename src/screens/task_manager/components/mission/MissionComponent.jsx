@@ -5,7 +5,7 @@ import MissionProcessing from './MissionProcessing';
 import MissionCompleted from './MissionCompleted';
 import { BaseView } from '@src/components';
 import { Text } from "react-native";
-export default MissionComponent = ({ task }) => {
+export default MissionComponent = ({ task , num }) => {
     const [taskStatus, setTaskStatus] = useState(MISSION_STATUS.PENDING);
     // const _buildMission = () => {
     //     let task;
@@ -37,6 +37,7 @@ export default MissionComponent = ({ task }) => {
     // return <BaseView classname='w-1/2'>{_buildMission()}</BaseView>;
     return <BaseView classname='w-1/1'>
         <MissionPending
+            num={num}
             task={task}
             onPress={() => {
                 // setTaskStatus(MISSION_STATUS.PROCESSING);

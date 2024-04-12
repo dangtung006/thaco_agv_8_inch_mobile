@@ -43,14 +43,13 @@ export const useAgvState = create((set) => ({
                     return {
                         agv: {
                             ...state.agv,
-                            battery: battery,
                             isCharging: charging,
                             connected,
                             ip: current_ip,
                             errors: errors,
                             warnings: warnings,
                             station: station,
-                            battery: battery,
+                            battery: battery ? Math.floor(battery) : 0,
                             v: Math.sqrt(vx * vx + vy * vy)
                         }
                     }
@@ -69,10 +68,10 @@ export const useAgvState = create((set) => ({
                 return {
                     agv: {
                         ...state.agv,
-                        battery: 0.7,
-                        v : 5,
-                        station : "Sạc",
-                        ip : '192.168.68.106',
+                        // battery: 0.7,
+                        // v : 5,
+                        // station : "Sạc",
+                        // ip : '192.168.68.106',
                         errors : [...state.agv.errors, networkErr]
                     }
                 }
@@ -82,5 +81,35 @@ export const useAgvState = create((set) => ({
         finally {
             set({ loading: false })
         }
+    },
+
+    setRobotStatus : (data)=>{
+        const {
+            current_station: station,
+            battery_level: battery,
+            vx,
+            vy,
+            charging,
+            connected,
+            current_ip,
+            errors,
+            warnings
+        } = data;
+
+        set((state) => {
+            return {
+                agv: {
+                    ...state.agv,
+                    isCharging: charging,
+                    connected,
+                    ip: current_ip,
+                    errors: errors,
+                    warnings: warnings,
+                    station: station,
+                    battery: battery,
+                    v: Math.sqrt(vx * vx + vy * vy)
+                }
+            }
+        });
     }
 }))

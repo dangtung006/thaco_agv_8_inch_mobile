@@ -10,7 +10,7 @@ import {
 } from '@src/components';
 import { MISSION_STATUS } from '@src/utils/constants';
 import { useEffect, useState } from 'react';
-import { FlatList, Switch, Text, ActivityIndicator } from 'react-native';
+import { FlatList, Switch, Text, ActivityIndicator, View } from 'react-native';
 import MissionProcessing from './mission/MissionProcessing';
 import MissionCompleted from './mission/MissionCompleted';
 import MissionPending from './mission/MissionPending';
@@ -19,22 +19,26 @@ import NoMissons from './NoMisson';
 import { useMissionState } from '@src/store/module/missionStorage';
 import BaseOverlay from '@src/components/overlay';
 
-const MissionProgress = ({ onPress, missionStatus, onEndTask }) => {
+const MissionProgress = ({
+    confirmMission
+}) => {
+
     const {
+        missionProgress
+    } = useMissionState();
+
+    const {
+        type,
         task,
-        nextTask,
-        status,
-        result
-    } = missionStatus;
+        message
+    } = missionProgress;
 
     const confirmTask = () => {
-        if (nextTask) {
-            console.log(nextTask);
-        }
-        if (status == 'DONE') {
-            return onEndTask(false);
+        if (task && task == 'DONE') {
+            return confirmMission();
         }
     }
+
     const PendingBtn = () => {
         return (
             <BaseTouchable
@@ -43,7 +47,7 @@ const MissionProgress = ({ onPress, missionStatus, onEndTask }) => {
                 disabled={true}
             >
                 <BaseText locale classname='text-white' semiBold size={16}>
-                    {task && task.name ? `Đang đi đến ${task.name}` : 'Đang chờ xử lý'}
+                    {message && message.name ? `Đang đi đến ${message.name}` : 'Đang chờ xử lý'}
                 </BaseText>
             </BaseTouchable>
         )
@@ -67,13 +71,13 @@ const MissionProgress = ({ onPress, missionStatus, onEndTask }) => {
         <BaseView classname='w-5/12  h-full flex justify-center items-center'>
             <BaseView classname='w-12/12 bg-white h-24 p-4 rounded-lg flex justify-center items-center'>
                 {
-                    task && task.navigation ? (
+                    message && message.type && message.type == 'navigation' && message.name ? (
                         <BaseView>
-                            <BaseText 
-                                locale size={24} 
-                                semiBold 
+                            <BaseText
+                                locale size={24}
+                                semiBold
                                 color="#ccc">
-                                Vị Trí : {task.name}
+                                Vị Trí : {message.name}
                             </BaseText>
                             {/* <BaseText>
                                 Trang Thai : {task.navigation}
@@ -84,56 +88,121 @@ const MissionProgress = ({ onPress, missionStatus, onEndTask }) => {
             </BaseView>
 
             {
-                (task && task.navigation !== 'END') || (!task) ?
-                    PendingBtn() : CompletedBtn()
+                task && task == 'DONE' ? CompletedBtn() : PendingBtn()
             }
 
         </BaseView>
 
     )
 }
-export const TaskManagement = ({ mission, handleTask, resetMission }) => {
-    const [isEnabledLoop, setIsEnabledLoop] = useState(false);
-    // const [tasks, setTasks] = useState([]);
-    // const [missions, setMissions] = useState([]);
+export const TaskManagement = ({
+    selectedTasks,
+    handleTask
+}) => {
+    const {
+        pendingSelectedTask,
+        clearTask,
+        missionProgress,
+        isVisibleOverlayProgress,
+        setVisibleOverlayProgress,
+        setPendingSelectedTask,
+        setMissionProgress,
+        clearPendingTask
+    } = useMissionState();
+
+    const {
+        task
+    } = missionProgress;
+
     const [modalDeleteTaskVisible, setModalDeleteVisible] = useState(false);
-    const [overlayVisible, setOverlayVisible] = useState(false);
+    const [isPause, setPause] = useState(true);
 
-    const { selectedTask, clearTask } = useMissionState();
+    const confirmMission = () => {
+        return handleTask({ type: "confirm", "list": pendingSelectedTask.map(task => task.id) });
+    }
 
-    const initMission = () => {
-        if(!selectedTask[0]) {
-            return false
-        }
-        resetMission();
-        setOverlayVisible(true);
-        return handleTask({
-            "type": "run", "list": selectedTask.map(task => task)
-        });
+
+    const pauseMission = () => {
+        return handleTask({ type: "pause" });
+    }
+
+    const resumeMission = () => {
+        return handleTask({ type: "resume" })
+    }
+
+    const validateCancle = ()=>{
+        if (!pendingSelectedTask || pendingSelectedTask.length <= 0) return false;
+        return true;
     }
 
     const cancleMission = () => {
-        setModalDeleteVisible(false);
-        clearTask();
-        return handleTask({
-            type : "cancle",
-            mission : mission
-        });
+        if(validateCancle() == true) {
+            setMissionProgress({});
+            setModalDeleteVisible(false);
+            setVisibleOverlayProgress(false);
+            return handleTask({ type: "cancel" });
+        }
     }
 
-    const pauseMission = ()=>{
-        return handleTask({
-            type : "pause",
-            mission : mission
-        });
+    const validateLoopMission = ()=>{
+        if (!pendingSelectedTask || pendingSelectedTask.length <= 0) return false;
+        if(task && task != 'END') return false;
+        if(isVisibleOverlayProgress == true) return false;
+        
+        return true;
+    }
+
+    const loopMision = () => {
+        if(validateLoopMission() == true){
+            setVisibleOverlayProgress(true);
+            return handleTask({ type: "run", "list": pendingSelectedTask.map(task => task.id) });
+        }
+    }
+
+    const validateRemove = ()=>{
+        console.log()
+        const {
+            task,
+            message
+        } = missionProgress;
+
+        if (pendingSelectedTask.length == 0) return false;
+        if(isVisibleOverlayProgress == true) return false;
+        if (task && task != 'END') return false;
+        
+        return true
+    }
+
+    const removeMission = () => {
+        if (validateRemove() == true) {
+            setVisibleOverlayProgress(false),
+            setMissionProgress({});
+            clearPendingTask();
+        }
+    }
+
+    function loadTaskPending(){
+        if(selectedTasks && selectedTasks.length> 0) return selectedTasks;
+        return pendingSelectedTask;
     }
 
     useEffect(() => {
-        // setTimeout(() => {
-        //     setTasks([1]);
-        //     setMissions([1, 2, 3]);
-        // }, 2000);
-    }, []);
+        const {
+            message
+        } = missionProgress;
+        if (message && message == 'pause') {
+            setPause(false);
+        } else {
+            setPause(true);
+        }
+    }, [missionProgress]);
+
+    // useEffect(() => {
+    //     // setTimeout(() => {
+    //     //     setTasks([1]);
+    //     //     setMissions([1, 2, 3]);
+    //     // }, 2000);
+    // }, []);
 
     const viewModalDeleteTask = () => {
         return (
@@ -174,77 +243,91 @@ export const TaskManagement = ({ mission, handleTask, resetMission }) => {
     const _buildAction = () => {
         return (
             <BaseView classname='mt-4 w-full flex flex-row justify-center'>
+                {
+                    isPause ? (<BaseButton
+                        small
+                        classname='mr-4 flex-1'
+                        background={pendingSelectedTask[0] ? 'orange' : 'greyBt'}
+                        icon={Images.pause}
+                        title={'Dừng Lại'}
+                        onPress={pauseMission}
+                    />) : (<BaseButton
+                        small
+                        classname='mr-4 flex-1'
+                        background={pendingSelectedTask[0] ? 'blue500' : 'greyBt'}
+                        icon={Images.play}
+                        title={'Hồi Phục'}
+                        onPress={resumeMission}
+                    />)
+                }
+
                 <BaseButton
-                    small
-                    classname='mr-4 flex-1'
-                    background={selectedTask[0] ? 'blue500' : 'greyBt'}
-                    icon={Images.play}
-                    title='Chạy'
-                    onPress={initMission}
-                />
-                <BaseButton
                     classname='mr-4 flex-1'
                     small
-                    background={selectedTask[0] ? 'white' : 'greyBt'}
-                    iconColor={selectedTask[0] ? 'red' : 'white'}
-                    titleColor={selectedTask[0] ? 'red' : 'white'}
+                    disabled={validateCancle() == false} 
+                    background={validateCancle() == true ? 'white' : 'greyBt'}
+                    iconColor={validateCancle() == true ? 'red' : 'white'}
+                    titleColor={validateCancle() == true ? 'red' : 'white'}
                     icon={Images.cancel}
                     title='Hủy'
-                    onPress={()=>{
-                        if(!selectedTask[0]) {
+                    onPress={() => {
+                        if (!pendingSelectedTask[0]) {
                             return false
                         }
                         return setModalDeleteVisible(true)
                     }}
                 />
-                {/* <BaseButton
-                    onPress={() => setModalDeleteVisible(true)}
+                <BaseButton
+                    onPress={removeMission}
                     classname='mr-4 flex-1'
                     small
-                    background={selectedTask[0] ? 'red' : 'greyBt'}
-                    iconColor={selectedTask[0] ? 'white' : 'white'}
-                    titleColor={selectedTask[0] ? 'white' : 'white'}
+                    disabled={validateRemove() == false}
+                    background={validateRemove() == true ? 'red' : 'greyBt'}
+                    iconColor={validateRemove() == true ? 'white' : 'white'}
+                    titleColor={validateRemove() == true ? 'white' : 'white'}
                     icon={Images.remove}
                     title='Xóa'
                 />
                 <BaseButton
                     small
-                    onPress={() => setIsEnabledLoop((previousState) => !previousState)}
+                    disabled={validateLoopMission() == false}
+                    // onPress={() => setIsEnabledLoop((previousState) => !previousState)}
+                    onPress={loopMision}
                     classname='pr-2 w-[210px]'
-                    background={selectedTask[0] ? 'white' : 'greyBt'}
-                    iconColor={selectedTask[0] ? 'black' : 'white'}
-                    titleColor={selectedTask[0] ? 'black' : 'white'}
+                    background={validateLoopMission() == true ? 'white' : 'greyBt'}
+                    iconColor={validateLoopMission() == true ? 'black' : 'white'}
+                    titleColor={validateLoopMission() == true ?  'black' : 'white'}
                     icon={Images.loop}
                     title='Lặp lại'
-                    rightWidget={
-                        <Switch
-                            onValueChange={() =>
-                                setIsEnabledLoop((previousState) => !previousState)
-                            }
-                            thumbColor={isEnabledLoop ? '#377DE5' : '#f4f3f4'}
-                            value={isEnabledLoop}
-                            style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
-                        />
-                    }
-                /> */}
+                // rightWidget={
+                //     <Switch
+                //         onValueChange={() =>
+                //             setIsEnabledLoop((previousState) => !previousState)
+                //         }
+                //         thumbColor={isEnabledLoop ? '#377DE5' : '#f4f3f4'}
+                //         value={isEnabledLoop}
+                //         style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
+                //     />
+                // }
+                />
             </BaseView>
         );
     };
+
     const _buildListMission = () => {
         return (
             <BaseView classname='flex-1'>
                 <BaseOverlay
                     content={<MissionProgress
-                        missionStatus={mission}
-                        onEndTask={setOverlayVisible}
+                        confirmMission={confirmMission}
                     />}
-                    overlayVisible={overlayVisible}
+                    overlayVisible={isVisibleOverlayProgress}
                 >
-                    {selectedTask[0] ? (
+                    {pendingSelectedTask ? (
                         <BaseView>
                             <FlatList
                                 numColumns={2}
-                                data={selectedTask}
+                                data={pendingSelectedTask}
                                 renderItem={({ item, index }) => <MissionComponent key={index} task={item} />}
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -257,9 +340,63 @@ export const TaskManagement = ({ mission, handleTask, resetMission }) => {
         );
     };
 
+    const _listPendingTask = () => {
+        return (
+            <BaseView>
+                <View style={[
+                    {
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        position: 'relative',
+                        height: '100%',
+                        overflow: 'hidden'
+                    }
+                ]}>
+                    <View style={[{ position: 'absolute' }]}>
+                        <BaseView>
+                            <FlatList
+                                style={{ paddingVertical: 16 }}
+                                data={loadTaskPending()}
+                                renderItem={({ item, index }) => <MissionComponent
+                                    task={item}
+                                    key={item.id}
+                                    num={index + 1}
+                                />
+                                }
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        </BaseView>
+                    </View>
+
+                    {
+                        isVisibleOverlayProgress && (
+                            <View style={[{
+                                overflow: 'hidden',
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }]}>
+                                <MissionProgress
+                                    confirmMission={confirmMission}
+                                />
+                            </View>
+
+                        )
+                    }
+                </View>
+            </BaseView>
+        )
+    }
+
     return (
         <BaseView classname='w-7/12 ml-4 h-full flex justify-center items-start'>
-            <BaseCard title='Nhiệm vụ' children={_buildListMission()} />
+            {/* <BaseCard title='Nhiệm vụ' children={_buildListMission()} /> */}
+            <BaseCard title='Nhiệm vụ' children={_listPendingTask()} />
             {_buildAction()}
             {viewModalDeleteTask()}
         </BaseView>

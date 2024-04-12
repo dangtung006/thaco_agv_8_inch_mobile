@@ -7,10 +7,12 @@ export default BaseTextInput = ({
     value,
     placeholder,
     classname = '',
-    changeInput=()=>{}
+    changeInput=()=>{},
+    onFocus = ()=>{}
 }) => {
     return (
         <TextInput
+            onFocus={onFocus}
             onChangeText={changeInput}
             defaultValue={defaultValue}
             value={value}

@@ -2,17 +2,18 @@ import { create } from 'zustand';
 
 
 export const useMissionState = create((set)=>({
-    selectedTask : [],
+    pendingSelectedTask : [],
+    missionProgress : {},
+    isVisibleOverlayProgress : false,
 
-    missionProgress : {
 
+    setVisibleOverlayProgress : async (val) => set({ isVisibleOverlayProgress : val}),
+
+    setMissionProgress : (progress)=> set({ missionProgress : progress}),
+    
+    setPendingSelectedTask : async (tasks)=> {
+        set({pendingSelectedTask : tasks})
     },
 
-    setSelectedTask : (task)=>{
-        set({ selectedTask : task })
-    },
-
-    clearTask : ()=>{
-        set({selectedTask : []})
-    }
+    clearPendingTask :  async() => set({pendingSelectedTask : []})
 }))

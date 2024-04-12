@@ -55,7 +55,7 @@ export default function MovementControlScreen(props) {
                 <BaseView classname='w-full flex-1 flex items-end justify-center flex-row '>
                     <BaseButton
                         onPress={handleCreateTask}
-                        title='Tạo Task'
+                        title='Tạo công việc'
                         width={300}
                         background={ positions && positions.length > 0 ? 'orange' : 'greyBt'}
                         titleColor={ positions && positions.length > 0 ? 'black' : 'white'}

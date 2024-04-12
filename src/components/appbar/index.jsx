@@ -10,9 +10,12 @@ import BaseTouchable from '../touchable';
 import BaseImage from '../image';
 import { BaseButton } from '..';
 import { useAgvState } from '@src/store/module/agvStorage';
+import useWebSocket, { ReadyState } from "react-use-websocket";
+import { BASE_WEBSOCKET_URL, ROBOT_STATUS } from '@src/utils/constants';
 
 const viewRight = () => {
-    const { agv } = useAgvState()
+    const { agv } = useAgvState();
+    console
     return (
         <BaseView classname='pb-[2px] h-full flex flex-row'>
             <BaseView classname='px-10 bg-white h-full flex flex-row items-center '>
@@ -22,7 +25,7 @@ const viewRight = () => {
                         Pin:
                     </BaseText>
                     <BaseText medium size={18}>
-                        {agv.battery && `${agv.battery * 100}%`}
+                        {agv.battery && `${Math.floor(agv.battery * 100)}%`}
                     </BaseText>
                 </BaseView>
             </BaseView>
@@ -49,9 +52,28 @@ export default AppBar = () => {
     const [title, setTitle] = useState('');
     const [batteryLevel, setBatteryLevel] = useState(null);
     // const [showBatteryWarning, setShowBatteryWarning] = useState(true);
-    const { initAgv, agv } = useAgvState()
+    const { setRobotStatus, agv } = useAgvState()
     const [showWarning, setShowWarning] = useState(false);
     const [countWarning, setCountWarning] = useState(0);
+    const WS_URL = `${BASE_WEBSOCKET_URL}${ROBOT_STATUS}`;
+
+    const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
+        onOpen: () => {
+            console.log("WebSocket connection established.");
+        },
+        share: true,
+        filter: () => false,
+        retryOnError: true,
+        shouldReconnect: () => true,
+        onMessage: (message) => {
+            const {
+                data
+            } = message;
+
+            const robot = JSON.parse(data);
+            robot.Robot && setRobotStatus(robot.Robot);
+        }
+    });
 
     useEffect(() => {
         if (currentRouter === ROUTES.HOME) {
@@ -71,15 +93,15 @@ export default AppBar = () => {
         return () => unsubscribe();
     }, [navigation]);
 
-    useEffect(() => {
-        let Interval = setInterval(async () => {
-            await initAgv();
-        }, 5000);
+    // useEffect(() => {
+    //     let Interval = setInterval(async () => {
+    //         await initAgv();
+    //     }, 5000);
 
-        return () => {
-            clearInterval(Interval)
-        };
-    }, []);
+    //     return () => {
+    //         clearInterval(Interval)
+    //     };
+    // }, []);
 
     useEffect(() => {
         const {
@@ -169,7 +191,7 @@ export default AppBar = () => {
             {showWarning && (
                 <BaseView classname='h-[56px] bg-red pl-10 flex flex-row items-center justify-center gap-4'>
                     <BaseText locale size={16} bold classname='text-white'>
-                        Cảnh báo: {agv && agv.errors ? agv.errors[0].desc : 'co lo xay ra'}
+                        Cảnh báo: {agv && agv.errors && agv.errors.length > 0 ? agv.errors[0].desc : 'co lo xay ra'}
                     </BaseText>
                     <BaseButton
                         onPress={() => setShowWarning(false)}

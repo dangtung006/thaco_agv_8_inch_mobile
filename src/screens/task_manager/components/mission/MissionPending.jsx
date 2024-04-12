@@ -1,12 +1,12 @@
 import { BaseText, BaseTouchable, BaseView } from '@src/components';
 import { Overlay } from 'react-native-elements';
-export default TaskPending = ({ onPress, task }) => {
+export default TaskPending = ({ onPress, task, num }) => {
     return (
         <BaseView classname='flex flex-row p-4 w-full'>
             <BaseView classname='flex flex-row p-1 rounded-lg items-center w-full'>
                 <BaseView classname='bg-white border border-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
                     <BaseText size={16} bold>
-                        1
+                        {num}
                     </BaseText>
                 </BaseView>
                 <BaseView classname='flex-1 flex flex-row ml-2 bg-white border border-black rounded-lg items-center p-2'>

@@ -5,6 +5,7 @@ import {
     BaseText,
     BaseTouchable,
     BaseView,
+    BaseTextInput
 } from '@src/components';
 import { classnames } from '@src/utils/common';
 import { useEffect, useState } from 'react';
@@ -24,6 +25,7 @@ export default UpdateTask = ({
 
     const [updatePos, setUpdatePos] = useState(task.list_station);
     const { handleTask, taskProgress, setTaskProgress } = useTaskState();
+    const [editTaskName, setEditTaskName] = useState(task.name)
 
     const handleRemove = (point) => {
         let newPos = [...updatePos];
@@ -31,19 +33,19 @@ export default UpdateTask = ({
         setUpdatePos(newPos)
     }
 
-    const onUpdateTask = ()=>{
+    const onUpdateTask = () => {
         return handleTask({
-                "type": "update",
-                "data": {
-                    "id": task.id,
-                    "name": task.name,
-                    "tasks": updatePos.map(pos=> pos.id)
-                }
-            
+            "type": "update",
+            "data": {
+                "id": task.id,
+                "name": editTaskName,
+                "tasks": updatePos.map(pos => pos.id)
+            }
+
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         !taskProgress != TASK_PROGRESS_STATUS.INIT && setTaskProgress(TASK_PROGRESS_STATUS.INIT)
     }, []);
 
@@ -57,12 +59,36 @@ export default UpdateTask = ({
                         'rounded-2xl bg-white flex flex-col max-h-7.5/10 border border-blue'
                     )}
                 >
-                    <BaseView classname='h-8 bg-blue flex flex-row rounded-t-2xl justify-between items-center px-4'>
-                        <BaseText classname='text-white'>{task ? task.name : ''}</BaseText>
+                    <BaseView classname='h-18 bg-blue flex flex-row rounded-t-2xl justify-between items-center px-4'>
+                        <BaseTextInput
+                            placeholder='Điền tên task...'
+                            classname='flex-1 h-56px text-lg'
+                            value={editTaskName}
+                            changeInput={setEditTaskName}
+                        />
                         <BaseTouchable classname='w-6 h-6 flex justify-center items-center '>
                             <BaseImage source={Images.edit2} classname='w-18px h-18px' />
                         </BaseTouchable>
                     </BaseView>
+
+                    {/* <BaseView classname='flex justify-center items-center'>
+                        <BaseView classname='p-4 rounded-lg bg-white w-6/10 flex flex-row items-center gap-x-4'>
+                            <BaseTextInput
+                                placeholder='Điền tên task...'
+                                classname='flex-1 h-46px'
+                                value={'a'}
+                            changeInput={setTaskName}
+                            />
+                            <BaseButton
+                                // onPress={onCreateTask}
+                                small
+                                title='Xác nhận'
+                            />
+                            <BaseTouchable classname='w-6 h-6 flex justify-center items-center '>
+                                <BaseImage source={Images.edit2} classname='w-18px h-18px' />
+                            </BaseTouchable>
+                        </BaseView>
+                    </BaseView> */}
                     <FlatList
                         numColumns={3}
                         data={updatePos}

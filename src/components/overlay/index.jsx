@@ -13,7 +13,6 @@ export default function BaseOverlay({
         <View style={styles.container}>
             <View>
                 { children }
-
             </View>
             {
                 overlayVisible && (
@@ -51,3 +50,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }
 });
+
+  {/* <View style={[
+                    {
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        overflow : 'hidden',
+                        borderBottomLeftRadius : 10,
+                        borderBottomRightRadius : 10,
+                        position : 'relative'
+                    }
+                ]}>
+                </View> */}

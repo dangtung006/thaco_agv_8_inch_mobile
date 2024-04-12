@@ -17,6 +17,7 @@ import {
 } from '@src/components';
 
 const TaskItem = ({
+    num,
     item,
     selectedTasks,
     handleSelectTask
@@ -24,17 +25,16 @@ const TaskItem = ({
 
     const [isEnabledLoop, setIsEnabledLoop] = useState(false);
     const handleCheckboxChange = (value) => {
-        console.log("change", value);
         return handleSelectTask(item)
     }
     return (
         <BaseView classname='flex flex-row w-full mb-4 py-2 px-3 items-center'>
 
-            <BaseView classname='bg-white border border-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
+            {/* <BaseView classname='bg-white border border-black rounded-full w-[30px] h-[30px] flex justify-center items-center'>
                 <BaseText size={16} bold>
-                    1
+                    { num }
                 </BaseText>
-            </BaseView>
+            </BaseView> */}
 
             <BaseView classname='flex flex-col flex-1 mx-2 '>
                 <BaseView classname='bg-blue rounded-t-lg py-1 px-2'>
@@ -72,7 +72,7 @@ const TaskItem = ({
                 rightWidget={
                     <Checkbox
                         style={[{
-                            width : 30,
+                            width: 30,
                             height: 30,
                             color: 'green',
                             marginRight: 10
@@ -87,36 +87,57 @@ const TaskItem = ({
     );
 };
 
-export const TaskHistory = ({ handleTask }) => {
+export const TaskHistory = ({
+    selectedTasks,
+    setSelectedTask,
+    handleSelectTask,
+    handleTask,
+    taskObj
+}) => {
 
     const { loading, tasks } = useTaskState();
-    const [selectedTasks, setSelectedTask] = useState([]);
+    const {
+        missionProgress,
+        setPendingSelectedTask,
+        setVisibleOverlayProgress,
+    } = useMissionState();
 
-    const { setSelectedTask: InitpendingTask } = useMissionState()
+    useEffect(() => {
+        const {
+            task
+        } = missionProgress;
 
-    const handleSelectTask = (task) => {
-
-        const { id } = task;
-        if (!id) return;
-
-        let selectedTask = [...selectedTasks];
-
-        if (!selectedTask.includes(id)) {
-            selectedTask.push(id)
-        } else {
-            selectedTask = selectedTask.filter(item => item != id)
-        }
-
-        setSelectedTask([
-            ...selectedTask
-        ]);
-    }
+        task && task == 'END' && (
+            setVisibleOverlayProgress(false)
+        )
+    }, [missionProgress]);
 
     const createMission = () => {
-        if (!tasks && tasks.length < 0) return;
-        let select = tasks.filter(task => selectedTasks.includes(task.id))
-        InitpendingTask(select)
+        if (validateCreateMission() == false) return false;
+
+        const requestTask = {
+            "type" : "run",
+            "list" : selectedTasks
+            // "list" : select.map(task => task.id)
+        }
+
+        setPendingSelectedTask(taskObj);
         setSelectedTask([]);
+        setVisibleOverlayProgress(true);
+        handleTask(requestTask);
+    }
+
+    function validateCreateMission() {
+        const {
+            task : taskType,
+            message
+        } = missionProgress;
+
+        if (tasks.length <= 0) return false;
+        if(selectedTasks.length <= 0) return false;
+        if (taskType && taskType != 'END') return false;
+       
+        return true;
     }
 
     const _listTask = () => {
@@ -129,6 +150,7 @@ export const TaskHistory = ({ handleTask }) => {
                             style={{ paddingVertical: 16 }}
                             data={tasks}
                             renderItem={({ item, index }) => <TaskItem
+                                num={index + 1}
                                 item={item}
                                 selectedTasks={selectedTasks}
                                 handleSelectTask={handleSelectTask} />
@@ -148,9 +170,10 @@ export const TaskHistory = ({ handleTask }) => {
             <BaseButton
                 classname='mt-4 px-10'
                 small
-                title='Tạo nhiệm vụ'
+                title='Giao nhiệm vụ'
                 onPress={createMission}
-                background={tasks && tasks.length > 0 ? 'blue500' : 'greyBt'}
+                disabled={validateCreateMission() == false}
+                background={validateCreateMission() == true ? 'blue500' : 'greyBt'}
             />
             {/* <BaseButton
                     classname='mr-4 flex-1'

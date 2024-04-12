@@ -1,15 +1,33 @@
-export const MISSION_STATUS = {
+const BACKEND_PORT = 5000;
+const SOCKET_PORT = 8765;
+const ROOT_ADDR = "192.168.1.102";
+
+const MISSION_STATUS = {
   PENDING: 'PENDING',
   PROCESSING: 'PROCESSING',
   COMPLETED: 'COMPLETED',
 };
 
-export const TIME_TO_SLEEP = 30000;
-export const BASE_URL = 'http://192.168.68.105:3000'
-export const STATIONS = '/locals'
-export const TASKS = '/scripts'
-export const AGV_INFO = '/status'
-export const BASE_WEBSOCKET_URL = 'ws://192.168.68.105:3000'
-export const MISSION_PROGRESS = '/esatech/run'
+const TIME_TO_SLEEP = 30000;
+const BASE_URL = `http://${ROOT_ADDR}:${BACKEND_PORT}`
+const STATIONS = '/locals'
+const TASKS = '/scripts'
+const AGV_INFO = '/status'
+const BASE_WEBSOCKET_URL = `ws://${ROOT_ADDR}:${SOCKET_PORT}`
+const MISSION_PROGRESS = '/esatech/run';
+const ROBOT_STATUS = '/esatech/status/Robot';
+
+export {
+  MISSION_STATUS,
+  TIME_TO_SLEEP,
+  BASE_URL,
+  STATIONS,
+  TASKS,
+  AGV_INFO,
+  BASE_WEBSOCKET_URL,
+  MISSION_PROGRESS,
+  ROBOT_STATUS
+}
+
 
 

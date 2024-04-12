@@ -7,13 +7,14 @@ export default function ListTasks({
 
     return (
         <BaseView classname='flex-1  w-full'>
-            <BaseCard title='Danh sách Task'>
+            <BaseCard title='Danh sách công việc'>
                 <BaseView classname='p-4'>
                     {
                         loading ? <ActivityIndicator size="large" color="#0000ff" /> : (
                             
                             <FlatList
                                 data={tasks}
+                                removeClippedSubviews={false}
                                 renderItem={({ item, index }) => <TaskItem
                                     isShowIndex={false}
                                     key={item.id}
