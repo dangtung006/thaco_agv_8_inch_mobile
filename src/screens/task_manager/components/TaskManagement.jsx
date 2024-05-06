@@ -155,7 +155,7 @@ export const TaskManagement = ({
     const loopMision = () => {
         if(validateLoopMission() == true){
             setVisibleOverlayProgress(true);
-            return handleTask({ type: "run", "list": pendingSelectedTask.map(task => task.id) });
+            return handleTask({ type: "run", "list": pendingSelectedTask.map(task => task.id),  timestamp : 'true' });
         }
     }
 

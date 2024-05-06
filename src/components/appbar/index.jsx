@@ -15,7 +15,15 @@ import { BASE_WEBSOCKET_URL, ROBOT_STATUS } from '@src/utils/constants';
 
 const viewRight = () => {
     const { agv } = useAgvState();
-    console
+
+    function getAgvState(){
+        const { isCharging, state } = agv;
+        if(isCharging) return 'Đang sạc    '
+        if(state == 'idle') return 'Đang rảnh    ';
+        if(state == 'busy') return 'Đang hoạt động';
+        return '';
+    }
+
     return (
         <BaseView classname='pb-[2px] h-full flex flex-row'>
             <BaseView classname='px-10 bg-white h-full flex flex-row items-center '>
@@ -36,9 +44,7 @@ const viewRight = () => {
                     <BaseText locale size={12} classname='text-greyText mb-1'>
                         Trạng thái:
                     </BaseText>
-                    <BaseText locale medium size={18}>
-                        Đang giao đồ ăn
-                    </BaseText>
+                    <BaseText locale medium size={18}>{getAgvState()}</BaseText>
                 </BaseView>
             </BaseView>
         </BaseView>

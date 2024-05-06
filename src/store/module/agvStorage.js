@@ -13,7 +13,8 @@ export const useAgvState = create((set) => ({
         connected: false,
         ip: "",
         errors: [],
-        station: ""
+        station: "",
+        state : ""
     },
 
     loading: false,
@@ -93,7 +94,8 @@ export const useAgvState = create((set) => ({
             connected,
             current_ip,
             errors,
-            warnings
+            warnings,
+            state : agvState
         } = data;
 
         set((state) => {
@@ -107,6 +109,7 @@ export const useAgvState = create((set) => ({
                     warnings: warnings,
                     station: station,
                     battery: battery,
+                    'state' : agvState,
                     v: Math.sqrt(vx * vx + vy * vy)
                 }
             }
