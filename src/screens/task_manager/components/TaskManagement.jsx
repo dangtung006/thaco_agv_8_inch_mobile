@@ -123,11 +123,13 @@ export const TaskManagement = ({
 
 
     const pauseMission = () => {
-        return handleTask({ type: "pause" });
+        setPause(false)
+        // return handleTask({ type: "pause" });
     }
 
     const resumeMission = () => {
-        return handleTask({ type: "resume" })
+        setPause(true)
+        // return handleTask({ type: "resume" })
     }
 
     const validateCancle = ()=>{
@@ -160,7 +162,6 @@ export const TaskManagement = ({
     }
 
     const validateRemove = ()=>{
-        console.log()
         const {
             task,
             message
@@ -256,7 +257,7 @@ export const TaskManagement = ({
                         classname='mr-4 flex-1'
                         background={pendingSelectedTask[0] ? 'blue500' : 'greyBt'}
                         icon={Images.play}
-                        title={'Hồi Phục'}
+                        title={'Khôi phục'}
                         onPress={resumeMission}
                     />)
                 }
