@@ -37,6 +37,20 @@ export const useTaskState = create((set) => ({
     handleTask: async ({ type, data: task }) => {
         set({ taskProgress: TASK_PROGRESS_STATUS.PENDING })
         try {
+            if (type == 'insert') {
+                await create()
+            }else if(type == 'delete'){
+                await remove()
+            }else if(type == 'update'){
+                await update()
+            }
+
+        } catch (e) {
+            console.log(e);
+            set({ taskProgress: TASK_PROGRESS_STATUS.ERROR })
+        }
+
+        async function create() {
             const {
                 name,
                 tasks
@@ -59,15 +73,49 @@ export const useTaskState = create((set) => ({
                 "dateTime": new Date()
             }
 
-            await delay(3);
+            await delay(2);
             set({ taskProgress: TASK_PROGRESS_STATUS.COMPLETED });
             await delay(0.1);
 
-            set((state) => ({tasks : [...state.tasks, newTask]}));
+            set((state) => ({ tasks: [...state.tasks, newTask] }));
+        }
 
-        } catch (e) {
-            console.log(e);
-            set({ taskProgress: TASK_PROGRESS_STATUS.ERROR })
+        async function update(){
+            const {
+                id , name, tasks
+            } = task
+            await delay(1.2);
+            set({ taskProgress: TASK_PROGRESS_STATUS.COMPLETED });
+            await delay(0.1);
+            
+            set((state) =>{
+                let newTasks = state.tasks.map(data=>{
+                    if(data.id == id){
+                        let list_station_updated = tasks.map(item => locals.find(local => local.id == item))
+                        let updateTask = {
+                            ...data,
+                            name : name,
+                            list_station : list_station_updated
+                        }
+                        return updateTask
+                    }
+
+                    return data
+                })
+
+                return {tasks : newTasks}
+            });
+        }
+
+        async function remove(){
+            const { id } = task
+            await delay(2);
+            set({ taskProgress: TASK_PROGRESS_STATUS.COMPLETED });
+            await delay(0.1);
+            set((state) =>{
+                let new_list = state.tasks.filter(task=> task.id != id)
+                return {tasks : [...new_list]}
+            });
         }
     },
 
