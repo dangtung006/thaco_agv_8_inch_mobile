@@ -4,17 +4,19 @@ import MyRequest from '@src/utils/request';
 import { delay } from '@src/utils/time';
 import { BASE_URL, AGV_INFO } from '@src/utils/constants';
 const request = new MyRequest({ baseUrl: BASE_URL});
-
+const POS_CONF = {
+    'LM1' : 'Dãy 1'
+}
 export const useAgvState = create((set) => ({
     agv: {
-        battery: 0,
-        v: 0,
+        battery: 0.85,
+        v: 5,
         isCharging: false,
-        connected: false,
-        ip: "",
+        connected: true,
+        ip: "192.168.1.100",
         errors: [],
-        station: "",
-        state : ""
+        station: POS_CONF['LM1'],
+        state : "busy"
     },
 
     loading: false,

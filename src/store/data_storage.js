@@ -14,8 +14,11 @@ const locals = [
 ]
 
 const scripts = [
-
 ]
+
+const agvInfo = {
+    
+}
 
 export {
     locals,
