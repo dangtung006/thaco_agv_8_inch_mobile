@@ -31,6 +31,7 @@ export default function CreateTask({
     }, [])
 
     const onCreateTask = async () => {
+        console.log("selected pos::" , selectedPos);
         setTaskName("");
         handleSelectedPos([]);
         await handleTask({
