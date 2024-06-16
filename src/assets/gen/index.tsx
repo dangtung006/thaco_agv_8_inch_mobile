@@ -1,0 +1,49 @@
+/**
+ * WARNING: this file is generated. Don't change it manually.
+ */
+export default class Images {
+    static readonly configurationManagement = require("@src/assets/images/ConfigurationManagement.png");
+    static readonly error = require("@src/assets/images/Error.png");
+    static readonly manualControl = require("@src/assets/images/ManualControl.png");
+    static readonly performMission = require("@src/assets/images/PerformMission.png");
+    static readonly sos = require("@src/assets/images/SOS.png");
+    static readonly wifi = require("@src/assets/images/Wifi.png");
+    static readonly arrowDownSelect = require("@src/assets/images/arrow-down-select.png");
+    static readonly arrowDown = require("@src/assets/images/arrow-down.png");
+    static readonly arrowRight = require("@src/assets/images/arrow-right.png");
+    static readonly back = require("@src/assets/images/back.png");
+    static readonly batteryBlack = require("@src/assets/images/battery-black.png");
+    static readonly battery = require("@src/assets/images/battery.png");
+    static readonly clock = require("@src/assets/images/clock.png");
+    static readonly close = require("@src/assets/images/close.png");
+    static readonly control = require("@src/assets/images/control.png");
+    static readonly control2 = require("@src/assets/images/control2.png");
+    static readonly downSmall = require("@src/assets/images/down-small.png");
+    static readonly down = require("@src/assets/images/down.png");
+    static readonly en = require("@src/assets/images/en.png");
+    static readonly increase = require("@src/assets/images/increase.png");
+    static readonly ip = require("@src/assets/images/ip.png");
+    static readonly languague = require("@src/assets/images/languague.png");
+    static readonly leftSmall = require("@src/assets/images/left-small.png");
+    static readonly location = require("@src/assets/images/location.png");
+    static readonly mission = require("@src/assets/images/mission.png");
+    static readonly pauseInactive = require("@src/assets/images/pause-inactive.png");
+    static readonly pause = require("@src/assets/images/pause.png");
+    static readonly pin = require("@src/assets/images/pin.png");
+    static readonly playInactive = require("@src/assets/images/play-inactive.png");
+    static readonly play = require("@src/assets/images/play.png");
+    static readonly radioActive = require("@src/assets/images/radio-active.png");
+    static readonly radioInactive = require("@src/assets/images/radio-inactive.png");
+    static readonly reduce = require("@src/assets/images/reduce.png");
+    static readonly rightSmall = require("@src/assets/images/right-small.png");
+    static readonly robot = require("@src/assets/images/robot.png");
+    static readonly setting = require("@src/assets/images/setting.png");
+    static readonly shelves = require("@src/assets/images/shelves.png");
+    static readonly sleep = require("@src/assets/images/sleep.png");
+    static readonly stop = require("@src/assets/images/stop.png");
+    static readonly upSmall = require("@src/assets/images/up-small.png");
+    static readonly up = require("@src/assets/images/up.png");
+    static readonly vi = require("@src/assets/images/vi.png");
+    static readonly wifiBlack = require("@src/assets/images/wifi-black.png");
+    static readonly wifiBlue = require("@src/assets/images/wifi-blue.png");
+}
