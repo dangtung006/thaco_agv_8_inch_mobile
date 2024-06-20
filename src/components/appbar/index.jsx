@@ -62,7 +62,7 @@ export default AppBar = () => {
     const [showWarning, setShowWarning] = useState(false);
     const [countWarning, setCountWarning] = useState(0);
     const WS_URL = `${BASE_WEBSOCKET_URL}${ROBOT_STATUS}`;
-
+    
     const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
         onOpen: () => {
             console.log("WebSocket connection established.");

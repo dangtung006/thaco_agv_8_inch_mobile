@@ -12,13 +12,11 @@ export const usePositionState = create((set)=>({
     initData : async ()=>{
         try{
             set({ loading : true })
-            // const {
-            //     result,
-            //     data
-            // } = await request.getRequest(STATIONS);
-            // result && set({ positions : data})
-            set({ positions : locals })
-            
+            const {
+                result,
+                data
+            } = await request.getRequest(STATIONS);
+            result && set({ positions : data})
         }catch(e){
             console.log(e);
         }finally{

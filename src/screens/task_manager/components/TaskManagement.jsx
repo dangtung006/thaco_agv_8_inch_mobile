@@ -124,12 +124,12 @@ export const TaskManagement = ({
 
     const pauseMission = () => {
         setPause(false)
-        // return handleTask({ type: "pause" });
+        return handleTask({ type: "pause" });
     }
 
     const resumeMission = () => {
         setPause(true)
-        // return handleTask({ type: "resume" })
+        return handleTask({ type: "resume" })
     }
 
     const validateCancle = ()=>{

@@ -29,7 +29,6 @@ export default function TaskManagerScreen(props) {
                 data
             } = message;
             const mission = JSON.parse(data);
-            console.log(mission);
             setMissionProgress(mission)
         }
     });
