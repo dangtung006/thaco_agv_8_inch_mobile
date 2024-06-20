@@ -1,6 +1,6 @@
 const BACKEND_PORT = 5000;
 const SOCKET_PORT = 8765;
-const ROOT_ADDR = "10.14.34.55";
+const ROOT_ADDR = "192.168.192.18";
 
 const MISSION_STATUS = {
   PENDING: 'PENDING',
