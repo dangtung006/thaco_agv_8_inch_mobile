@@ -16,6 +16,7 @@ class RobotApi extends MyRequest {
         super({
             baseUrl
         });
+
     }
 
     async navTo(target) {
@@ -58,10 +59,11 @@ class RobotApi extends MyRequest {
         }
     }
 
-    async upFooud() {
+    async upFoods() {
         try {
-            result = await this.postRequest(ROBOT_CONTROL_UPFOODS)
-            return result
+            // result = await this.postRequest(ROBOT_CONTROL_UPFOODS)
+            // return result
+            console.log("/////DOWN FOODSggggggggggg/////")
         } catch (E) {
             console.log("Err when up food task", E)
             return false
@@ -70,8 +72,9 @@ class RobotApi extends MyRequest {
 
     async downFoods() {
         try {
-            result = await this.postRequest(ROBOT_CONTROL_DOWNFOODS)
-            return result
+            console.log("DOWN FOODSggggggggggg")
+            // result = await this.postRequest(ROBOT_CONTROL_DOWNFOODS)
+            // return result
         } catch (E) {
             console.log("Err when down food task", E)
             return false
@@ -98,7 +101,7 @@ class RobotApi extends MyRequest {
         }
     }
 
-    getInstance() {
+    static getInstance() {
         if (!self.robotInstance) {
             self.robotInstance = new RobotApi()
         }

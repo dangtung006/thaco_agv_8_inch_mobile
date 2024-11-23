@@ -1,13 +1,14 @@
 import { Slider } from '@miblanchard/react-native-slider';
 import Images from '@src/assets/gen';
-import { BaseImage, BaseText, BaseTouchable, BaseView } from '@src/components';
+import { BaseImage, BaseText, BaseTouchable, BaseView, BaseButton } from '@src/components';
+import RobotApi from '@src/utils/robotApi';
 import { useMemo, useState } from 'react';
 
 export const ViewLeft = () => {
     const MAX = 10;
     const MIN = 0.5;
     const [speed, setSpeed] = useState(1.5);
-
+    const robotApi = new RobotApi()
     const handleChangeSpeed = (newSpeed) => {
         console.log('newSpeed', newSpeed, speed);
         if (newSpeed <= MAX && newSpeed >= MIN) {
@@ -120,12 +121,7 @@ export const ViewLeft = () => {
                 <BaseView classname='flex flex-row justify-between mt-4 px-20'>
                     <BaseView classname='flex justify-center items-center gap-2'>
                         <BaseTouchable
-                            onPressAndHold={() => {
-                                console.log('nâng kệ');
-                            }}
-                            onPress={() => {
-                                console.log('nâng kệ');
-                            }}
+                            onPress={() => robotApi.upFoods()}
                         >
                             <BaseImage source={Images.up} classname='w-120px h-120px' />
                         </BaseTouchable>
@@ -133,12 +129,7 @@ export const ViewLeft = () => {
                     </BaseView>
                     <BaseView classname='flex justify-center items-center gap-2'>
                         <BaseTouchable
-                            onPressAndHold={() => {
-                                console.log('hạ kệ');
-                            }}
-                            onPress={() => {
-                                console.log('hạ kệ');
-                            }}
+                            onPress={() => robotApi.downFoods()}
                         >
                             <BaseImage source={Images.down} classname='w-120px h-120px' />
                         </BaseTouchable>

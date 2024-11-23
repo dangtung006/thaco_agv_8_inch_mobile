@@ -16,8 +16,6 @@ const MISSION_STATUS = {
     PROCESSING: 'PROCESSING',
     COMPLETED: 'COMPLETED',
 };
-const TIME_TO_SLEEP = 30000;
-
 
 // ----------------------URL_CONF-------------------------
 const BACKEND_PORT = 3000;
@@ -45,7 +43,6 @@ const GET_ROBOT_STATIONS = '/robot/status/';
 
 export {
     MISSION_STATUS,
-    TIME_TO_SLEEP,
     BASE_URL,
     STATIONS,
     TASKS,
