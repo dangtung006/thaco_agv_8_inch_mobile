@@ -31,6 +31,11 @@ const AGV_INFO = '/status'
 const MISSION_PROGRESS = '/mission/progress';
 const ROBOT_STATUS = '/robot/status/';
 
+const ROBOT_CONTROL_PAUSE = '/robot/status/';
+const ROBOT_CONTROL_RESUME = '/robot/status/';
+const ROBOT_CONTROL_UPFOODS = '/robot/status/';
+const ROBOT_CONTROL_DOWNFOODS = '/robot/status/';
+
 export {
   MISSION_STATUS,
   TIME_TO_SLEEP,
@@ -40,7 +45,12 @@ export {
   AGV_INFO,
   BASE_WEBSOCKET_URL,
   MISSION_PROGRESS,
-  ROBOT_STATUS
+  ROBOT_STATUS,
+
+  ROBOT_CONTROL_PAUSE,
+  ROBOT_CONTROL_RESUME,
+  ROBOT_CONTROL_UPFOODS,
+  ROBOT_CONTROL_DOWNFOODS
 }
 
 

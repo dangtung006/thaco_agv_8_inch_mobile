@@ -2,8 +2,10 @@ import Images from '@src/assets/gen';
 import { BaseImage, BaseText, BaseView } from '@src/components';
 import { useCommonState } from '@src/store/commonStorage';
 import { useWindowDimensions } from 'react-native';
+import { useAMRState } from '@src/store/modules/amrStorage';
 
 export const ViewLeft = () => {
+    const { amr } = useAMRState()
     const { networkConnected, batteryLevel } = useCommonState((state) => state);
     const Items = [
         {
