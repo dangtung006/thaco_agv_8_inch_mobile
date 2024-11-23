@@ -10,7 +10,7 @@ import BaseImage from '../image';
 import { BaseButton } from '..';
 import { classnames } from '@src/utils/common';
 import { useCommonState } from '@src/store/commonStorage';
-import { useAgvState } from '@src/store/modules/agvStorage';
+import { setRobotStatus } from '@src/store/modules/amrStorage';
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BASE_WEBSOCKET_URL, ROBOT_STATUS } from '@src/utils/constants';
 
@@ -24,7 +24,7 @@ export default AppBar = () => {
 
     const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
         onOpen: () => {
-            console.log("WebSocket connection established.");
+            console.log("Connect to get robot status.");
         },
         share: true,
         filter: () => false,
