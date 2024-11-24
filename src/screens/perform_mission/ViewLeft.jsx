@@ -7,6 +7,7 @@ import {
     BaseView,
 } from '@src/components';
 import { useCommonState } from '@src/store/commonStorage';
+import { useMissionState } from '@src/store/modules/missionStorage';
 import { useEffect } from 'react';
 import { Image } from 'react-native';
 
@@ -46,6 +47,8 @@ export const ViewLeft = () => {
             status: 3,
         },
     ];
+
+    const { mission } = useMissionState()
 
     useEffect(() => {
         setMissions(items);
