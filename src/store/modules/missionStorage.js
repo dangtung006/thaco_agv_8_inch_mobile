@@ -14,9 +14,9 @@ export const useMissionState = create((set) => ({
                 mission: {
                     ...state.mission,
                     title: data.title,
-                    process: data.process,
-                    tasks: data.tasks,
-                    desc: data.desc
+                    // process: data.process,
+                    // tasks: data.tasks,
+                    // desc: data.desc
                 }
             }
         });

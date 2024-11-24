@@ -2,11 +2,13 @@ import { BaseScreen } from '@src/components';
 import { ViewLeft } from './ViewLeft';
 import { ViewRight } from './ViewRight';
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import { BASE_WEBSOCKET_URL, ROBOT_STATUS } from '@src/utils/constants';
-import { setMissionStatus } from '@src/store/modules/missionStorage';
-export default function PerformMissionScreen(props) {
+import { BASE_WEBSOCKET_URL, MISSION_PROGRESS } from '@src/utils/constants';
+import { useMissionState } from '@src/store/modules/missionStorage';
 
-    const WS_URL = `${BASE_WEBSOCKET_URL}${ROBOT_STATUS}`;
+export default function PerformMissionScreen(props) {
+    const { setMissionStatus } = useMissionState()
+    const WS_URL = `${BASE_WEBSOCKET_URL}${MISSION_PROGRESS}`;
+
     const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
         onOpen: () => {
             console.log("Connect to get robot status.");
@@ -15,9 +17,8 @@ export default function PerformMissionScreen(props) {
             const {
                 data
             } = message;
-
-            const robot = JSON.parse(data);
-            robot.Robot && setMissionStatus(robot.Robot);
+            const mission = JSON.parse(data);
+            mission && setMissionStatus(mission);
         }
     });
 

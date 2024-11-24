@@ -21,7 +21,7 @@ const MISSION_STATUS = {
 const BACKEND_PORT = 3000;
 const ROOT_ADDR = "192.168.68.130";
 const BASE_URL = `http://${ROOT_ADDR}:${BACKEND_PORT}`
-const BASE_WEBSOCKET_URL = `ws://${BASE_URL}`
+const BASE_WEBSOCKET_URL = `ws://${ROOT_ADDR}:${BACKEND_PORT}`
 
 const STATIONS = '/locals'
 const TASKS = '/scripts'

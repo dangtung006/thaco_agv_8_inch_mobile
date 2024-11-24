@@ -12,48 +12,8 @@ import { useEffect } from 'react';
 import { Image } from 'react-native';
 
 export const ViewLeft = () => {
-    const { missions, setMissions } = useCommonState((state) => state);
-    const items = [
-        {
-            title: 'Nhận',
-            status: 1,
-        },
-        {
-            title: 'Trạm 1',
-            status: 2,
-        },
-        {
-            title: 'Trạm 2',
-            status: 3,
-        },
-        {
-            title: 'Trạm 3',
-            status: 3,
-        },
-        {
-            title: 'Trạm 4',
-            status: 3,
-        },
-        {
-            title: 'Trạm 5',
-            status: 3,
-        },
-        {
-            title: 'Trạm 6',
-            status: 3,
-        },
-        {
-            title: 'Trả thức ăn thừa',
-            status: 3,
-        },
-    ];
-
     const { mission } = useMissionState()
-
-    useEffect(() => {
-        setMissions(items);
-    }, []);
-
+    const items = mission.tasks.map(tk => ({ title: tk.task_name, status: tk.process }))
     const getColor = (item) => {
         let color = {
             bg: 'greyBt50',
@@ -61,14 +21,14 @@ export const ViewLeft = () => {
             text: 'darkText',
         };
         switch (item.status) {
-            case 1:
+            case "done":
                 color = {
                     bg: 'green50',
                     border: 'green',
                     text: 'green',
                 };
                 break;
-            case 2:
+            case "processing":
                 color = {
                     bg: 'orange100',
                     border: 'orange',
@@ -103,11 +63,11 @@ export const ViewLeft = () => {
     return (
         <BaseView classname='w-5/11 h-full flex  px-25px pt-16px'>
             <BaseText locale size={24} semiBold>
-                Quy trình nhiệm vụ
+                Quy trình nhiệm vụ : {mission.title}
             </BaseText>
-            {missions.length > 0 ? (
+            {items && items.length > 0 ? (
                 <BaseScrollView classname='mt-42px'>
-                    {missions.map((item, index) => _buildItem(item, index))}
+                    {items.map((item, index) => _buildItem(item, index))}
                 </BaseScrollView>
             ) : (
                 <BaseView classname='flex-1 justify-center items-center'>
