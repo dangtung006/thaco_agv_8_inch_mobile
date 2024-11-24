@@ -3,23 +3,12 @@ import { BaseImage, BaseText, BaseTouchable, BaseView } from '@src/components';
 import { ROUTES, navigate } from '@src/navigation';
 import { useCommonState } from '@src/store/commonStorage';
 import { useMemo, useState } from 'react';
-import { Image } from 'react-native';
-import MyRequest from '@src/utils/request';
-
-import {
-    BASE_URL,
-    AGV_INFO,
-    ROBOT_CONTROL_PAUSE,
-    ROBOT_CONTROL_RESUME,
-    ROBOT_CONTROL_UPFOODS,
-    ROBOT_CONTROL_DOWNFOODS
-} from '@src/utils/constants';
-
-const request = new MyRequest({ baseUrl: BASE_URL });
+import RobotApi from '@src/utils/robotApi';
 
 export const ViewRight = () => {
     const { missions, setMissions } = useCommonState((state) => state);
     const [isProcessing, setProcessing] = useState(false);
+    const robotApi = new RobotApi()
     const items = [
         {
             title: 'Tên robot',
@@ -43,59 +32,11 @@ export const ViewRight = () => {
         },
     ];
 
-    const downFoods = async () => {
-        try {
-            const {
-                result,
-                data
-            } = await request.postRequest(ROBOT_CONTROL_DOWNFOODS);
-        } catch (err) {
-            console.log("Error When Upfoods", err)
+    const handleActionsProcess = async () => {
+        if (1 == 1) {
+            res = await robotApi.pause()
         }
-    }
-
-    const upFoods = async () => {
-        try {
-            const {
-                result,
-                data
-            } = await request.postRequest(ROBOT_CONTROL_UPFOODS);
-        } catch (err) {
-            console.log("Error When Down Foods", err)
-        }
-    }
-
-    const cancel = async () => {
-        try {
-            const {
-                result,
-                data
-            } = await request.postRequest(ROBOT_CONTROL_RESUME);
-        } catch (err) {
-            console.log("Error When Down Foods", err)
-        }
-    }
-
-    const pause = async () => {
-        try {
-            const {
-                result,
-                data
-            } = await request.postRequest(ROBOT_CONTROL_PAUSE);
-        } catch (err) {
-            console.log("Error When Down Foods", err)
-        }
-    }
-
-    const resume = async () => {
-        try {
-            const {
-                result,
-                data
-            } = await request.postRequest(ROBOT_CONTROL_RESUME);
-        } catch (err) {
-            console.log("Error When Down Foods", err)
-        }
+        await robotApi.resume()
     }
 
     const _buildItem = (item, index) => {
@@ -127,16 +68,16 @@ export const ViewRight = () => {
                 <BaseView classname='flex flex-row justify-between mt-4 px-20'>
                     <BaseTouchable
                         classname='items-center gap-2'
-                        onPressAndHold={upFoods}
-                        onPress={upFoods}
+                        // onPressAndHold={upFoods}
+                        onPress={() => robotApi.upFoods()}
                     >
                         <BaseImage source={Images.up} classname='w-120px h-120px' />
                         <BaseText locale>Nâng lên</BaseText>
                     </BaseTouchable>
                     <BaseTouchable
                         classname='items-center gap-2'
-                        onPressAndHold={downFoods}
-                        onPress={downFoods}
+                        // onPressAndHold={downFoods}
+                        onPress={() => robotApi.downFoods()}
                     >
                         <BaseImage source={Images.down} classname='w-120px h-120px' />
                         <BaseText locale>Hạ xuống</BaseText>
@@ -154,7 +95,9 @@ export const ViewRight = () => {
                 </BaseText>
                 <BaseView classname='flex flex-row justify-between mt-4 px-20'>
                     <BaseView classname='flex flex-col items-center'>
-                        <BaseTouchable onPress={() => setProcessing(!isProcessing)}>
+                        <BaseTouchable
+                            onPress={() => handleActionsProcess()}
+                        >
                             <BaseImage
                                 source={
                                     missions.length > 0
@@ -177,8 +120,9 @@ export const ViewRight = () => {
                     <BaseView classname='flex flex-col items-center'>
                         <BaseTouchable
                             onPress={() => {
-                                setMissions([]);
-                                navigate(ROUTES.PERFORM_MISSION2);
+                                robotApi.cancel()
+                                // setMissions([]);
+                                // navigate(ROUTES.PERFORM_MISSION2);
                             }}
                         >
                             <BaseImage
