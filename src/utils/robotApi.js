@@ -100,13 +100,6 @@ class RobotApi extends MyRequest {
             return false
         }
     }
-
-    static getInstance() {
-        if (!self.robotInstance) {
-            self.robotInstance = new RobotApi()
-        }
-        return self.robotInstance
-    }
 }
 
 export default RobotApi

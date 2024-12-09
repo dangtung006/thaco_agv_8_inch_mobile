@@ -12,7 +12,8 @@ export const useAMRState = create((set) => ({
         ip: "",
         errors: [],
         station: "",
-        state: ""
+        state: "",
+        robotName: ""
     },
 
     loading: false,
@@ -27,7 +28,8 @@ export const useAMRState = create((set) => ({
             connected,
             current_ip,
             errors,
-            warnings
+            warnings,
+            vehicle_id: robotName
         } = data;
 
         set((state) => {
@@ -41,6 +43,7 @@ export const useAMRState = create((set) => ({
                     warnings: warnings,
                     station: station,
                     battery: battery,
+                    robotName: robotName,
                     v: Math.sqrt(vx * vx + vy * vy)
                 }
             }

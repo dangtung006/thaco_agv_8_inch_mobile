@@ -13,31 +13,27 @@ import { useAMRState } from '@src/store/modules/amrStorage';
 
 export const ViewRight = () => {
     const { amr } = useAMRState();
-
+    const { station, current_ip, robotName, v } = amr
     const items = [
         {
             title: 'Mã robot',
-            value: 'RB001',
+            value: 'ThacoRobot01',
         },
         {
             title: 'Tên robot',
-            value: 'RobotX_2024',
+            value: robotName,
         },
         {
             title: 'Địa chỉ IP',
-            value: '192.168.2.109',
-        },
-        {
-            title: 'Đoàn hoạt động',
-            value: 'Đoàn 01',
+            value: current_ip,
         },
         {
             title: 'Vị trí hiện tại',
-            value: 'Bàn 01',
+            value: station,
         },
         {
             title: 'Tốc độ di chuyển',
-            value: '0.5 m/s',
+            value: Math.ceil(v * 100) / 100
         },
     ];
 

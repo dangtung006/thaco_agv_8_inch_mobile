@@ -1,22 +1,21 @@
 import Images from '@src/assets/gen';
 import { BaseImage, BaseText, BaseView } from '@src/components';
-import { useCommonState } from '@src/store/commonStorage';
 import { useWindowDimensions } from 'react-native';
 import { useAMRState } from '@src/store/modules/amrStorage';
 
 export const ViewLeft = () => {
     const { amr } = useAMRState()
-    const { networkConnected, batteryLevel } = useCommonState((state) => state);
+    const { connected, battery } = amr
     const Items = [
         {
             icon: Images.wifiBlue,
             title: 'Trạng thái kết nối',
-            status: !networkConnected ? 'Đã kết nối' : 'Chưa kết nối',
+            status: connected == true ? 'Đã kết nối' : 'Chưa kết nối',
         },
         {
             icon: Images.pin,
             title: 'Trạng thái pin',
-            status: batteryLevel && `${batteryLevel}%`,
+            status: battery && `${battery}%`,
         },
         {
             icon: Images.mission,
