@@ -3,34 +3,51 @@ import { BaseImage, BaseText, BaseTouchable, BaseView } from '@src/components';
 import { ROUTES, navigate } from '@src/navigation';
 import { useCommonState } from '@src/store/commonStorage';
 import { useMemo, useState } from 'react';
-import RobotApi from '@src/utils/robotApi';
-
+import OrderApi from '@src/utils/orderApi';
+import { useAMRState } from '@src/store/modules/amrStorage';
+import { useMissionState } from '@src/store/modules/missionStorage';
 export const ViewRight = () => {
-    const { missions, setMissions } = useCommonState((state) => state);
+    const { mission } = useMissionState()
+    const { amr } = useAMRState()
+    const { taskStatus, station, v, robotName } = amr
     const [isProcessing, setProcessing] = useState(false);
-    const robotApi = new RobotApi()
+    const orderApi = new OrderApi()
     const items = [
         {
             title: 'Tên robot',
-            value: 'RobotX_2024',
+            value: robotName,
         },
-        {
-            title: 'Địa chỉ MAC',
-            value: '00:1A:2B:3C:4D:5E',
-        },
-        {
-            title: 'Đoàn hoạt động',
-            value: 'Đoàn 01',
-        },
+        // {
+        //     title: 'Địa chỉ MAC',
+        //     value: '00:1A:2B:3C:4D:5E',
+        // },
+        // {
+        //     title: 'Đoàn hoạt động',
+        //     value: 'Đoàn 01',
+        // },
         {
             title: 'Vị trí hiện tại',
-            value: 'Bàn 01',
+            value: station,
         },
         {
             title: 'Tốc độ di chuyển',
-            value: ' 0.5 m/s',
+            value: `${parseInt(v)} m/s`,
         },
     ];
+    const getActionProcessIcon = () => {
+        if (!taskStatus || taskStatus == 4) return Images.playInactive
+        if (taskStatus == 2) return Images.pause
+        if (taskStatus == 3) return Images.pause
+
+    }
+
+    const getActionProcessTitle = () => {
+        if (!taskStatus || taskStatus == 4) ""
+        if (taskStatus == 2) return "Dung"
+        if (taskStatus == 3) return "Chay"
+        return ""
+
+    }
 
     const handleActionsProcess = async () => {
         if (1 == 1) {
@@ -99,35 +116,25 @@ export const ViewRight = () => {
                             onPress={() => handleActionsProcess()}
                         >
                             <BaseImage
-                                source={
-                                    missions.length > 0
-                                        ? isProcessing
-                                            ? Images.play
-                                            : Images.pause
-                                        : Images.playInactive
-                                }
+                                source={getActionProcessIcon()}
                                 classname='w-120px h-120px'
                             />
                         </BaseTouchable>
                         <BaseText locale size={18} classname='mt-2'>
-                            {missions.length > 0
-                                ? !isProcessing
-                                    ? 'Tạm dừng'
-                                    : 'Chạy'
-                                : 'Chạy'}
+                            {getActionProcessTitle()}
                         </BaseText>
                     </BaseView>
                     <BaseView classname='flex flex-col items-center'>
                         <BaseTouchable
                             onPress={() => {
-                                robotApi.cancel()
+                                orderApi.cancel_mission()
                                 // setMissions([]);
                                 // navigate(ROUTES.PERFORM_MISSION2);
                             }}
                         >
                             <BaseImage
                                 source={
-                                    missions.length > 0 ? Images.stop : Images.pauseInactive
+                                    mission.tasks && mission.tasks.length && mission.process && mission.process == "processing" > 0 ? Images.stop : Images.pauseInactive
                                 }
                                 classname='w-120px h-120px'
                             />

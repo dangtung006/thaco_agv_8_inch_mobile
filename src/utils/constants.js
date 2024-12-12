@@ -19,7 +19,7 @@ const MISSION_STATUS = {
 
 // ----------------------URL_CONF-------------------------
 const BACKEND_PORT = 3000;
-const ROOT_ADDR = "192.168.68.134";
+const ROOT_ADDR = "192.168.68.115";
 const BASE_URL = `http://${ROOT_ADDR}:${BACKEND_PORT}`
 const BASE_WEBSOCKET_URL = `ws://${ROOT_ADDR}:${BACKEND_PORT}`
 
@@ -38,6 +38,9 @@ const ROBOT_CONTROL_UPFOODS = '/robot/status/';
 const ROBOT_CONTROL_DOWNFOODS = '/robot/status/';
 
 const GET_ROBOT_STATIONS = '/robot/status/';
+
+const CONFIRM_ROBOT_TASK = "/missions/confirm_task"
+const CANCEL_ROBOT_TASK = "/missions/cancle_task"
 
 
 
@@ -59,7 +62,9 @@ export {
     ROBOT_CONTROL_UPFOODS,
     ROBOT_CONTROL_DOWNFOODS,
 
-    GET_ROBOT_STATIONS
+    GET_ROBOT_STATIONS,
+    CONFIRM_ROBOT_TASK,
+    CANCEL_ROBOT_TASK
 }
 
 

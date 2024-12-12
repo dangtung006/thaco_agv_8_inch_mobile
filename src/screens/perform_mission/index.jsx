@@ -8,7 +8,7 @@ import { useMissionState } from '@src/store/modules/missionStorage';
 export default function PerformMissionScreen(props) {
     const { setMissionStatus } = useMissionState()
     const WS_URL = `${BASE_WEBSOCKET_URL}${MISSION_PROGRESS}`;
-
+    // console.log(WS_URL)
     const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
         onOpen: () => {
             console.log("Connect to get robot status.");

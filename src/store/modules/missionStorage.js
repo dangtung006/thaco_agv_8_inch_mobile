@@ -2,10 +2,11 @@ import { create } from 'zustand';
 
 export const useMissionState = create((set) => ({
     mission: {
-        title: "",
+        amr: "",
         process: "",
         tasks: [],
-        desc: ""
+        startTime: "",
+        endTime: ""
     },
 
     setMissionStatus: (data) => {
@@ -13,10 +14,10 @@ export const useMissionState = create((set) => ({
             return {
                 mission: {
                     ...state.mission,
-                    title: data.title,
-                    // process: data.process,
-                    // tasks: data.tasks,
-                    // desc: data.desc
+                    process: data.process,
+                    tasks: data.tasks,
+                    startTime: data.start_time,
+                    endTime: data.end_time
                 }
             }
         });
