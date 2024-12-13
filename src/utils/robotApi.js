@@ -84,8 +84,9 @@ class RobotApi extends MyRequest {
 
     async getStations() {
         try {
-            result = await this.postRequest(GET_ROBOT_STATIONS)
-            return result
+            const { msg, data } = await this.getRequest(GET_ROBOT_STATIONS)
+            if (msg == "OK") return data
+            return false
         } catch (E) {
             console.log("Err when cancel task", E)
             return false

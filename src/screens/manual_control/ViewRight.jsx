@@ -8,15 +8,17 @@ import {
     BaseTouchable,
     BaseView,
 } from '@src/components';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import RobotApi from '@src/utils/robotApi';
 import { useAMRState } from '@src/store/modules/amrStorage';
+
 export const ViewRight = () => {
-    const { amr } = useAMRState()
-    const [ip, setIp] = useState('192.168.2.109');
-    const [location, setLocation] = useState('Vị trí bếp');
-    const [isProcessing, setProcessing] = useState(false);
+
     const robotApi = new RobotApi()
+    const { amr } = useAMRState()
+    const { ip, station, taskStatus } = amr
+    const [locations, setLocations] = useState(false)
+    const [postion, setPosition] = useState({ title: "Chọn Vị Trí", id: 0 })
 
     const handleActionProcess = async () => {
         let task = "processing"
@@ -26,6 +28,22 @@ export const ViewRight = () => {
         }
         await robotApi.resume()
     }
+
+    const getLocationOpt = () => {
+        if (!locations) return []
+        locs = locations.map(loc => ({
+            title: loc && loc.task_name ? loc.task_name : "",
+            id: loc && loc.task_idx ? loc.task_idx : 0
+        }))
+        return locs
+    }
+
+    async function getRobotLocations() {
+        let locs = await robotApi.getStations()
+        locs && setLocations(locs)
+    }
+
+
 
     const _buildInfo = useMemo(
         () => (
@@ -39,12 +57,12 @@ export const ViewRight = () => {
                 <BaseView classname='flex gap-2 flex-row flex-1 h-65px rounded-3xl bg-blue300 items-center justify-start px-20px'>
                     <BaseImage source={Images.location} classname='w-35px h-35px' />
                     <BaseText semiBold size={24}>
-                        {location}
+                        {station}
                     </BaseText>
                 </BaseView>
             </BaseView>
         ),
-        [ip, location]
+        [ip, station]
     );
 
     const _buildSelectPosition = useMemo(
@@ -55,18 +73,13 @@ export const ViewRight = () => {
                 </BaseText>
                 <BaseSelect
                     classname='mt-3'
-                    onChange={(data) => {
-                        console.log('data', data);
-                    }}
-                    value={{ title: 'Vị trí nhà bếp', id: '1' }}
-                    data={[
-                        { title: 'Vị trí nhà bếp', id: '1' },
-                        { title: 'Vị trí sạc pin', id: '2' },
-                    ]}
+                    onChange={(pos) => setPosition(pos)}
+                    value={postion}
+                    data={getLocationOpt()}
                 />
             </BaseView>
         ),
-        []
+        [locations, postion]
     );
 
     const _buildAction = useMemo(
@@ -82,23 +95,23 @@ export const ViewRight = () => {
                 />
                 {/* ////////////////////////////////////////////// */}
                 <BaseView classname='flex flex-1 flex-row justify-center mt-10 gap-50px'>
-                    {isProcessing && (
+                    {taskStatus && (
                         <>
                             <BaseView classname='flex flex-col items-center'>
                                 <BaseTouchable onPress={() => handleActionProcess()}>
                                     <BaseImage
-                                        source={!isProcessing ? Images.play : Images.pause}
+                                        source={taskStatus == 2 ? Images.play : Images.pause}
                                         classname='w-120px h-120px'
                                     />
                                 </BaseTouchable>
                                 <BaseText locale size={18} classname='mt-2'>
-                                    {isProcessing ? 'Tạm dừng' : 'Chạy'}
+                                    {taskStatus == 2 ? 'Tạm dừng' : 'Chạy'}
                                 </BaseText>
                             </BaseView>
                             <BaseView classname='flex flex-col items-center'>
                                 <BaseTouchable onPress={() => robotApi.cancel()}>
                                     <BaseImage
-                                        source={isProcessing ? Images.stop : Images.pauseInactive}
+                                        source={taskStatus ? Images.stop : Images.pauseInactive}
                                         classname='w-120px h-120px'
                                     />
                                 </BaseTouchable>
@@ -120,8 +133,12 @@ export const ViewRight = () => {
                 />
             </BaseView >
         ),
-        [isProcessing]
+        [taskStatus]
     );
+
+    useEffect(() => {
+        getRobotLocations()
+    }, [])
     return (
         <BaseView classname='flex-1 bg-bg h-full flex flex-col px-36px py-20px'>
             {_buildInfo}

@@ -38,7 +38,7 @@ const ROBOT_CONTROL_EMERGENCY_SOFT = '/robot/other/emc_stop'
 
 const ROBOT_CONTROL_UPFOODS = '/robot/status/';
 const ROBOT_CONTROL_DOWNFOODS = '/robot/status/';
-const GET_ROBOT_STATIONS = '/robot/status/';
+const GET_ROBOT_STATIONS = '/robot/station/list';
 
 const CONFIRM_ROBOT_TASK = "/missions/confirm_task"
 const CANCEL_ROBOT_TASK = "/missions/cancle_task"

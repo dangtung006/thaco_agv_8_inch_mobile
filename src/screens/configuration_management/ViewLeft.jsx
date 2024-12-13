@@ -5,7 +5,7 @@ import { useAMRState } from '@src/store/modules/amrStorage';
 
 export const ViewLeft = () => {
     const { amr } = useAMRState()
-    const { connected, battery } = amr
+    const { connected, battery, mode } = amr
     const Items = [
         {
             icon: Images.wifiBlue,
@@ -15,7 +15,7 @@ export const ViewLeft = () => {
         {
             icon: Images.pin,
             title: 'Trạng thái pin',
-            status: battery && `${battery}%`,
+            status: battery && `${parseInt(battery * 100)}%`,
         },
         {
             icon: Images.mission,
@@ -25,7 +25,7 @@ export const ViewLeft = () => {
         {
             icon: Images.control2,
             title: 'Trạng thái điều khiển',
-            status: 'Tự động',
+            status: mode,
         },
     ];
     const { width: windowWidth, height: windowHeight } = useWindowDimensions();
