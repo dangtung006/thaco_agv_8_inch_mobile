@@ -19,14 +19,52 @@ export const ViewRight = () => {
     const { ip, station, taskStatus } = amr
     const [locations, setLocations] = useState(false)
     const [postion, setPosition] = useState({ title: "Chọn Vị Trí", id: 0 })
+    const [isEmergency, setEmergency] = useState(false)
 
-    const handleActionProcess = async () => {
-        let task = "processing"
-        if (task == "processing") {
-            result = await robotApi.pause()
-            return result
+    async function goTarget() {
+        const task_idx = postion.id
+        const task = locations.find(loc => loc.task_idx == task_idx)
+        const stationId = task.arg_operations.nav
+        console.log("station_id", stationId)
+        resp = await robotApi.navTo({
+            id: stationId
+        })
+    }
+
+    async function handleManualMoving() {
+        if (taskStatus == 2) {
+            resp = await robotApi.pause()
+        } else if (taskStatus == 3) {
+            resp = await robotApi.resume()
         }
-        await robotApi.resume()
+    }
+
+
+    async function setEmc(params) {
+        resp = await robotApi.sofEmc()
+    }
+
+
+    const handleSelectPos = (pos) => {
+        console.log("posss::", pos)
+        setPosition((pre) => ({
+            ...pre,
+            title: pos.title,
+            id: pos.id
+        }))
+    }
+
+    const getCurrStation = () => {
+        if (!locations) return ""
+        const curr = locations.find(loc => {
+            if (loc && loc.task_name && loc.arg_operations && loc.arg_operations.nav && loc.arg_operations.nav == station) {
+                return loc
+            }
+            return false
+        })
+
+        if (!curr) return ""
+        return curr.task_name
     }
 
     const getLocationOpt = () => {
@@ -57,7 +95,7 @@ export const ViewRight = () => {
                 <BaseView classname='flex gap-2 flex-row flex-1 h-65px rounded-3xl bg-blue300 items-center justify-start px-20px'>
                     <BaseImage source={Images.location} classname='w-35px h-35px' />
                     <BaseText semiBold size={24}>
-                        {station}
+                        {getCurrStation()}
                     </BaseText>
                 </BaseView>
             </BaseView>
@@ -73,7 +111,7 @@ export const ViewRight = () => {
                 </BaseText>
                 <BaseSelect
                     classname='mt-3'
-                    onChange={(pos) => setPosition(pos)}
+                    onChange={handleSelectPos}
                     value={postion}
                     data={getLocationOpt()}
                 />
@@ -86,7 +124,7 @@ export const ViewRight = () => {
         () => (
             <BaseView classname='flex-1'>
                 <BaseButton
-                    onPress={() => robotApi.navTo()}
+                    onPress={goTarget}
                     title='Bắt đầu điều hướng'
                     background='blue500'
                     classname='h-70px mt-10'
@@ -95,12 +133,12 @@ export const ViewRight = () => {
                 />
                 {/* ////////////////////////////////////////////// */}
                 <BaseView classname='flex flex-1 flex-row justify-center mt-10 gap-50px'>
-                    {taskStatus && (
+                    {(taskStatus == 2 || taskStatus == 3) && (
                         <>
                             <BaseView classname='flex flex-col items-center'>
-                                <BaseTouchable onPress={() => handleActionProcess()}>
+                                <BaseTouchable onPress={handleManualMoving}>
                                     <BaseImage
-                                        source={taskStatus == 2 ? Images.play : Images.pause}
+                                        source={taskStatus == 2 ? Images.pause : Images.play}
                                         classname='w-120px h-120px'
                                     />
                                 </BaseTouchable>
@@ -133,7 +171,7 @@ export const ViewRight = () => {
                 />
             </BaseView >
         ),
-        [taskStatus]
+        [taskStatus, postion]
     );
 
     useEffect(() => {
@@ -141,6 +179,9 @@ export const ViewRight = () => {
     }, [])
     return (
         <BaseView classname='flex-1 bg-bg h-full flex flex-col px-36px py-20px'>
+            <BaseText locale size={24} semiBold classname='mt-30px'>
+                {postion.title}
+            </BaseText>
             {_buildInfo}
             {_buildSelectPosition}
             {_buildAction}

@@ -19,7 +19,7 @@ const MISSION_STATUS = {
 
 // ----------------------URL_CONF-------------------------
 const BACKEND_PORT = 3000;
-const ROOT_ADDR = "192.168.1.25";
+const ROOT_ADDR = "192.168.1.101";
 const BASE_URL = `http://${ROOT_ADDR}:${BACKEND_PORT}`
 const BASE_WEBSOCKET_URL = `ws://${ROOT_ADDR}:${BACKEND_PORT}`
 
@@ -29,10 +29,10 @@ const AGV_INFO = '/status'
 const MISSION_PROGRESS = '/mission/progress';
 const ROBOT_STATUS = '/robot/status';
 
-const ROBOT_CONTROL_NAV_TO = '/robot/ctrl/go_to'
-const ROBOT_CONTROL_CANCEL = '/robot/ctrl/cancle'
-const ROBOT_CONTROL_PAUSE = '/robot/ctrl/pause';
-const ROBOT_CONTROL_RESUME = '/robot/ctrl/resume';
+const ROBOT_CONTROL_NAV_TO = '/robot/nav/go_to'
+const ROBOT_CONTROL_CANCEL = '/robot/nav/cancle'
+const ROBOT_CONTROL_PAUSE = '/robot/nav/pause';
+const ROBOT_CONTROL_RESUME = '/robot/nav/resume';
 const ROBOT_CONTROL_CHANGE_MODE = '/robot/ctrl/change_mode';
 const ROBOT_CONTROL_EMERGENCY_SOFT = '/robot/other/emc_stop'
 
