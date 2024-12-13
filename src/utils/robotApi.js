@@ -6,6 +6,7 @@ import {
     ROBOT_CONTROL_CANCEL,
     ROBOT_CONTROL_PAUSE,
     ROBOT_CONTROL_RESUME,
+    ROBOT_CONTROL_CHANGE_MODE,
     ROBOT_CONTROL_UPFOODS,
     ROBOT_CONTROL_DOWNFOODS,
     GET_ROBOT_STATIONS
@@ -97,6 +98,16 @@ class RobotApi extends MyRequest {
             return result
         } catch (E) {
             console.log("Err when cancel task", E)
+            return false
+        }
+    }
+
+    async changeMode(mode) {
+        try {
+            result = await this.postRequest(`${ROBOT_CONTROL_CHANGE_MODE}/${mode}`)
+            return result
+        } catch (E) {
+            console.log("Err when Change Robot Mode", E)
             return false
         }
     }

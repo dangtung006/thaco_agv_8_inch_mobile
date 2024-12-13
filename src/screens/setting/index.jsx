@@ -12,17 +12,20 @@ import { useLocalStorage } from '@src/store/localStorage';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Switch, Text, TextInput } from 'react-native';
-
+import { useAMRState } from '@src/store/modules/amrStorage';
+import RobotApi from '@src/utils/robotApi';
 const menuConfig = {
     1: "distribution",
     2: "locale",
     3: "controlMode"
 }
+
 export default function SettingScreen(props) {
     const [itemSetting, setItemSetting] = useState("distribution")
     const choseSetting = (op) => {
         setItemSetting(menuConfig[op])
     }
+
     const viewLeft = () => {
         return (
             <BaseView classname='w-4/12 pl-10 pt-6 bg-greyBg h-full flex justify-start'>
@@ -166,7 +169,15 @@ const SettingLocale = () => {
 };
 
 const ControlMode = () => {
-    const [isEnabled, setIsEnabled] = useState(false);
+    const robotApi = new RobotApi()
+    const { amr } = useAMRState()
+    const { mode } = amr
+    const [isEnabled, setIsEnabled] = useState(() => mode == "manual" ? true : false);
+    const handleChangeMode = async (value) => {
+        const modeToChange = mode == "auto" ? "manual" : "auto"
+        resp = await robotApi.changeMode(modeToChange)
+        resp && setIsEnabled(value)
+    }
 
     return (
         <BaseView classname='flex-row flex justify-between'>
@@ -175,12 +186,15 @@ const ControlMode = () => {
                     locale size={16}
                     classname='ml-10'
                 >
-                    {isEnabled ? "Auto" : "Manual"}
+                    {isEnabled ? "Manual" : "Auto"}
                 </BaseText>
             </BaseView>
 
             <BaseView classname=''>
-                <BaseToggle value={isEnabled} onChange={(value) => setIsEnabled(value)} />
+                <BaseToggle
+                    value={isEnabled}
+                    onChange={(value) => handleChangeMode(value)}
+                />
             </BaseView>
         </BaseView>
     );

@@ -10,11 +10,12 @@ import BaseImage from '../image';
 import { BaseButton } from '..';
 import { classnames } from '@src/utils/common';
 import { useCommonState } from '@src/store/commonStorage';
-import { setRobotStatus } from '@src/store/modules/amrStorage';
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BASE_WEBSOCKET_URL, ROBOT_STATUS } from '@src/utils/constants';
+import { useAMRState } from '@src/store/modules/amrStorage';
 
 export default AppBar = () => {
+    const { setRobotStatus } = useAMRState()
     const navigation = useNavigation();
     const [currentRouter, setCurrentRouter] = useState(ROUTES.HOME);
     const [isHome, setHome] = useState(true);
@@ -28,15 +29,14 @@ export default AppBar = () => {
         },
         share: true,
         filter: () => false,
-        retryOnError: true,
+        retryOnError: false,
         shouldReconnect: () => true,
         onMessage: (message) => {
             const {
                 data
             } = message;
-
             const robot = JSON.parse(data);
-            robot.Robot && setRobotStatus(robot.Robot);
+            robot && setRobotStatus(robot);
         }
     });
 

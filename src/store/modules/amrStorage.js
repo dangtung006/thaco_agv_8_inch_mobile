@@ -1,7 +1,4 @@
 import { create } from 'zustand';
-import MyRequest from '@src/utils/request';
-import { BASE_URL, AGV_INFO } from '@src/utils/constants';
-const request = new MyRequest({ baseUrl: BASE_URL });
 
 export const useAMRState = create((set) => ({
     amr: {
@@ -14,7 +11,8 @@ export const useAMRState = create((set) => ({
         station: "",
         state: "",
         robotName: "",
-        taskStatus: ""
+        taskStatus: "",
+        mode: ""
     },
 
     loading: false,
@@ -31,7 +29,8 @@ export const useAMRState = create((set) => ({
             errors,
             warnings,
             vehicle_id: robotName,
-            task_status: taskStatus
+            task_status: taskStatus,
+            mode,
         } = data;
 
         set((state) => {
@@ -47,7 +46,8 @@ export const useAMRState = create((set) => ({
                     battery: battery,
                     robotName: robotName,
                     taskStatus: taskStatus,
-                    v: Math.sqrt(vx * vx + vy * vy)
+                    v: Math.sqrt(vx * vx + vy * vy),
+                    mode: mode
                 }
             }
         });
