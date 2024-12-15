@@ -10,10 +10,9 @@ import {
 } from '@src/components';
 import { useMemo, useState } from 'react';
 import { useAMRState } from '@src/store/modules/amrStorage';
-
 export const ViewRight = () => {
     const { amr } = useAMRState();
-    const { station, current_ip, robotName, v } = amr
+    const { station, ip, robotName, v } = amr
     const items = [
         {
             title: 'Mã robot',
@@ -25,7 +24,7 @@ export const ViewRight = () => {
         },
         {
             title: 'Địa chỉ IP',
-            value: current_ip,
+            value: ip,
         },
         {
             title: 'Vị trí hiện tại',
@@ -33,7 +32,7 @@ export const ViewRight = () => {
         },
         {
             title: 'Tốc độ di chuyển',
-            value: Math.ceil(v * 100) / 100
+            value: v
         },
     ];
 
@@ -53,13 +52,21 @@ export const ViewRight = () => {
         );
     };
 
-    const _buildInfo = useMemo(() => {
+    // const _buildInfo = useMemo(() => {
+    //     return (
+    //         <BaseView classname='p-36px justify-between flex-1'>
+    //             {items.map((item, index) => _buildItem(item, index))}
+    //         </BaseView>
+    //     );
+    // }, []);
+
+    const _buildInfo = () => {
         return (
             <BaseView classname='p-36px justify-between flex-1'>
                 {items.map((item, index) => _buildItem(item, index))}
             </BaseView>
         );
-    }, []);
+    };
     return (
         <BaseView classname='flex-1 bg-bg h-full flex flex-col pr-44px pl-25px py-50px'>
             <BaseView classname='bg-white w-full h-full rounded-lg shadow-sm'>
@@ -70,7 +77,10 @@ export const ViewRight = () => {
                     </BaseText>
                 </BaseView>
                 {/* ///////////////////////////////////// */}
-                {_buildInfo}
+                {/* {_buildInfo} */}
+                <BaseView classname='p-36px justify-between flex-1'>
+                    {items.map((item, index) => _buildItem(item, index))}
+                </BaseView>
             </BaseView>
         </BaseView>
     );

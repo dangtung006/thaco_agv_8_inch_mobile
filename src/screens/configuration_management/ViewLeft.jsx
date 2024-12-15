@@ -2,10 +2,14 @@ import Images from '@src/assets/gen';
 import { BaseImage, BaseText, BaseView } from '@src/components';
 import { useWindowDimensions } from 'react-native';
 import { useAMRState } from '@src/store/modules/amrStorage';
+import { useMissionState } from '@src/store/modules/missionStorage';
 
 export const ViewLeft = () => {
     const { amr } = useAMRState()
+    const { mission } = useMissionState()
     const { connected, battery, mode } = amr
+    const { tasks } = mission
+
     const Items = [
         {
             icon: Images.wifiBlue,
@@ -20,16 +24,20 @@ export const ViewLeft = () => {
         {
             icon: Images.mission,
             title: 'Trạng thái nhiệm vụ',
-            status: 'Đang thực hiện',
+            status: getMissionStatus(),
         },
         {
             icon: Images.control2,
             title: 'Trạng thái điều khiển',
-            status: mode,
+            status: String(mode[0]).toUpperCase() + String(mode).slice(1),
         },
     ];
     const { width: windowWidth, height: windowHeight } = useWindowDimensions();
     const itemSize = ((windowWidth / 11) * 5 - 50 - 50) / 2;
+    function getMissionStatus() {
+        if (tasks && tasks.length > 0) return "Đang Thực Hiện"
+        return "Đang Rảnh"
+    }
     const _buildItem = (item, index) => {
         return (
             <BaseView

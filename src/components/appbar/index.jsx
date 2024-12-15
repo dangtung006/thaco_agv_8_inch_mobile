@@ -15,11 +15,12 @@ import { BASE_WEBSOCKET_URL, ROBOT_STATUS } from '@src/utils/constants';
 import { useAMRState } from '@src/store/modules/amrStorage';
 
 export default AppBar = () => {
-    const { setRobotStatus } = useAMRState()
+    const { setRobotStatus, amr } = useAMRState()
     const navigation = useNavigation();
     const [currentRouter, setCurrentRouter] = useState(ROUTES.HOME);
     const [isHome, setHome] = useState(true);
     const [title, setTitle] = useState('');
+
     const { networkConnected, batteryLevel } = useCommonState((state) => state);
     const WS_URL = `${BASE_WEBSOCKET_URL}${ROBOT_STATUS}`;
 
@@ -80,7 +81,7 @@ export default AppBar = () => {
     const viewRight = useMemo(
         () => (
             <BaseView classname='pr-[20px] h-full flex flex-row items-center'>
-                {networkConnected && (
+                {amr && amr.connected && (
                     <BaseImage
                         source={isHome ? Images.wifiBlack : Images.wifi}
                         classname='w-4 h-3 mr-[6px]'
@@ -95,11 +96,11 @@ export default AppBar = () => {
                     size={14}
                     classname={classnames(isHome ? 'text-black' : 'text-white')}
                 >
-                    {batteryLevel && `${batteryLevel}%`}
+                    {amr && amr.battery && `${parseInt(amr.battery * 100)}%`}
                 </BaseText>
             </BaseView>
         ),
-        [batteryLevel, networkConnected, isHome]
+        [amr, isHome]
     );
 
     return (

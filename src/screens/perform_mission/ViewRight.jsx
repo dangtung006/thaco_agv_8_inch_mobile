@@ -4,23 +4,24 @@ import { ROUTES, navigate } from '@src/navigation';
 import { useCommonState } from '@src/store/commonStorage';
 import { useMemo, useState } from 'react';
 import OrderApi from '@src/utils/orderApi';
+import RobotApi from '@src/utils/robotApi';
 import { useAMRState } from '@src/store/modules/amrStorage';
 import { useMissionState } from '@src/store/modules/missionStorage';
 export const ViewRight = () => {
     const { mission } = useMissionState()
     const { amr } = useAMRState()
-    const { taskStatus, station, v, robotName } = amr
-    const [isProcessing, setProcessing] = useState(false);
+    const { taskStatus, station, v, robotName, mac } = amr
     const orderApi = new OrderApi()
+    const robotApi = new RobotApi()
     const items = [
         {
             title: 'Tên robot',
             value: robotName,
         },
-        // {
-        //     title: 'Địa chỉ MAC',
-        //     value: '00:1A:2B:3C:4D:5E',
-        // },
+        {
+            title: 'Địa chỉ MAC',
+            value: mac
+        },
         // {
         //     title: 'Đoàn hoạt động',
         //     value: 'Đoàn 01',
@@ -31,29 +32,36 @@ export const ViewRight = () => {
         },
         {
             title: 'Tốc độ di chuyển',
-            value: `${parseInt(v)} m/s`,
+            value: `${Math.ceil(v * 100) / 100} m/s`,
         },
     ];
+    const validateRobotAction = () => {
+        const { tasks } = mission
+        if (!tasks || tasks.length <= 0) return false
+        return true
+    }
     const getActionProcessIcon = () => {
-        if (!taskStatus || taskStatus == 4) return Images.playInactive
+        if (!taskStatus || taskStatus == 4 || validateRobotAction() == false) return Images.playInactive
         if (taskStatus == 2) return Images.pause
-        if (taskStatus == 3) return Images.pause
+        if (taskStatus == 3) return Images.play
 
     }
 
     const getActionProcessTitle = () => {
         if (!taskStatus || taskStatus == 4) ""
-        if (taskStatus == 2) return "Dung"
-        if (taskStatus == 3) return "Chay"
+        if (taskStatus == 2) return "Dừng"
+        if (taskStatus == 3) return "Chạy"
         return ""
 
     }
 
     const handleActionsProcess = async () => {
-        if (1 == 1) {
+        if (validateRobotAction() == false) return false
+        if (taskStatus == 2) {
             res = await robotApi.pause()
+        } else if (taskStatus == 3) {
+            await robotApi.resume()
         }
-        await robotApi.resume()
     }
 
     const _buildItem = (item, index) => {
@@ -72,9 +80,7 @@ export const ViewRight = () => {
         );
     };
 
-    const _buildInfo = useMemo(() => {
-        return <>{items.map((item, index) => _buildItem(item, index))}</>;
-    }, []);
+
 
     const _buildUpDownShelves = () => {
         return (
@@ -113,7 +119,7 @@ export const ViewRight = () => {
                 <BaseView classname='flex flex-row justify-between mt-4 px-20'>
                     <BaseView classname='flex flex-col items-center'>
                         <BaseTouchable
-                            onPress={() => handleActionsProcess()}
+                            onPress={handleActionsProcess}
                         >
                             <BaseImage
                                 source={getActionProcessIcon()}
@@ -126,15 +132,12 @@ export const ViewRight = () => {
                     </BaseView>
                     <BaseView classname='flex flex-col items-center'>
                         <BaseTouchable
-                            onPress={() => {
-                                orderApi.cancel_mission()
-                                // setMissions([]);
-                                // navigate(ROUTES.PERFORM_MISSION2);
-                            }}
+                            onPress={() => orderApi.cancel_mission()}
                         >
                             <BaseImage
                                 source={
-                                    mission.tasks && mission.tasks.length && mission.process && mission.process == "processing" > 0 ? Images.stop : Images.pauseInactive
+                                    // mission.tasks && mission.tasks.length && mission.process && mission.process == "processing" > 0 ? Images.stop : Images.pauseInactive
+                                    (taskStatus == 2 || taskStatus == 3) && validateRobotAction() == true ? Images.stop : Images.pauseInactive
                                 }
                                 classname='w-120px h-120px'
                             />
@@ -150,7 +153,7 @@ export const ViewRight = () => {
 
     return (
         <BaseView classname='flex-1 bg-bg h-full flex flex-col px-36px pt-8px'>
-            {_buildInfo}
+            {items.map((item, index) => _buildItem(item, index))}
             <BaseView classname='mx-20px my-4 w-auto h-1px bg-greyBt50'></BaseView>
             {_buildUpDownShelves()}
             {_buildControlAction()}

@@ -12,7 +12,8 @@ export const useAMRState = create((set) => ({
         state: "",
         robotName: "",
         taskStatus: "",
-        mode: ""
+        mode: "",
+        mac: ""
     },
 
     loading: false,
@@ -31,6 +32,7 @@ export const useAMRState = create((set) => ({
             vehicle_id: robotName,
             task_status: taskStatus,
             mode,
+            MAC: mac
         } = data;
 
         set((state) => {
@@ -47,7 +49,8 @@ export const useAMRState = create((set) => ({
                     robotName: robotName,
                     taskStatus: taskStatus,
                     v: Math.sqrt(vx * vx + vy * vy),
-                    mode: mode
+                    mode: mode,
+                    mac: mac
                 }
             }
         });

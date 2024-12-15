@@ -10,10 +10,10 @@ export const useMissionState = create((set) => ({
     },
 
     setMissionStatus: (data) => {
+        // console.log("data:", data)
         set((state) => {
             return {
                 mission: {
-                    ...state.mission,
                     process: data.process,
                     tasks: data.tasks,
                     startTime: data.start_time,

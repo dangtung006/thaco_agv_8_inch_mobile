@@ -22,6 +22,7 @@ export const ViewLeft = () => {
         task_idx: tk.task_idx,
         confirmed: tk.confirmed
     }))
+    // console.log("tasks::", tasks)
     const getColor = (task) => {
         let color = {
             bg: 'greyBt50',

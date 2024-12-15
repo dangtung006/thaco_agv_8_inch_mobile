@@ -172,13 +172,19 @@ const ControlMode = () => {
     const robotApi = new RobotApi()
     const { amr } = useAMRState()
     const { mode } = amr
-    const [isEnabled, setIsEnabled] = useState(() => mode == "manual" ? true : false);
+    const [isEnabled, setIsEnabled] = useState(false);
     const handleChangeMode = async (value) => {
         const modeToChange = mode == "auto" ? "manual" : "auto"
-        resp = await robotApi.changeMode(modeToChange)
-        resp && setIsEnabled(value)
+        data = await robotApi.changeMode(modeToChange)
     }
 
+    useEffect(() => {
+        if (mode && mode == "auto") {
+            setIsEnabled(false)
+        } else if (mode && mode == "manual") {
+            setIsEnabled(true)
+        }
+    }, [mode])
     return (
         <BaseView classname='flex-row flex justify-between'>
             <BaseView classname='flex-1'>

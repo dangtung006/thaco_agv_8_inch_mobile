@@ -3,7 +3,6 @@ import Images from '@src/assets/gen';
 import { BaseImage, BaseText, BaseTouchable, BaseView, BaseButton } from '@src/components';
 import RobotApi from '@src/utils/robotApi';
 import { useMemo, useState } from 'react';
-
 export const ViewLeft = () => {
     const MAX = 10;
     const MIN = 0.5;
@@ -76,7 +75,10 @@ export const ViewLeft = () => {
                         source={Images.control}
                     ></BaseImage>
                     <BaseView classname='absolute left-0 '>
-                        <BaseTouchable classname='w-66px h-66px justify-center items-center'>
+                        <BaseTouchable
+                            classname='w-66px h-66px justify-center items-center'
+                            onPress={() => robotApi.rotate_nav("left")}
+                        >
                             <BaseImage
                                 classname='w-6 h-6 '
                                 source={Images.leftSmall}
@@ -84,7 +86,10 @@ export const ViewLeft = () => {
                         </BaseTouchable>
                     </BaseView>
                     <BaseView classname='absolute top-0 '>
-                        <BaseTouchable classname='w-66px h-66px justify-center items-center'>
+                        <BaseTouchable
+                            onPress={() => robotApi.translate_nav("straight")}
+                            classname='w-66px h-66px justify-center items-center'
+                        >
                             <BaseImage
                                 classname='w-6 h-6 '
                                 source={Images.upSmall}
@@ -92,7 +97,10 @@ export const ViewLeft = () => {
                         </BaseTouchable>
                     </BaseView>
                     <BaseView classname='absolute right-0 '>
-                        <BaseTouchable classname='w-66px h-66px justify-center items-center'>
+                        <BaseTouchable
+                            onPress={() => robotApi.rotate_nav("right")}
+                            classname='w-66px h-66px justify-center items-center'
+                        >
                             <BaseImage
                                 classname='w-6 h-6 '
                                 source={Images.rightSmall}
@@ -100,7 +108,10 @@ export const ViewLeft = () => {
                         </BaseTouchable>
                     </BaseView>
                     <BaseView classname='absolute bottom-0 '>
-                        <BaseTouchable classname='w-66px h-66px justify-center items-center'>
+                        <BaseTouchable
+                            onPress={() => robotApi.translate_nav("back")}
+                            classname='w-66px h-66px justify-center items-center'
+                        >
                             <BaseImage
                                 classname='w-6 h-6 '
                                 source={Images.downSmall}

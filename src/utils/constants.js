@@ -19,7 +19,7 @@ const MISSION_STATUS = {
 
 // ----------------------URL_CONF-------------------------
 const BACKEND_PORT = 3000;
-const ROOT_ADDR = "192.168.1.101";
+const ROOT_ADDR = "192.168.1.100";
 const BASE_URL = `http://${ROOT_ADDR}:${BACKEND_PORT}`
 const BASE_WEBSOCKET_URL = `ws://${ROOT_ADDR}:${BACKEND_PORT}`
 
@@ -33,6 +33,8 @@ const ROBOT_CONTROL_NAV_TO = '/robot/nav/go_to'
 const ROBOT_CONTROL_CANCEL = '/robot/nav/cancle'
 const ROBOT_CONTROL_PAUSE = '/robot/nav/pause';
 const ROBOT_CONTROL_RESUME = '/robot/nav/resume';
+const ROBOT_CONTROL_TRANSLATE = "/robot/nav/translation"
+const ROBOT_CONTROL_ROTATE = "/robot/nav/rotation"
 const ROBOT_CONTROL_CHANGE_MODE = '/robot/ctrl/change_mode';
 const ROBOT_CONTROL_EMERGENCY_SOFT = '/robot/other/emc_stop'
 
@@ -57,6 +59,8 @@ export {
 
     ROBOT_CONTROL_NAV_TO,
     ROBOT_CONTROL_CANCEL,
+    ROBOT_CONTROL_TRANSLATE,
+    ROBOT_CONTROL_ROTATE,
     ROBOT_CONTROL_EMERGENCY_SOFT,
     ROBOT_CONTROL_PAUSE,
     ROBOT_CONTROL_RESUME,

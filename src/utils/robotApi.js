@@ -9,7 +9,9 @@ import {
     ROBOT_CONTROL_CHANGE_MODE,
     ROBOT_CONTROL_UPFOODS,
     ROBOT_CONTROL_DOWNFOODS,
-    GET_ROBOT_STATIONS
+    GET_ROBOT_STATIONS,
+    ROBOT_CONTROL_TRANSLATE,
+    ROBOT_CONTROL_ROTATE
 } from "./constants"
 
 class RobotApi extends MyRequest {
@@ -59,7 +61,24 @@ class RobotApi extends MyRequest {
             return false
         }
     }
-
+    async translate_nav(direction) {
+        try {
+            result = await this.postRequest(`${ROBOT_CONTROL_TRANSLATE}/${direction}`)
+            return result
+        } catch (E) {
+            console.log("Err when cancel task", E)
+            return false
+        }
+    }
+    async rotate_nav(direction) {
+        try {
+            result = await this.postRequest(`${ROBOT_CONTROL_ROTATE}/${direction}`)
+            return result
+        } catch (E) {
+            console.log("Err when cancel task", E)
+            return false
+        }
+    }
     async upFoods() {
         try {
             // result = await this.postRequest(ROBOT_CONTROL_UPFOODS)
@@ -105,8 +124,9 @@ class RobotApi extends MyRequest {
 
     async changeMode(mode) {
         try {
-            result = await this.postRequest(`${ROBOT_CONTROL_CHANGE_MODE}/${mode}`)
-            return result
+            const { data, msg } = await this.postRequest(`${ROBOT_CONTROL_CHANGE_MODE}/${mode}`)
+            if (msg == "OK") return data
+            return false
         } catch (E) {
             console.log("Err when Change Robot Mode", E)
             return false
