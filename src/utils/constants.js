@@ -19,7 +19,7 @@ const MISSION_STATUS = {
 
 // ----------------------URL_CONF-------------------------
 const BACKEND_PORT = 3000;
-const ROOT_ADDR = "192.168.1.100";
+const ROOT_ADDR = "192.168.192.18";
 const BASE_URL = `http://${ROOT_ADDR}:${BACKEND_PORT}`
 const BASE_WEBSOCKET_URL = `ws://${ROOT_ADDR}:${BACKEND_PORT}`
 
